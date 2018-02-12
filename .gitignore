@@ -1,0 +1,17 @@
+target/
+pom.xml.tag
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+pom.xml.next
+pom.xml.versionsBackup
+release.properties
+.classpath
+.project
+.settings
+*~
+.DS_Store
+rebel.xml
+.externalToolBuilders
+.idea/
+.iml
+hs_err_*.log
