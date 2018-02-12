@@ -38,6 +38,7 @@
 
 	<modules>
 		<module>gantzgulch-common</module>
+		<module>gantzgulch-crypto</module>
 	</modules>
 
 	<scm>
