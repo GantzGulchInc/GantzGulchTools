@@ -3,6 +3,8 @@ package com.gantzgulch.tools.common.logging;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.gantzgulch.tools.common.logging.impl.GGLoggerApacheCommons;
+
 public class GGLoggerCache {
 
 	public static final GGLoggerCache INSTANCE = new GGLoggerCache();
@@ -22,7 +24,7 @@ public class GGLoggerCache {
 			logger = logCache.get(name);
 			
 			if( logger == null ){
-				logger = new GGLogger(name);
+				logger = new GGLoggerApacheCommons(name);
 				logCache.put(name, logger);
 			}
 			
