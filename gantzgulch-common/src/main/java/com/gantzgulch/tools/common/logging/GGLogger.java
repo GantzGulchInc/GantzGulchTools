@@ -5,6 +5,12 @@ import org.apache.commons.logging.LogFactory;
 
 import com.gantzgulch.tools.common.lang.Strings;
 
+/**
+ * A log wrapper with {@code String.format} capabilities.
+ * 
+ * @author gantzm
+ *
+ */
 public class GGLogger {
 
 	public static GGLogger getLogger(final String name) {

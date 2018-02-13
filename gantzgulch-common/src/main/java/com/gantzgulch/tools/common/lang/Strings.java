@@ -1,82 +1,121 @@
 package com.gantzgulch.tools.common.lang;
 
+/**
+ * This class consists of {@code static} utility methods for operating
+ * on Strings.
+ * 
+ * @author gantzm
+ *
+ */
 public final class Strings {
 
 	private Strings() {
 		throw new UnsupportedOperationException();
 	}
 	
-	public static String repeat(final String value, final int count){
+	/**
+	 * Repeat a String {@code repeat} times to form a new String.
+     * 
+	 * @param string the String to repeat.
+	 * @param repeat the number times to repeat the string.
+	 * 
+	 * @return the repeated String.
+	 */
+	public static String repeat(final String string, final int repeat){
 	
-		if( value == null ){
+		if( string == null ){
 			return null;
 		}
 		
-		if( count < 1 ){
+		if( repeat < 1 ){
 			return "";
 		}
 		
-		if( count == 1 ){
-			return value;
+		if( repeat == 1 ){
+			return string;
 		}
 		
-		final StringBuilder sb = new StringBuilder( value.length() * count);
+		final StringBuilder sb = new StringBuilder( string.length() * repeat);
 
-		for(int index = 0; index<count; index++){
-			sb.append(value);
+		for(int index = 0; index<repeat; index++){
+			sb.append(string);
 		}
 		
 		return sb.toString();
 	}
 	
-	public static String leftPad(final String value, final int width) {
+	/**
+	 * Left pad a String with spaces to length {@code width}.
+	 * 
+	 * @param string the String to pad.
+	 * @param width the total width to pad to.
+	 * 
+	 * @return the padded String.
+	 */
+	public static String leftPad(final String string, final int width) {
 		
-		if( value == null ){
+		if( string == null ){
 			return null;
 		}
 		
-		int toAdd = width - value.length();
+		int toAdd = width - string.length();
 		
 		if( toAdd < 1 ){
-			return value;
+			return string;
 		}
 		
-		return repeat(" ", toAdd) + value;
+		return repeat(" ", toAdd) + string;
 	}
 	
-	public static String rightPad(final String value, final int width) {
+	/**
+	 * Right pad a String with spaces to length {@code width}.
+	 * 
+	 * @param string the String to pad.
+	 * @param width the total width to pad to.
+	 * 
+	 * @return the padded String.
+	 */
+	public static String rightPad(final String string, final int width) {
 		
-		if( value == null ){
+		if( string == null ){
 			return null;
 		}
 		
-		int toAdd = width - value.length();
+		int toAdd = width - string.length();
 		
 		if( toAdd < 1 ){
-			return value;
+			return string;
 		}
 		
-		return value + repeat(" ", toAdd);
+		return string + repeat(" ", toAdd);
 	}
 	
-	public static String center(final String value, final int width) {
+	/**
+	 * Center a String with spaces to {@code width}.
+	 * 
+	 * @param string the String to center.
+	 * @param width the total width to center to.
+	 * 
+	 * @return the centered String.
+	 */
+	public static String center(final String string, final int width) {
 		
-		if( value == null ){
+		if( string == null ){
 			return null;
 		}
 		
-		if( width < 1 || width < value.length() ){
-			return value;
+		if( width < 1 || width < string.length() ){
+			return string;
 		}
 		
-		final int strLen = value.length();
+		final int strLen = string.length();
         final int pads = width - strLen;
 
         if (pads <= 0) {
-            return value;
+            return string;
         }
         
-        return rightPad(leftPad(value, strLen + pads / 2), width);
+        return rightPad(leftPad(string, strLen + pads / 2), width);
 		
 	}
 }
