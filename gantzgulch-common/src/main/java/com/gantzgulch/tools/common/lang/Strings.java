@@ -244,4 +244,5 @@ public final class Strings {
 		return "" + Character.forDigit( b >> 4 & 0x0f, HEX_RADIX) + Character.forDigit(b & 0x0f, HEX_RADIX);
 
 	}
+
 }

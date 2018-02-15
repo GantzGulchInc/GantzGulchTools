@@ -25,29 +25,13 @@ public final class Hash {
 	
 	public static String hashHex(final HashAlgorithm alg, final byte[] bytes) {
 		
-		if( bytes == null ){
-			return null;
-		}
-
-		final MessageDigest digest = alg.create();
-
-	    final byte[] hash = digest.digest(bytes);
-	    
-	    return Bytes.toHex(hash);
+	    return Bytes.toHex(hash(alg, bytes));
 	}
 	
 	
 	public static String hashBase64(final HashAlgorithm alg, final byte[] bytes) {
 		
-		if( bytes == null ){
-			return null;
-		}
-
-		final MessageDigest digest = alg.create();
-
-	    final byte[] hash = digest.digest(bytes);
-	    
-	    return Base64.getUrlEncoder().encodeToString(hash);
+	    return Base64.getUrlEncoder().encodeToString(hash(alg, bytes));
 	}
 	
 	
