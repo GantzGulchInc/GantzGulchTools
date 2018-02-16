@@ -22,7 +22,7 @@ public class PKCS10Service {
     public PKCS10Service() {
     }
 
-    public PKCS10CertificationRequest buildCsr(//
+    public PKCS10CertificationRequest buildCertificateSigningRequest(//
             final KeyPair keyPair, //
             final X500Name subject, 
             final String algorithm) throws OperatorCreationException {
