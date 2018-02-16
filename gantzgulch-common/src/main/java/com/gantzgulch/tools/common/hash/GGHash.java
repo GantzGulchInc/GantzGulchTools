@@ -1,91 +1,63 @@
 package com.gantzgulch.tools.common.hash;
 
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 import com.gantzgulch.tools.common.codec.GGBase64;
 import com.gantzgulch.tools.common.codec.GGHex;
 
-public final class GGHash {
+public enum GGHash {
 
-	private GGHash() {
-		throw new UnsupportedOperationException();
-	}
+    MD2("MD2"), //
+    MD5("MD5"), //
+    SHA_1("SHA-1"), //
+    SHA_224("SHA-224"), //
+    SHA_256("SHA-256"), //
+    SHA_384("SHA-384"), //
+    SHA_512("SHA-512"), //
+    SHA3_256("SHA3-256"), //
+    SHA3_384("SHA3-384"), //
+    SHA3_512("SHA3-512");
 
-	public static byte[] hash(final GGHashAlgorithm alg, final byte[] bytes) {
-		
-		if( bytes == null ){
-			return null;
-		}
+    private final String algorithm;
 
-		final MessageDigest digest = alg.create();
-
-	    return digest.digest(bytes);
-
-	}
-	
-	public static String hashToHex(final GGHashAlgorithm alg, final byte[] bytes) {
-		
-	    return GGHex.toHexString(hash(alg, bytes));
-	}
-	
-	
-	public static String hashToBase64(final GGHashAlgorithm alg, final byte[] bytes, final boolean urlFriendly) {
-		
-	    return GGBase64.toBase64String(hash(alg, bytes), urlFriendly);
-	}
-	
-	
-	public static byte[] sha256(final byte[] bytes) {
-		return hash(GGHashAlgorithm.SHA_256, bytes);
-	}
-
-	public static byte[] sha384(final byte[] bytes) {
-		return hash(GGHashAlgorithm.SHA_384, bytes);
-	}
-	
-	public static byte[] sha512(final byte[] bytes) {
-		return hash(GGHashAlgorithm.SHA_512, bytes);
-	}
-
-	
-	
-	public static String sha256Hex(final byte[] bytes) {
-		return hashToHex(GGHashAlgorithm.SHA_256, bytes);
-	}
-
-	public static String sha384Hex(final byte[] bytes) {
-		return hashToHex(GGHashAlgorithm.SHA_384, bytes);
-	}
-	
-	public static String sha512Hex(final byte[] bytes) {
-		return hashToHex(GGHashAlgorithm.SHA_512, bytes);
-	}
-
-
-	
-	public static String sha256Base64(final byte[] bytes) {
-		return hashToBase64(GGHashAlgorithm.SHA_256, bytes, false);
-	}
-
-	public static String sha384Base64(final byte[] bytes) {
-		return hashToBase64(GGHashAlgorithm.SHA_384, bytes, false);
-	}
-	
-	public static String sha512Base64(final byte[] bytes) {
-		return hashToBase64(GGHashAlgorithm.SHA_512, bytes, false);
-	}
-
-	
-	
-	public static String sha256Base64Url(final byte[] bytes) {
-        return hashToBase64(GGHashAlgorithm.SHA_256, bytes, true);
+    private GGHash(final String algorithm) {
+        this.algorithm = algorithm;
     }
 
-    public static String sha384Base64Url(final byte[] bytes) {
-        return hashToBase64(GGHashAlgorithm.SHA_384, bytes, true);
+    public byte[] hash(final byte[] input) {
+
+        if (input == null) {
+            return null;
+        }
+
+        final MessageDigest digest = create();
+
+        return digest.digest(input);
     }
-    
-    public static String sha512Base64Url(final byte[] bytes) {
-        return hashToBase64(GGHashAlgorithm.SHA_512, bytes, true);
+
+    public String hashToHexString(final byte[] input) {
+
+        return GGHex.toHexString(hash(input));
     }
+
+    public String hashToBase64String(final byte[] input) {
+
+        return GGBase64.toBase64String(hash(input), false);
+    }
+
+    public String hashToBase64UrlString(final byte[] input) {
+
+        return GGBase64.toBase64String(hash(input), true);
+    }
+
+    private MessageDigest create() {
+        try {
+            return MessageDigest.getInstance(algorithm);
+        } catch (final NoSuchAlgorithmException e) {
+            throw new RuntimeException("Unable to create digest: " + algorithm, e);
+        }
+
+    }
+
 }

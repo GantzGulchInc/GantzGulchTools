@@ -10,31 +10,32 @@ import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 import com.gantzgulch.tools.common.lang.Arguments;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 
-public class RSAWriter {
+public final class RSAWriter {
 
 	static {
 		BouncyCastleState.init();
 	}
 
-	public RSAWriter() {
+	private RSAWriter() {
+	    throw new UnsupportedOperationException();
 	}
 
-	public String write(final KeyPair keyPair) throws IOException {
+	public static String writeToPEM(final KeyPair keyPair) throws IOException {
 
 	    Arguments.isNotNull(keyPair, "keyPair is required to be non null.");
 
-		return writeObject(keyPair.getPrivate());
+		return writeObjectToPEM(keyPair.getPrivate());
 
 	}
 
-	public String write(final PublicKey publicKey) throws IOException {
+	public static String writeToPEM(final PublicKey publicKey) throws IOException {
 
         Arguments.isNotNull(publicKey, "publicKey is required to be non null.");
 
-		return writeObject(publicKey);
+		return writeObjectToPEM(publicKey);
 	}
 
-	private String writeObject(final Object object) throws IOException {
+	private static String writeObjectToPEM(final Object object) throws IOException {
 
 		final StringWriter stringWriter = new StringWriter();
 

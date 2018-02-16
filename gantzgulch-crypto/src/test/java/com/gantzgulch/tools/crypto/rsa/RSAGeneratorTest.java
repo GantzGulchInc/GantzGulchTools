@@ -12,12 +12,10 @@ import org.junit.Test;
 
 public class RSAGeneratorTest {
 
-    private RSAGenerator rsaGenerator = new RSAGenerator();
-    
     @Test
     public void generate2048() {
     
-        final KeyPair kp = rsaGenerator.generate(2048);
+        final KeyPair kp = RSAGenerator.generate(2048);
         
         assertThat(kp, notNullValue());
         assertThat(kp.getPrivate().getAlgorithm(), equalTo("RSA"));
@@ -34,7 +32,7 @@ public class RSAGeneratorTest {
     @Test
     public void generate4096() {
     
-        final KeyPair kp = rsaGenerator.generate(4096);
+        final KeyPair kp = RSAGenerator.generate(4096);
         
         assertThat(kp, notNullValue());
         assertThat(kp.getPrivate().getAlgorithm(), equalTo("RSA"));

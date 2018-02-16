@@ -17,18 +17,19 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 import com.gantzgulch.tools.common.lang.Arguments;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 
-public class RSAReader {
+public final class RSAReader {
 
     static {
         BouncyCastleState.init();
     }
 
-    private final JcaPEMKeyConverter converter = new JcaPEMKeyConverter().setProvider("BC");
+    private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
 
-    public RSAReader() {
+    private RSAReader() {
+        throw new UnsupportedOperationException();
     }
 
-    public KeyPair readKeyPair(final String pem) throws IOException {
+    public static KeyPair readKeyPair(final String pem) throws IOException {
 
         Arguments.isNotNull(pem, "pem is required to be non null.");
 
@@ -37,14 +38,14 @@ public class RSAReader {
         return readKeyPair(stringReader);
     }
 
-    public KeyPair readKeyPair(final InputStream is) throws IOException {
+    public static KeyPair readKeyPair(final InputStream is) throws IOException {
 
         Arguments.isNotNull(is, "is is required to be non null.");
 
         return readKeyPair(new InputStreamReader(is, Charset.forName("UTF-8")));
     }
 
-    public KeyPair readKeyPair(final Reader reader) throws IOException {
+    public static KeyPair readKeyPair(final Reader reader) throws IOException {
 
         Arguments.isNotNull(reader, "reader is required to be non null.");
 
@@ -52,13 +53,13 @@ public class RSAReader {
 
             final Object pemObject = pemParser.readObject();
 
-            final KeyPair keyPair = converter.getKeyPair((PEMKeyPair) pemObject);
+            final KeyPair keyPair = CONVERTER.getKeyPair((PEMKeyPair) pemObject);
 
             return keyPair;
         }
     }
 
-    public PublicKey readPublicKey(final String pem) throws IOException {
+    public static PublicKey readPublicKey(final String pem) throws IOException {
 
         Arguments.isNotNull(pem, "pem is required to be non null.");
 
@@ -67,7 +68,7 @@ public class RSAReader {
         return readPublicKey(stringReader);
     }
 
-    public PublicKey readPublicKey(final InputStream is) throws IOException {
+    public static PublicKey readPublicKey(final InputStream is) throws IOException {
 
         Arguments.isNotNull(is, "is is required to be non null.");
 
@@ -75,7 +76,7 @@ public class RSAReader {
 
     }
 
-    public PublicKey readPublicKey(final Reader reader) throws IOException {
+    public static PublicKey readPublicKey(final Reader reader) throws IOException {
 
         Arguments.isNotNull(reader, "reader is required to be non null.");
 
@@ -83,7 +84,7 @@ public class RSAReader {
 
             final Object pemObject = pemParser.readObject();
 
-            return converter.getPublicKey((SubjectPublicKeyInfo) pemObject);
+            return CONVERTER.getPublicKey((SubjectPublicKeyInfo) pemObject);
         }
 
     }
