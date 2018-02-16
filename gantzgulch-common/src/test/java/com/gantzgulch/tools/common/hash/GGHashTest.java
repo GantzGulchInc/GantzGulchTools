@@ -154,14 +154,26 @@ public class GGHashTest {
 		assertThat(hash, equalTo( expectedHash ));
 	}
 	
+    @Test
+    public void sha256Base64() {
+
+        final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
+
+        final String expectedHash = "ccSA35PWri8e+tFEfGbJUl4xYhjPUfyNntgy8trxi3M=";
+        
+        final String hash = GGHash.sha256Base64(testBytes);
+        
+        assertThat(hash, equalTo( expectedHash ));
+    }
+
 	@Test
-	public void sha256Base64() {
+	public void sha256Base64Url() {
 
 		final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
 
 		final String expectedHash = "ccSA35PWri8e-tFEfGbJUl4xYhjPUfyNntgy8trxi3M=";
 		
-		final String hash = GGHash.sha256Base64(testBytes);
+		final String hash = GGHash.sha256Base64Url(testBytes);
 		
 		assertThat(hash, equalTo( expectedHash ));
 	}
@@ -183,12 +195,24 @@ public class GGHashTest {
 
 		final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
 
-		final String expectedHash = "_rZzSd89tvWSSBXWw9wTPwkYCSE3Mf5ce19JmeRjR5_yh39fKTb6Y7tDeEsS8-u0";
+		final String expectedHash = "/rZzSd89tvWSSBXWw9wTPwkYCSE3Mf5ce19JmeRjR5/yh39fKTb6Y7tDeEsS8+u0";
 		
 		final String hash = GGHash.sha384Base64(testBytes);
 		
 		assertThat(hash, equalTo( expectedHash ));
 	}
+
+    @Test
+    public void sha384Base64Url() {
+
+        final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
+
+        final String expectedHash = "_rZzSd89tvWSSBXWw9wTPwkYCSE3Mf5ce19JmeRjR5_yh39fKTb6Y7tDeEsS8-u0";
+        
+        final String hash = GGHash.sha384Base64Url(testBytes);
+        
+        assertThat(hash, equalTo( expectedHash ));
+    }
 
 	@Test
 	public void sha384Base64_null() {
@@ -207,12 +231,24 @@ public class GGHashTest {
 
 		final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
 
-		final String expectedHash = "Tb_4bMLKG64eFkaKBcuYgcl_F1O842GQNImPqhqr5CmVWhv47Eg9dCH-PBZGYTpZ7VRB-w8yE4n3f0ioecex8Q==";
+		final String expectedHash = "Tb/4bMLKG64eFkaKBcuYgcl/F1O842GQNImPqhqr5CmVWhv47Eg9dCH+PBZGYTpZ7VRB+w8yE4n3f0ioecex8Q==";
 		
 		final String hash = GGHash.sha512Base64(testBytes);
 		
 		assertThat(hash, equalTo( expectedHash ));
 	}
+
+    @Test
+    public void sha512Base64Url() {
+
+        final byte[] testBytes = GGStrings.toBytes("abcdefghijklmnopqrstuvwxyz");
+
+        final String expectedHash = "Tb_4bMLKG64eFkaKBcuYgcl_F1O842GQNImPqhqr5CmVWhv47Eg9dCH-PBZGYTpZ7VRB-w8yE4n3f0ioecex8Q==";
+        
+        final String hash = GGHash.sha512Base64Url(testBytes);
+        
+        assertThat(hash, equalTo( expectedHash ));
+    }
 
 	@Test
 	public void sha512Base64_null() {
