@@ -10,8 +10,8 @@ import java.security.KeyPair;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.lang.IO;
-import com.gantzgulch.tools.common.lang.Strings;
+import com.gantzgulch.tools.common.lang.GGIO;
+import com.gantzgulch.tools.common.lang.GGStrings;
 
 public class RSASignerTest {
 
@@ -19,7 +19,7 @@ public class RSASignerTest {
     private final RSAReader rsaReader = new RSAReader();
     private final RSASigner rsaSigner = new RSASigner();
 
-    private final byte[] VALUE = Strings.toBytes("This is a random set of data 0123456789abcdefghijklmnopqrstuvwxyz");
+    private final byte[] VALUE = GGStrings.toBytes("This is a random set of data 0123456789abcdefghijklmnopqrstuvwxyz");
 
     private final KeyPair KEY_PAIR = rsaGenerator.generate(2048);
 
@@ -59,9 +59,9 @@ public class RSASignerTest {
 
         final KeyPair kp = rsaReader.readKeyPair(getClass().getResourceAsStream("/test_data/openssl_rsa_2048_A.pem"));
 
-        final byte[] data = IO.read(getClass().getResourceAsStream("/test_data/data_01.dat"));
+        final byte[] data = GGIO.read(getClass().getResourceAsStream("/test_data/data_01.dat"));
 
-        final byte[] signature = IO.read(getClass().getResourceAsStream("/test_data/data_01.signed.openssl_rsa_2048_A.dat"));
+        final byte[] signature = GGIO.read(getClass().getResourceAsStream("/test_data/data_01.signed.openssl_rsa_2048_A.dat"));
 
         final boolean verified = rsaSigner.verify(RSASignatureAlgorithm.SHA256_RSA, signature, data, kp.getPublic());
 

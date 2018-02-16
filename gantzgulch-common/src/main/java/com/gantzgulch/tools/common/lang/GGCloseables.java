@@ -10,9 +10,9 @@ import java.io.IOException;
  * @author gantzm
  *
  */
-public final class Closeables {
+public final class GGCloseables {
 
-	private Closeables() {
+	private GGCloseables() {
 		throw new UnsupportedOperationException();
 	}
 

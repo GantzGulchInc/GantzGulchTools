@@ -3,7 +3,7 @@ package com.gantzgulch.tools.common.hash;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
-public enum HashAlgorithm {
+public enum GGHashAlgorithm {
     
     MD2("MD2"), //
     MD5("MD5"), //
@@ -15,7 +15,7 @@ public enum HashAlgorithm {
     
     private final String algorithm;
 
-    private HashAlgorithm(final String algorithm) {
+    private GGHashAlgorithm(final String algorithm) {
         this.algorithm = algorithm;
     }
     

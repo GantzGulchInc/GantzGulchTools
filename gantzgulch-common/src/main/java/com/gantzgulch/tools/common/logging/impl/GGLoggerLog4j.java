@@ -3,7 +3,7 @@ package com.gantzgulch.tools.common.logging.impl;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
-import com.gantzgulch.tools.common.lang.Strings;
+import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.common.logging.GGLogger;
 
 /**
@@ -142,16 +142,16 @@ public class GGLoggerLog4j implements GGLogger {
 
 			width = width + 20;
 
-			log.info("+" + Strings.repeat("-", width) + "+");
-			log.info("|" + Strings.repeat(" ", width) + "|");
-			log.info("|" + Strings.repeat(" ", width) + "|");
+			log.info("+" + GGStrings.repeat("-", width) + "+");
+			log.info("|" + GGStrings.repeat(" ", width) + "|");
+			log.info("|" + GGStrings.repeat(" ", width) + "|");
 
 			for (final Object msg : messages) {
-				log.info("|" + Strings.center(msg.toString(), width) + "|");
+				log.info("|" + GGStrings.center(msg.toString(), width) + "|");
 			}
 
-			log.info("|" + Strings.repeat(" ", width) + "|");
-			log.info("+" + Strings.repeat("-", width) + "+");
+			log.info("|" + GGStrings.repeat(" ", width) + "|");
+			log.info("+" + GGStrings.repeat("-", width) + "+");
 		}
 	}
 

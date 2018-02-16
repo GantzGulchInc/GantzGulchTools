@@ -1,0 +1,109 @@
+package com.gantzgulch.tools.common.lang;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.junit.Assert.assertThat;
+
+import org.junit.Test;
+
+public class GGStringsTest {
+
+	
+	@Test
+	public void repeat() {
+		
+		assertThat(GGStrings.repeat(null, -100), equalTo(null));
+		assertThat(GGStrings.repeat(null, -1), equalTo(null));
+		assertThat(GGStrings.repeat(null, 0), equalTo(null));
+		assertThat(GGStrings.repeat(null, 1), equalTo(null));
+		assertThat(GGStrings.repeat(null, 100), equalTo(null));
+		
+		assertThat(GGStrings.repeat("a", -100), equalTo(""));
+		assertThat(GGStrings.repeat("a", -1), equalTo(""));
+		assertThat(GGStrings.repeat("a", 0), equalTo(""));
+		assertThat(GGStrings.repeat("a", 1), equalTo("a"));
+		assertThat(GGStrings.repeat("a", 100), equalTo("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa"));
+		
+		assertThat(GGStrings.repeat("Car", -100), equalTo(""));
+		assertThat(GGStrings.repeat("Car", -1), equalTo(""));
+		assertThat(GGStrings.repeat("Car", 0), equalTo(""));
+		assertThat(GGStrings.repeat("Car", 1), equalTo("Car"));
+		assertThat(GGStrings.repeat("Car", 100), equalTo("CarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCarCar"));
+		
+	}
+	
+	@Test
+	public void leftPad() {
+		
+		assertThat(GGStrings.leftPad(null, -100), equalTo(null));
+		assertThat(GGStrings.leftPad(null, -1), equalTo(null));
+		assertThat(GGStrings.leftPad(null, 0), equalTo(null));
+		assertThat(GGStrings.leftPad(null, 1), equalTo(null));
+		assertThat(GGStrings.leftPad(null, 100), equalTo(null));
+		
+		assertThat(GGStrings.leftPad("a", -100), equalTo("a"));
+		assertThat(GGStrings.leftPad("a", -1), equalTo("a"));
+		assertThat(GGStrings.leftPad("a", 0), equalTo("a"));
+		assertThat(GGStrings.leftPad("a", 1), equalTo("a"));
+		assertThat(GGStrings.leftPad("a", 5), equalTo("    a"));
+		assertThat(GGStrings.leftPad("a", 100), equalTo("                                                                                                   a"));
+		
+		assertThat(GGStrings.leftPad("Car", -100), equalTo("Car"));
+		assertThat(GGStrings.leftPad("Car", -1), equalTo("Car"));
+		assertThat(GGStrings.leftPad("Car", 0), equalTo("Car"));
+		assertThat(GGStrings.leftPad("Car", 1), equalTo("Car"));
+		assertThat(GGStrings.leftPad("Car", 7), equalTo("    Car"));
+		assertThat(GGStrings.leftPad("Car", 100), equalTo("                                                                                                 Car"));
+		
+	}
+	
+	@Test
+	public void rightPad() {
+		
+		assertThat(GGStrings.rightPad(null, -100), equalTo(null));
+		assertThat(GGStrings.rightPad(null, -1), equalTo(null));
+		assertThat(GGStrings.rightPad(null, 0), equalTo(null));
+		assertThat(GGStrings.rightPad(null, 1), equalTo(null));
+		assertThat(GGStrings.rightPad(null, 100), equalTo(null));
+		
+		assertThat(GGStrings.rightPad("a", -100), equalTo("a"));
+		assertThat(GGStrings.rightPad("a", -1), equalTo("a"));
+		assertThat(GGStrings.rightPad("a", 0), equalTo("a"));
+		assertThat(GGStrings.rightPad("a", 1), equalTo("a"));
+		assertThat(GGStrings.rightPad("a", 5), equalTo("a    "));
+		assertThat(GGStrings.rightPad("a", 100), equalTo("a                                                                                                   "));
+		
+		assertThat(GGStrings.rightPad("Car", -100), equalTo("Car"));
+		assertThat(GGStrings.rightPad("Car", -1), equalTo("Car"));
+		assertThat(GGStrings.rightPad("Car", 0), equalTo("Car"));
+		assertThat(GGStrings.rightPad("Car", 1), equalTo("Car"));
+		assertThat(GGStrings.rightPad("Car", 7), equalTo("Car    "));
+		assertThat(GGStrings.rightPad("Car", 100), equalTo("Car                                                                                                 "));
+		
+	}
+	
+	@Test
+	public void center() {
+		
+		assertThat(GGStrings.center(null, -100), equalTo(null));
+		assertThat(GGStrings.center(null, -1), equalTo(null));
+		assertThat(GGStrings.center(null, 0), equalTo(null));
+		assertThat(GGStrings.center(null, 1), equalTo(null));
+		assertThat(GGStrings.center(null, 100), equalTo(null));
+		
+		assertThat(GGStrings.center("a", -100), equalTo("a"));
+		assertThat(GGStrings.center("a", -1), equalTo("a"));
+		assertThat(GGStrings.center("a", 0), equalTo("a"));
+		assertThat(GGStrings.center("a", 1), equalTo("a"));
+		assertThat(GGStrings.center("a", 5), equalTo("  a  "));
+		assertThat(GGStrings.center("a", 100), equalTo("                                                 a                                                  "));
+		
+		assertThat(GGStrings.center("Car", -100), equalTo("Car"));
+		assertThat(GGStrings.center("Car", -1), equalTo("Car"));
+		assertThat(GGStrings.center("Car", 0), equalTo("Car"));
+		assertThat(GGStrings.center("Car", 1), equalTo("Car"));
+		assertThat(GGStrings.center("Car", 7), equalTo("  Car  "));
+		assertThat(GGStrings.center("Car", 100), equalTo("                                                Car                                                 "));
+		
+	}
+
+}

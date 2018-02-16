@@ -6,9 +6,9 @@ package com.gantzgulch.tools.common.lang;
  * @author gantzm
  *
  */
-public final class Sleep {
+public final class GGSleep {
 
-	private Sleep() {
+	private GGSleep() {
 		throw new UnsupportedOperationException();
 	}
 

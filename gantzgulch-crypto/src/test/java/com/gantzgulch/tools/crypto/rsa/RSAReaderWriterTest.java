@@ -13,7 +13,7 @@ import java.security.PublicKey;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.lang.Strings;
+import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.crypto.matchers.RSA;
 
 public class RSAReaderWriterTest {
@@ -60,7 +60,7 @@ public class RSAReaderWriterTest {
         
         final String pem = rsaWriter.write(expectedKeyPair);
         
-        final InputStream is = new ByteArrayInputStream( Strings.toBytes(pem) );
+        final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
         final KeyPair kp = rsaReader.readKeyPair( is );
         
@@ -106,7 +106,7 @@ public class RSAReaderWriterTest {
         
         final String pem = rsaWriter.write(expectedKeyPair);
         
-        final InputStream is = new ByteArrayInputStream( Strings.toBytes(pem) );
+        final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
         final KeyPair kp = rsaReader.readKeyPair( is );
         
@@ -162,7 +162,7 @@ public class RSAReaderWriterTest {
         
         final String pem = rsaWriter.write(expectedPublicKey);
         
-        final InputStream is = new ByteArrayInputStream( Strings.toBytes(pem) );
+        final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
         final PublicKey publicKey = rsaReader.readPublicKey( is );
         

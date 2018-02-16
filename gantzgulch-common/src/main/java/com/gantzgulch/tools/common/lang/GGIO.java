@@ -4,9 +4,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
-public final class IO {
+public final class GGIO {
 
-    private IO() {
+    private GGIO() {
         throw new UnsupportedOperationException();
     }
     
