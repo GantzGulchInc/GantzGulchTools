@@ -57,6 +57,7 @@ public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
         client = new AWSIotMqttClient(clientEndpoint, name, keyStore, keyStorePassword);
 
         device = new AWSIotDevice(name);
+        
         client.attach(device);
 
         LOG.trace("connect: client: connecting....");
@@ -87,6 +88,11 @@ public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
 
     @Override
     public void registerListener(final String topic, final GGAwsTopicListener listener) {
+        
+    }
+    
+    protected void dispatch(final String topic, final JsonNode message) {
+        
         
     }
 

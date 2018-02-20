@@ -39,7 +39,8 @@ public class GGAwsIotTopic extends AWSIotTopic implements Closeable {
         
         LOG.trace("onMessage: topic: %s", message.getTopic());
         LOG.trace("onMessage: payload: %s", message.getStringPayload());
-        
+ 
+        iotConnector.dispatch(message.getTopic(), null);
     }
     
     @Override
