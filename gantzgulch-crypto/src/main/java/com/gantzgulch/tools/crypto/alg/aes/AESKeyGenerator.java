@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.aes;
+package com.gantzgulch.tools.crypto.alg.aes;
 
 import java.security.NoSuchAlgorithmException;
 
@@ -6,9 +6,9 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 
 import com.gantzgulch.tools.crypto.BouncyCastleState;
-import com.gantzgulch.tools.crypto.CryptoException;
+import com.gantzgulch.tools.crypto.exception.CryptoException;
 
-public final class AESGenerator {
+public final class AESKeyGenerator {
 
     static {
         BouncyCastleState.init();
@@ -16,7 +16,7 @@ public final class AESGenerator {
 
     public static final String AES_ALGORITHM = "AES";
 
-    private AESGenerator() {
+    private AESKeyGenerator() {
         throw new UnsupportedOperationException();
     }
 

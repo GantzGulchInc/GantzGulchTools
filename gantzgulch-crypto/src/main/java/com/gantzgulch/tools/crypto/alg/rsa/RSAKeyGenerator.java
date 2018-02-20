@@ -1,13 +1,13 @@
-package com.gantzgulch.tools.crypto.rsa;
+package com.gantzgulch.tools.crypto.alg.rsa;
 
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 
 import com.gantzgulch.tools.crypto.BouncyCastleState;
-import com.gantzgulch.tools.crypto.CryptoException;
+import com.gantzgulch.tools.crypto.exception.CryptoException;
 
-public final class RSAGenerator {
+public final class RSAKeyGenerator {
 
     static {
         BouncyCastleState.init();
@@ -15,7 +15,7 @@ public final class RSAGenerator {
 
     public static final String RSA_ALGORITHM = "RSA";
 
-    private RSAGenerator() {
+    private RSAKeyGenerator() {
         throw new UnsupportedOperationException();
     }
 

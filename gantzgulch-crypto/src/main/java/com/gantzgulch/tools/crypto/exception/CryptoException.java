@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto;
+package com.gantzgulch.tools.crypto.exception;
 
 public class CryptoException extends RuntimeException {
 

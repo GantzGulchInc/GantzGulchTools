@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.rsa;
+package com.gantzgulch.tools.crypto.alg.rsa;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
@@ -10,12 +10,14 @@ import java.security.interfaces.RSAPublicKey;
 
 import org.junit.Test;
 
-public class RSAGeneratorTest {
+import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
+
+public class RSAKeyGeneratorTest {
 
     @Test
     public void generate2048() {
     
-        final KeyPair kp = RSAGenerator.generate(2048);
+        final KeyPair kp = RSAKeyGenerator.generate(2048);
         
         assertThat(kp, notNullValue());
         assertThat(kp.getPrivate().getAlgorithm(), equalTo("RSA"));
@@ -32,7 +34,7 @@ public class RSAGeneratorTest {
     @Test
     public void generate4096() {
     
-        final KeyPair kp = RSAGenerator.generate(4096);
+        final KeyPair kp = RSAKeyGenerator.generate(4096);
         
         assertThat(kp, notNullValue());
         assertThat(kp.getPrivate().getAlgorithm(), equalTo("RSA"));

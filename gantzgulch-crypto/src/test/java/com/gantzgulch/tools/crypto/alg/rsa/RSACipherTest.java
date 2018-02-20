@@ -1,24 +1,36 @@
-package com.gantzgulch.tools.crypto.rsa;
+package com.gantzgulch.tools.crypto.alg.rsa;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
 import java.security.KeyPair;
-import java.security.SecureRandom;
 
+import org.junit.Before;
 import org.junit.Test;
 
+import com.gantzgulch.tools.crypto.AbstractCipherTest;
 import com.gantzgulch.tools.crypto.GGCipher;
+import com.gantzgulch.tools.crypto.GGNonce;
+import com.gantzgulch.tools.crypto.alg.rsa.RSACipher;
+import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
 
-public class RSACipherTest {
+public class RSACipherTest extends AbstractCipherTest {
 
-    private SecureRandom rnd = new SecureRandom();
+    private final KeyPair kp1 = RSAKeyGenerator.generate(4096);
 
+    private byte[] input;
+    
+    @Before
+    public void before(){
+    
+        input = GGNonce.SECURE_RANDOM.nonce(128);
+    }
+    
     @Test
     public void testAll() {
         
-        for(final RSACipher c : RSACipher.values()) {
+        for(final RSACipher c : RSACipher.CIPHERS) {
          
             encryptWithPublicDecryptWithPrivate(c);
             encryptWithPrivateDecryptWithPublic(c);
@@ -27,17 +39,10 @@ public class RSACipherTest {
     
     private void encryptWithPublicDecryptWithPrivate(final GGCipher cipher) {
     
-        final KeyPair kp1 = RSAGenerator.generate(2048);
-        assertThat(kp1, notNullValue());
-
-        final byte[] input = new byte[ 2048 >> 3 - 12];
-
-        rnd.nextBytes(input);
-        
-        final byte[] encryptedInput = cipher.encrypt(kp1.getPublic(), input, null);
+        final byte[] encryptedInput = cipher.encrypt(kp1.getPublic(), input, null, null);
         assertThat(encryptedInput, notNullValue());
         
-        final byte[] decryptedInput = cipher.decrypt(kp1.getPrivate(), encryptedInput, null);
+        final byte[] decryptedInput = cipher.decrypt(kp1.getPrivate(), encryptedInput, null, null);
         assertThat(decryptedInput, notNullValue());
         
         assertThat(decryptedInput, equalTo(input) );
@@ -46,17 +51,10 @@ public class RSACipherTest {
 
     private void encryptWithPrivateDecryptWithPublic(final GGCipher cipher) {
     
-        final KeyPair kp1 = RSAGenerator.generate(2048);
-        assertThat(kp1, notNullValue());
-
-        final byte[] input = new byte[2048 >> 3 - 12];
-
-        rnd.nextBytes(input);
-        
-        final byte[] encryptedInput = cipher.encrypt(kp1.getPrivate(), input, null);
+        final byte[] encryptedInput = cipher.encrypt(kp1.getPrivate(), input, null, null);
         assertThat(encryptedInput, notNullValue());
         
-        final byte[] decryptedInput = cipher.decrypt(kp1.getPublic(), encryptedInput, null);
+        final byte[] decryptedInput = cipher.decrypt(kp1.getPublic(), encryptedInput, null, null);
         assertThat(decryptedInput, notNullValue());
         
         assertThat(decryptedInput, equalTo(input) );

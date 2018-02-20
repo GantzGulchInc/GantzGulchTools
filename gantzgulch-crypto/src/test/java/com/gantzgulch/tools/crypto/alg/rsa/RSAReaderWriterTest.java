@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.rsa;
+package com.gantzgulch.tools.crypto.alg.rsa;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -14,6 +14,9 @@ import java.security.PublicKey;
 import org.junit.Test;
 
 import com.gantzgulch.tools.common.lang.GGStrings;
+import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
+import com.gantzgulch.tools.crypto.alg.rsa.RSAReader;
+import com.gantzgulch.tools.crypto.alg.rsa.RSAWriter;
 import com.gantzgulch.tools.crypto.matchers.RSA;
 
 public class RSAReaderWriterTest {
@@ -21,7 +24,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitKeyPair_asString() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(2048);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(2048);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -35,7 +38,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitKeyPair_asReader() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(2048);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(2048);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -51,7 +54,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitKeyPair_asInputStream() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(2048);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(2048);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -67,7 +70,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite4096BitKeyPair_asString() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(4096);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(4096);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -81,7 +84,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite4096BitKeyPair_asReader() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(4096);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(4096);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -97,7 +100,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite4096BitKeyPair_asInputStream() throws IOException {
     
-        final KeyPair expectedKeyPair = RSAGenerator.generate(4096);
+        final KeyPair expectedKeyPair = RSAKeyGenerator.generate(4096);
         assertThat(expectedKeyPair, notNullValue());
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
@@ -117,7 +120,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitPublicKey_asString() throws IOException {
     
-        final KeyPair keyPair = RSAGenerator.generate(2048);
+        final KeyPair keyPair = RSAKeyGenerator.generate(2048);
         assertThat(keyPair, notNullValue());
         
         final PublicKey expectedPublicKey = keyPair.getPublic();
@@ -133,7 +136,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitPublicKey_asReader() throws IOException {
     
-        final KeyPair keyPair = RSAGenerator.generate(2048);
+        final KeyPair keyPair = RSAKeyGenerator.generate(2048);
         assertThat(keyPair, notNullValue());
         
         final PublicKey expectedPublicKey = keyPair.getPublic();
@@ -151,7 +154,7 @@ public class RSAReaderWriterTest {
     @Test
     public void readAndWrite2048BitPublicKey_asInputStream() throws IOException {
     
-        final KeyPair keyPair = RSAGenerator.generate(2048);
+        final KeyPair keyPair = RSAKeyGenerator.generate(2048);
         assertThat(keyPair, notNullValue());
         
         final PublicKey expectedPublicKey = keyPair.getPublic();
