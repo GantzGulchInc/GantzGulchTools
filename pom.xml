@@ -39,6 +39,7 @@
 	<modules>
 		<module>gantzgulch-common</module>
 		<module>gantzgulch-crypto</module>
+		<module>gantzgulch-aws-iot</module>
 	</modules>
 
 	<scm>
@@ -58,6 +59,11 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
+		<JACKSON_VERSION>2.8.7</JACKSON_VERSION>
+		
+		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
+			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
+			<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION> <TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
 	</properties>
 
 	<profiles>
@@ -175,15 +181,32 @@
 				<version>4.1</version>
 			</dependency>
 
-			<!-- Jackson <dependency> <groupId>com.fasterxml.jackson.core</groupId> 
-				<artifactId>jackson-core</artifactId> <version>${JACKSON_VERSION}</version> 
-				</dependency> <dependency> <groupId>com.fasterxml.jackson.core</groupId> 
-				<artifactId>jackson-databind</artifactId> <version>${JACKSON_VERSION}</version> 
-				</dependency> <dependency> <groupId>com.fasterxml.jackson.core</groupId> 
-				<artifactId>jackson-annotations</artifactId> <version>${JACKSON_VERSION}</version> 
-				</dependency> -->
+			<!-- Jackson -->
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-core</artifactId>
+				<version>${JACKSON_VERSION}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-databind</artifactId>
+				<version>${JACKSON_VERSION}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.fasterxml.jackson.core</groupId>
+				<artifactId>jackson-annotations</artifactId>
+				<version>${JACKSON_VERSION}</version>
+			</dependency>
 
 
+			<!-- AWS IoT SDK -->
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-iot-device-sdk-java</artifactId>
+				<version>1.1.0</version>
+			</dependency>
+			
+			
 			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>
