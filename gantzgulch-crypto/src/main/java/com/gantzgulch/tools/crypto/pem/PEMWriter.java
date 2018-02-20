@@ -5,22 +5,30 @@ import java.io.StringWriter;
 
 import org.bouncycastle.openssl.jcajce.JcaPEMWriter;
 
+import com.gantzgulch.tools.crypto.exception.CryptoException;
+
 public final class PEMWriter {
 
     private PEMWriter() {
         throw new UnsupportedOperationException();
     }
 
-    public static String write(final Object object) throws IOException {
+    public static String write(final Object object) {
 
-        final StringWriter stringWriter = new StringWriter();
+        try {
+            final StringWriter stringWriter = new StringWriter();
 
-        final JcaPEMWriter pemWriter = new JcaPEMWriter(stringWriter);
+            final JcaPEMWriter pemWriter = new JcaPEMWriter(stringWriter);
 
-        pemWriter.writeObject(object);
-        pemWriter.close();
+            pemWriter.writeObject(object);
+            pemWriter.close();
 
-        return stringWriter.toString();
+            return stringWriter.toString();
+            
+        } catch (final IOException e) {
+            
+            throw new CryptoException(e);
+        }
     }
-    
+
 }
