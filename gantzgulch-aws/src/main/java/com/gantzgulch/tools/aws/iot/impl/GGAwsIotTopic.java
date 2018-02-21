@@ -9,6 +9,7 @@ import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.AWSIotTopic;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
+import com.gantzgulch.tools.common.json.GGJsonReader;
 import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class GGAwsIotTopic extends AWSIotTopic implements Closeable {
@@ -54,11 +55,11 @@ public class GGAwsIotTopic extends AWSIotTopic implements Closeable {
 
         try {
 
-            final JsonNode node = GGAwsIotJson.parseJson(message.getStringPayload());
+            final JsonNode node = GGJsonReader.STRICT.read(message.getStringPayload());
 
             dispatch(topic, messageTopic, node);
 
-        } catch (final RuntimeException | IOException e) {
+        } catch (final RuntimeException e) {
             LOG.warn(e, "Error parsing json: %s", messagePayload);
         }
     }

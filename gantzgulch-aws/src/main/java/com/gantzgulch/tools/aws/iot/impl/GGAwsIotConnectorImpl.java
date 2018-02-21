@@ -9,11 +9,11 @@ import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMqttClient;
 import com.amazonaws.services.iot.client.AWSIotQos;
 import com.amazonaws.services.iot.client.AWSIotTimeoutException;
-import com.fasterxml.jackson.databind.JsonNode;
 import com.gantzgulch.tools.aws.exception.GGAwsException;
 import com.gantzgulch.tools.aws.iot.GGAwsIotConnector;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
 import com.gantzgulch.tools.aws.iot.domain.GGAwsIotShadow;
+import com.gantzgulch.tools.common.json.GGJsonWriter;
 import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
@@ -66,11 +66,11 @@ public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
     }
 
     @Override
-    public void send(final String topic, final JsonNode message) {
+    public void send(final String topic, final Object message) {
 
         try {
 
-            final String json = GGAwsIotJson.writeAsString(message);
+            final String json = GGJsonWriter.STRICT.writeAsString(message);
 
             LOG.trace("send: sending: message: %s", json);
 

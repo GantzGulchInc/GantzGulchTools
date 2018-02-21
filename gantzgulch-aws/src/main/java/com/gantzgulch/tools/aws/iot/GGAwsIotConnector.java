@@ -2,7 +2,6 @@ package com.gantzgulch.tools.aws.iot;
 
 import java.security.KeyStore;
 
-import com.fasterxml.jackson.databind.JsonNode;
 import com.gantzgulch.tools.aws.iot.domain.GGAwsIotShadow;
 import com.gantzgulch.tools.aws.iot.impl.GGAwsIotConnectorImpl;
 
@@ -17,7 +16,7 @@ public interface GGAwsIotConnector {
 
     void updateShadow(GGAwsIotShadow state);
 
-    void send(String topic, JsonNode message);
+    void send(String topic, Object message);
 
     void registerListener(String topic, GGAwsIotTopicListener listener);
 

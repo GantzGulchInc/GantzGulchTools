@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.common.lang;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.is;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -106,4 +107,29 @@ public class GGStringsTest {
 		
 	}
 
+	@Test
+	public void isBlank() {
+	    
+	    assertThat(GGStrings.isBlank(null), is(true) );
+        assertThat(GGStrings.isBlank(""), is(true) );
+        assertThat(GGStrings.isBlank(" "), is(true) );
+        assertThat(GGStrings.isBlank("\t"), is(true) );
+        assertThat(GGStrings.isBlank(" \t"), is(true) );
+	    
+        assertThat(GGStrings.isBlank(" a"), is(false) );
+        assertThat(GGStrings.isBlank("a "), is(false) );
+	}
+	
+    @Test
+    public void isNotBlank() {
+        
+        assertThat(GGStrings.isNotBlank(null), is(false) );
+        assertThat(GGStrings.isNotBlank(""), is(false) );
+        assertThat(GGStrings.isNotBlank(" "), is(false) );
+        assertThat(GGStrings.isNotBlank("\t"), is(false) );
+        assertThat(GGStrings.isNotBlank(" \t"), is(false) );
+        
+        assertThat(GGStrings.isNotBlank(" a"), is(true) );
+        assertThat(GGStrings.isNotBlank("a "), is(true) );
+    }
 }

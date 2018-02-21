@@ -30,6 +30,12 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- Apache Commons -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+		</dependency>
+
 		<!-- Jackson -->
 		<dependency>
 			<groupId>com.fasterxml.jackson.core</groupId>
@@ -44,10 +50,14 @@
 			<artifactId>jackson-annotations</artifactId>
 		</dependency>
 
-		<!-- AWS IoT SDK -->
+		<!-- AWS SDK -->
 		<dependency>
 			<groupId>com.amazonaws</groupId>
 			<artifactId>aws-iot-device-sdk-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.amazonaws</groupId>
+			<artifactId>aws-lambda-java-core</artifactId>
 		</dependency>
 
 		<!-- Testing -->
