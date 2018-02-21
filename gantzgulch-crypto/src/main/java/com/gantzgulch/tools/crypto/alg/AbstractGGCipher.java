@@ -45,8 +45,15 @@ public abstract class AbstractGGCipher implements GGCipher {
         return nonceSize;
     }
 
-    protected abstract Cipher createCipher(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException;
+    protected Cipher createCipher(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
 
+        final Cipher cipher = Cipher.getInstance(algorithm, "BC");
+
+        cipher.init(opMode, key);
+
+        return cipher;
+    }
+    
     private Cipher createCipherWithChecks(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
 
         if (getIvSize() != size(iv)) {

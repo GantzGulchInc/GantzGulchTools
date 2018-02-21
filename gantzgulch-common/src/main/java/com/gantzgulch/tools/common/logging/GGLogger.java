@@ -15,7 +15,7 @@ public interface GGLogger {
 	public static GGLogger getLogger(final Class<?> className) {
 		return GGLoggerCache.INSTANCE.getLogger(className);
 	}
-
+	
 	boolean isTraceEnabled();
 
 	boolean isDebugEnabled();

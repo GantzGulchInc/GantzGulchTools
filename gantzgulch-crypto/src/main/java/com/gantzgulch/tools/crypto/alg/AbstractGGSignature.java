@@ -28,9 +28,24 @@ public abstract class AbstractGGSignature implements GGSignature {
         return algorithm;
     }
     
-    protected abstract Signature createSignature(final PrivateKey key) throws GeneralSecurityException;
+    protected Signature createSignature(final PrivateKey key) throws GeneralSecurityException {
 
-    protected abstract Signature createSignature(final PublicKey key) throws GeneralSecurityException;
+        final Signature sig = Signature.getInstance(algorithm, "BC");
+
+        sig.initSign(key);
+        
+        return sig;
+    }
+    
+    protected Signature createSignature(final PublicKey key) throws GeneralSecurityException {
+
+        final Signature sig = Signature.getInstance(algorithm, "BC");
+
+        sig.initVerify(key);
+        
+        return sig;
+    }
+    
 
     @Override
     public byte[] sign(final PrivateKey key, final InputStream input) {

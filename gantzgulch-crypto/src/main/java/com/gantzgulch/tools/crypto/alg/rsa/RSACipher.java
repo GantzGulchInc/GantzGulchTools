@@ -1,11 +1,7 @@
 package com.gantzgulch.tools.crypto.alg.rsa;
 
-import java.security.GeneralSecurityException;
-import java.security.Key;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.crypto.Cipher;
 
 import com.gantzgulch.tools.crypto.alg.AbstractGGCipher;
 
@@ -25,16 +21,6 @@ public class RSACipher extends AbstractGGCipher {
         super(algorithm, ivSize, nonceSize);
 
         CIPHERS.add(this);
-    }
-
-    @Override
-    protected Cipher createCipher(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
-
-        final Cipher cipher = Cipher.getInstance(algorithm, "BC");
-
-        cipher.init(opMode, key);
-
-        return cipher;
     }
 
 }

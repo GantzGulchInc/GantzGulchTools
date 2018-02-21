@@ -39,7 +39,7 @@
 	<modules>
 		<module>gantzgulch-common</module>
 		<module>gantzgulch-crypto</module>
-		<module>gantzgulch-aws-iot</module>
+		<module>gantzgulch-aws</module>
 	</modules>
 
 	<scm>

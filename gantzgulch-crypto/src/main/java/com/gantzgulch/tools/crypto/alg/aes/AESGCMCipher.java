@@ -40,9 +40,4 @@ public class AESGCMCipher extends AbstractGGCipher {
         return cipher;
     }
     
-    @Override
-    public String toString() {
-        return algorithm;
-    }
-    
 }

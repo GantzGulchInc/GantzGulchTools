@@ -1,9 +1,5 @@
 package com.gantzgulch.tools.crypto.alg.rsa;
 
-import java.security.GeneralSecurityException;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-import java.security.Signature;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,24 +24,4 @@ public class RSASignature extends AbstractGGSignature {
         SIGNATURES.add(this);
     }
 
-    @Override
-    protected Signature createSignature(final PrivateKey key) throws GeneralSecurityException {
-
-        final Signature sig = Signature.getInstance(algorithm, "BC");
-
-        sig.initSign(key);
-        
-        return sig;
-    }
-    
-    @Override
-    protected Signature createSignature(final PublicKey key) throws GeneralSecurityException {
-
-        final Signature sig = Signature.getInstance(algorithm, "BC");
-
-        sig.initVerify(key);
-        
-        return sig;
-    }
-    
 }

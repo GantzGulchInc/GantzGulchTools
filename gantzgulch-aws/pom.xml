@@ -11,9 +11,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gantzgulch-aws-iot</artifactId>
+	<artifactId>gantzgulch-aws</artifactId>
 
-	<name>GantzGulch - AWS IoT tools</name>
+	<name>GantzGulch - AWS tools</name>
 	<description></description>
 
 	<dependencies>
@@ -21,6 +21,12 @@
 		<dependency>
 			<groupId>com.gantzgulch.tools</groupId>
 			<artifactId>gantzgulch-common</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gantzgulch.tools</groupId>
+			<artifactId>gantzgulch-crypto</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 
@@ -45,6 +51,31 @@
 		</dependency>
 
 		<!-- Testing -->
+		<dependency>
+			<groupId>commons-logging</groupId>
+			<artifactId>commons-logging</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jcl-over-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>jul-to-slf4j</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-log4j12</artifactId>
+			<scope>test</scope>
+		</dependency>
 		<dependency>
 			<groupId>log4j</groupId>
 			<artifactId>log4j</artifactId>
