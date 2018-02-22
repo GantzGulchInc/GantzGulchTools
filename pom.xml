@@ -71,7 +71,7 @@
 	<profiles>
 		<profile>
 			<activation>
-				<activeByDefault>true</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 			</activation>
 			<properties>
 				<gpg.executable>gpg2</gpg.executable>
