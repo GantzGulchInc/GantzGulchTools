@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.common.codec;
 
 import java.util.Base64;
+import java.util.Base64.Decoder;
 import java.util.Base64.Encoder;
 
 public final class GGBase64 {
@@ -26,17 +27,22 @@ public final class GGBase64 {
         
     }
     
-    public static byte[] fromBase64String(final String base64){
+    public static byte[] fromBase64String(final String base64, boolean urlFriendly){
         
         if( base64 == null ){
             return null;
         }
         
-        return Base64.getDecoder().decode(base64);
+        return getBase64Decoder(urlFriendly).decode(base64);
     }
     
     private static Encoder getBase64Encoder(final boolean urlFriendly) {
         
         return urlFriendly ? Base64.getUrlEncoder() : Base64.getEncoder();
+    }
+
+    private static Decoder getBase64Decoder(final boolean urlFriendly) {
+        
+        return urlFriendly ? Base64.getUrlDecoder() : Base64.getDecoder();
     }
 }
