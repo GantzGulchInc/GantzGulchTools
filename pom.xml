@@ -37,6 +37,7 @@
 		<module>gantzgulch-tools-json</module>
 		<module>gantzgulch-tools-crypto</module>
 		<module>gantzgulch-tools-aws</module>
+		<module>gantzgulch-tools-http</module>
 	</modules>
 
 	<scm>
@@ -58,10 +59,11 @@
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
 		<JACKSON_VERSION>2.9.4</JACKSON_VERSION>
         <AWS_SDK>1.11.284</AWS_SDK>
+		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 		
 		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
 			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
-			<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION> <TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
+			 <TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
 	</properties>
 
 	<profiles>
@@ -165,6 +167,14 @@
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
 				<version>4.4.9</version>
+			</dependency>
+
+			<!-- Tomcat -->
+			<dependency>
+				<groupId>org.apache.tomcat</groupId>
+				<artifactId>tomcat-catalina</artifactId>
+				<version>${TOMCAT_VERSION}</version>
+				<scope>provided</scope>
 			</dependency>
 
 			<!-- opencsv -->

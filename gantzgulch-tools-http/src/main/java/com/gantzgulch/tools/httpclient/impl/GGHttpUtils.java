@@ -1,0 +1,35 @@
+package com.gantzgulch.tools.httpclient.impl;
+
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import org.apache.http.NameValuePair;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.message.BasicNameValuePair;
+
+import com.gantzgulch.tools.common.lang.GGLists;
+
+public final class GGHttpUtils {
+
+    private GGHttpUtils() {
+        throw new UnsupportedOperationException();
+    }
+
+    public static URI getLastRedirect(final HttpClientContext context) {
+
+        return GGLists.last(context.getRedirectLocations());
+    }
+
+    public static List<NameValuePair> toListNameValuePair(final Map<String, String> parameters) {
+
+        final List<NameValuePair> params = new ArrayList<>();
+
+        for (final Map.Entry<String, String> e : parameters.entrySet()) {
+            params.add(new BasicNameValuePair(e.getKey(), e.getValue()));
+        }
+
+        return params;
+    }
+}

@@ -7,9 +7,9 @@ package com.gantzgulch.tools.common.lang;
  * @author gantzm
  *
  */
-public final class Bytes {
+public final class GGBytes {
 
-	private Bytes() {
+	private GGBytes() {
 		throw new UnsupportedOperationException();
 	}
 

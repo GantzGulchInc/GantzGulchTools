@@ -183,4 +183,37 @@ public final class GGStrings {
         return results;
     }
 
+    public static boolean startsWith(final String string, final String prefix) {
+        
+        if( string == null ){
+            return false;
+        }
+        
+        if( prefix == null ){
+            return false;
+        }
+        
+        return string.startsWith(prefix);
+    }
+
+    public static String defaultIfBlank(final String string, final String defaultValue) {
+        
+        return isBlank(string) ? defaultValue : string;
+    }
+    
+    public static String left(final String string, final int len) {
+        
+        if (string == null) {
+            return null;
+        }
+        if (len < 0) {
+            return "";
+        }
+        
+        if (string.length() <= len) {
+            return string;
+        }
+        
+        return string.substring(0, len);
+    }
 }
