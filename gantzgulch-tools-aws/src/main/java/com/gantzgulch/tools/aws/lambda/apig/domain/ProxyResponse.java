@@ -7,7 +7,7 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gantzgulch.tools.aws.lambda.apig.LambdaError;
-import com.gantzgulch.tools.json.GGJsonWriter;
+import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class ProxyResponse {
 
@@ -43,7 +43,7 @@ public class ProxyResponse {
         this.isBase64Encoded = false;
         this.statusCode = 200;
         this.headers = new HashMap<>();
-        this.body = GGJsonWriter.STRICT.writeAsString(resp);
+        this.body = GGJsonWriters.STRICT.writeAsString(resp);
     }
 
     public boolean isBase64Encoded() {

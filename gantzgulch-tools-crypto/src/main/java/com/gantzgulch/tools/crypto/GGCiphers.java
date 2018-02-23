@@ -12,7 +12,9 @@ public final class GGCiphers {
     public static final AESAEADCipher AES_CCM_NO_PADDING = AESAEADCipher.AES_CCM_NO_PADDING;
     public static final AESAEADCipher AES_EAX_NO_PADDING = AESAEADCipher.AES_EAX_NO_PADDING;
     public static final AESAEADCipher AES_OCB_NO_PADDING = AESAEADCipher.AES_OCB_NO_PADDING;
+    
     public static final AESCipher AES_ECB_NO_PADDING = AESCipher.AES_ECB_NO_PADDING;
+    
     public static final AESGCMCipher AES_GCM_NO_PADDING = AESGCMCipher.AES_GCM_NO_PADDING;
     
     public static final RSACipher RSA_NONE_OAEPWithMD5AndMGF1Padding = RSACipher.RSA_NONE_OAEPWithMD5AndMGF1Padding;

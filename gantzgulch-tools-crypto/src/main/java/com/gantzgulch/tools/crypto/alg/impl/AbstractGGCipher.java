@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.alg;
+package com.gantzgulch.tools.crypto.alg.impl;
 
 import java.io.IOException;
 import java.io.InputStream;

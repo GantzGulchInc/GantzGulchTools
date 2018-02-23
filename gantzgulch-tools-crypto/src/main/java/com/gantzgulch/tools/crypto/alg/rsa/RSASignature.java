@@ -3,7 +3,7 @@ package com.gantzgulch.tools.crypto.alg.rsa;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gantzgulch.tools.crypto.alg.AbstractGGSignature;
+import com.gantzgulch.tools.crypto.alg.impl.AbstractGGSignature;
 
 public class RSASignature extends AbstractGGSignature {
 

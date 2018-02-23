@@ -3,7 +3,7 @@ package com.gantzgulch.tools.crypto.alg.blowfish;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.gantzgulch.tools.crypto.alg.AbstractGGCipher;
+import com.gantzgulch.tools.crypto.alg.impl.AbstractGGCipher;
 
 public class BlowfishCipher extends AbstractGGCipher {
 

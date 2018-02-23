@@ -11,7 +11,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.gantzgulch.tools.aws.lambda.apig.ApiGatewayHandlerSignature;
 import com.gantzgulch.tools.aws.lambda.apig.ApiGatewayHandlerSignatureMethod;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.json.GGJsonReader;
+import com.gantzgulch.tools.json.GGJsonReaders;
 
 public class ProxyRequest {
 
@@ -113,7 +113,7 @@ public class ProxyRequest {
 
     public <R> R parseBody(final Class<R> requestType) {
 
-        return GGJsonReader.STRICT.read(body, requestType);
+        return GGJsonReaders.STRICT.read(body, requestType);
 
     }
 

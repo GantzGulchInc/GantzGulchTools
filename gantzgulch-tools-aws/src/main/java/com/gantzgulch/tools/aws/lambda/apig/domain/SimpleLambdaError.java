@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.aws.lambda.apig.domain;
 
 import com.gantzgulch.tools.aws.lambda.apig.LambdaError;
-import com.gantzgulch.tools.json.GGJsonWriter;
+import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class SimpleLambdaError implements LambdaError {
 
@@ -27,7 +27,7 @@ public class SimpleLambdaError implements LambdaError {
 	public static String formatBody(final Object body){
 		
 		try {
-			return GGJsonWriter.STRICT.writeAsString(body);
+			return GGJsonWriters.STRICT.writeAsString(body);
 		}catch(final RuntimeException e){
 			return "";
 		}

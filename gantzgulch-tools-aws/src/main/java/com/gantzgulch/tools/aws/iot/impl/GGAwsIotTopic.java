@@ -10,7 +10,7 @@ import com.amazonaws.services.iot.client.AWSIotTopic;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
 import com.gantzgulch.tools.common.logging.GGLogger;
-import com.gantzgulch.tools.json.GGJsonReader;
+import com.gantzgulch.tools.json.GGJsonReaders;
 
 public class GGAwsIotTopic extends AWSIotTopic implements Closeable {
 
@@ -55,7 +55,7 @@ public class GGAwsIotTopic extends AWSIotTopic implements Closeable {
 
         try {
 
-            final JsonNode node = GGJsonReader.STRICT.read(message.getStringPayload());
+            final JsonNode node = GGJsonReaders.STRICT.read(message.getStringPayload());
 
             dispatch(topic, messageTopic, node);
 

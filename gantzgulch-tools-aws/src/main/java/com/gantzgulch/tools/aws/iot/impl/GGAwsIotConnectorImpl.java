@@ -14,7 +14,7 @@ import com.gantzgulch.tools.aws.iot.GGAwsIotConnector;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
 import com.gantzgulch.tools.aws.iot.domain.GGAwsIotShadow;
 import com.gantzgulch.tools.common.logging.GGLogger;
-import com.gantzgulch.tools.json.GGJsonWriter;
+import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
 
@@ -70,7 +70,7 @@ public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
 
         try {
 
-            final String json = GGJsonWriter.STRICT.writeAsString(message);
+            final String json = GGJsonWriters.STRICT.writeAsString(message);
 
             LOG.trace("send: sending: message: %s", json);
 

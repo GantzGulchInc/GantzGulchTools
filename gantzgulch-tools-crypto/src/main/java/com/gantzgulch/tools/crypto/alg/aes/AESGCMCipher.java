@@ -8,7 +8,7 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 
-import com.gantzgulch.tools.crypto.alg.AbstractGGCipher;
+import com.gantzgulch.tools.crypto.alg.impl.AbstractGGCipher;
 
 public class AESGCMCipher extends AbstractGGCipher {
 

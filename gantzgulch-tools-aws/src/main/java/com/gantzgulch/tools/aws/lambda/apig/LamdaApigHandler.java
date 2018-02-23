@@ -14,8 +14,8 @@ import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyResponse;
 import com.gantzgulch.tools.aws.lambda.apig.domain.SimpleLambdaError;
 import com.gantzgulch.tools.common.lang.GGUtf8;
 import com.gantzgulch.tools.common.logging.GGLogger;
-import com.gantzgulch.tools.json.GGJsonReader;
-import com.gantzgulch.tools.json.GGJsonWriter;
+import com.gantzgulch.tools.json.GGJsonReaders;
+import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class LamdaApigHandler implements RequestStreamHandler {
 
@@ -50,7 +50,7 @@ public class LamdaApigHandler implements RequestStreamHandler {
             final OutputStream output, //
             final Context context) throws IOException {
 
-        final ProxyRequest proxyRequest = GGJsonReader.STRICT_ISO8601.read(input, ProxyRequest.class);
+        final ProxyRequest proxyRequest = GGJsonReaders.STRICT_ISO8601.read(input, ProxyRequest.class);
 
         LOG.info("handleRequest: proxyRequest: %s", proxyRequest);
 
@@ -81,7 +81,7 @@ public class LamdaApigHandler implements RequestStreamHandler {
                 proxyResponse = new ProxyResponse(le);
             }
 
-            final String responseJson = GGJsonWriter.STRICT_ISO8601.writeAsString(proxyResponse);
+            final String responseJson = GGJsonWriters.STRICT_ISO8601.writeAsString(proxyResponse);
 
             output.write(responseJson.getBytes(GGUtf8.CHARSET));
             output.flush();
