@@ -49,19 +49,19 @@ public class GGHttpClientImpl implements GGHttpClient {
 
     private final CloseableHttpClient httpClient;
 
-    public GGHttpClientImpl(final String agent, final int connectionTimeout, final int socketReadTimeout) {
+    public GGHttpClientImpl(final String agent, final int connectionTimeoutMillis, final int socketReadTimeoutMillis) {
 
         this.agent = agent;
         this.connectionRequestTimeout = DEFAULT_CONNECTION_REQUEST_TIMEOUT_IN_MILLIS;
-        this.connectionTimeout = connectionTimeout;
-        this.socketReadTimeout = socketReadTimeout;
+        this.connectionTimeout = connectionTimeoutMillis;
+        this.socketReadTimeout = socketReadTimeoutMillis;
 
         this.connectionManager = createConnectionManager();
         this.httpClient = createHttpClient();
     }
 
     @Override
-    public CloseableHttpResponse doGet(//
+    public CloseableHttpResponse get(//
             final URI uri, //
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) throws IOException {
@@ -76,7 +76,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doHead(//
+    public CloseableHttpResponse head(//
             final URI uri, //
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) throws IOException {
@@ -91,7 +91,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doDelete(//
+    public CloseableHttpResponse delete(//
             final URI uri, //
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) throws IOException {
@@ -107,7 +107,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doPost(//
+    public CloseableHttpResponse post(//
             final URI uri, //
             final Map<String, String> parameters, //
             final Map<String, String> headers, //
@@ -119,7 +119,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        final List<NameValuePair> params = GGHttpUtils.toListNameValuePair(parameters);
+        final List<NameValuePair> params = GGHttpUtils.toNameValuePairList(parameters);
 
         request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8")));
 
@@ -127,7 +127,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doPost(//
+    public CloseableHttpResponse post(//
             final URI uri, //
             final String content, //
             final Map<String, String> headers, //
@@ -145,7 +145,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doPut(//
+    public CloseableHttpResponse put(//
             final URI uri, //
             final Map<String, String> parameters, //
             final Map<String, String> headers, //
@@ -157,7 +157,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        final List<NameValuePair> params = GGHttpUtils.toListNameValuePair(parameters);
+        final List<NameValuePair> params = GGHttpUtils.toNameValuePairList(parameters);
 
         request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8")));
 
@@ -165,7 +165,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     }
 
     @Override
-    public CloseableHttpResponse doPut(//
+    public CloseableHttpResponse put(//
             final URI uri, //
             final String content, //
             final Map<String, String> headers, //

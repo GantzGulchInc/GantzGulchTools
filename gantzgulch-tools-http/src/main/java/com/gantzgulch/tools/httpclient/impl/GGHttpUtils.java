@@ -22,7 +22,7 @@ public final class GGHttpUtils {
         return GGLists.last(context.getRedirectLocations());
     }
 
-    public static List<NameValuePair> toListNameValuePair(final Map<String, String> parameters) {
+    public static List<NameValuePair> toNameValuePairList(final Map<String, String> parameters) {
 
         final List<NameValuePair> params = new ArrayList<>();
 
