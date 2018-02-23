@@ -4,10 +4,6 @@
 
 	<modelVersion>4.0.0</modelVersion>
 
-	<prerequisites>
-		<maven>3.3</maven>
-	</prerequisites>
-
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
@@ -60,8 +56,8 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
-		<JACKSON_VERSION>2.8.7</JACKSON_VERSION>
-        <AWS_SDK>1.11.255</AWS_SDK>
+		<JACKSON_VERSION>2.9.4</JACKSON_VERSION>
+        <AWS_SDK>1.11.284</AWS_SDK>
 		
 		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
 			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
@@ -200,7 +196,7 @@
 			<dependency>
 				<groupId>com.amazonaws</groupId>
 				<artifactId>aws-iot-device-sdk-java</artifactId>
-				<version>1.1.0</version>
+				<version>1.1.1</version>
 			</dependency>
 			
             <dependency>
