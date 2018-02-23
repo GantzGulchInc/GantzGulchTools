@@ -28,6 +28,7 @@ public interface GGLogger {
 
 	boolean isFatalEnabled();
 
+	
 	void trace(final String message);
 
 	void trace(final String message, final Object... args);
@@ -36,6 +37,7 @@ public interface GGLogger {
 
 	void trace(final Throwable t, final String message, final Object... args);
 
+	
 	void debug(final String message);
 
 	void debug(final String message, final Object... args);
@@ -44,6 +46,7 @@ public interface GGLogger {
 
 	void debug(final Throwable t, final String message, final Object... args);
 
+	
 	void info(final String message);
 
 	void info(final String message, final Object... args);
@@ -52,8 +55,10 @@ public interface GGLogger {
 
 	void info(final Throwable t, final String message, final Object... args);
 
+	
 	void infoBox(final Object... messages);
 
+	
 	void warn(final String message);
 
 	void warn(final String message, final Object... args);
@@ -62,6 +67,7 @@ public interface GGLogger {
 
 	void warn(final Throwable t, final String message, final Object... args);
 
+	
 	void error(final String message);
 
 	void error(final String message, final Object... args);
@@ -69,6 +75,7 @@ public interface GGLogger {
 	void error(final Throwable t, final String message);
 
 	void error(final Throwable t, final String message, final Object... args);
+	
 
 	void fatal(final String message);
 

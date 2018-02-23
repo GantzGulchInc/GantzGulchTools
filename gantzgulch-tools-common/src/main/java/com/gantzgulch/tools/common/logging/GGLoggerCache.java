@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.gantzgulch.tools.common.logging.impl.GGLoggerApacheCommons;
 
-public class GGLoggerCache {
+public final class GGLoggerCache {
 
 	public static final GGLoggerCache INSTANCE = new GGLoggerCache();
 	

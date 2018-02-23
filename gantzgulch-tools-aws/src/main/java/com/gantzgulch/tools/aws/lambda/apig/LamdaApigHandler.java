@@ -3,7 +3,6 @@ package com.gantzgulch.tools.aws.lambda.apig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
-import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -13,6 +12,7 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyRequest;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyResponse;
 import com.gantzgulch.tools.aws.lambda.apig.domain.SimpleLambdaError;
+import com.gantzgulch.tools.common.lang.GGUtf8;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
@@ -83,7 +83,7 @@ public class LamdaApigHandler implements RequestStreamHandler {
 
             final String responseJson = GGJsonWriter.STRICT_MILLIS.writeAsString(proxyResponse);
 
-            output.write(responseJson.getBytes(Charset.forName("UTF-8")));
+            output.write(responseJson.getBytes(GGUtf8.CHARSET));
             output.flush();
 
         } catch (final Throwable e) {

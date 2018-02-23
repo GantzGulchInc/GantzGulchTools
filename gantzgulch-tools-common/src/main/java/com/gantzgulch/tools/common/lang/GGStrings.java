@@ -1,6 +1,5 @@
 package com.gantzgulch.tools.common.lang;
 
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -13,14 +12,6 @@ import java.util.regex.Pattern;
  *
  */
 public final class GGStrings {
-
-    public static final int HEX_RADIX = 16;
-
-    public static final char[] HEX = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
-
-    public static final String UTF8_CHARSET_NAME = "UTF-8";
-
-    public static final Charset UTF8_CHARSET = Charset.forName(UTF8_CHARSET_NAME);
 
     private GGStrings() {
         throw new UnsupportedOperationException();
@@ -142,13 +133,13 @@ public final class GGStrings {
 
     public static String fromBytes(final byte[] bytes) {
 
-        return bytes != null ? new String(bytes, UTF8_CHARSET) : null;
+        return bytes != null ? new String(bytes, GGUtf8.CHARSET) : null;
 
     }
 
     public static byte[] toBytes(final String string) {
 
-        return string != null ? string.getBytes(UTF8_CHARSET) : null;
+        return string != null ? string.getBytes(GGUtf8.CHARSET) : null;
 
     }
 

@@ -15,9 +15,7 @@ import org.junit.Test;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.crypto.AbstractCipherTest;
 import com.gantzgulch.tools.crypto.GGCipher;
-import com.gantzgulch.tools.crypto.GGNonce;
-import com.gantzgulch.tools.crypto.alg.aes.AESCipher;
-import com.gantzgulch.tools.crypto.alg.aes.AESKeyGenerator;
+import com.gantzgulch.tools.crypto.GGNonces;
 
 public class AESCipherTest extends AbstractCipherTest {
 
@@ -44,7 +42,7 @@ public class AESCipherTest extends AbstractCipherTest {
 
         LOG.info("Testing: %s with byte array.", cipher);
 
-        final byte[] input = GGNonce.SECURE_RANDOM.nonce(4096);
+        final byte[] input = GGNonces.SECURE_RANDOM.nonce(4096);
 
         final byte[] plain = encryptThenDecrypt(cipher, key, input, null, null);
 
@@ -58,7 +56,7 @@ public class AESCipherTest extends AbstractCipherTest {
 
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] input = GGNonce.SECURE_RANDOM.nonce(1024 * 1024 * 4);
+        final byte[] input = GGNonces.SECURE_RANDOM.nonce(1024 * 1024 * 4);
 
         final ByteArrayInputStream is = new ByteArrayInputStream(input);
         final ByteArrayOutputStream os = new ByteArrayOutputStream(input.length);

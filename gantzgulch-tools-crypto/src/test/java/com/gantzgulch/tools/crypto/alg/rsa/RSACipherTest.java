@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.crypto.alg.rsa;
 
 import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
@@ -11,9 +12,7 @@ import org.junit.Test;
 
 import com.gantzgulch.tools.crypto.AbstractCipherTest;
 import com.gantzgulch.tools.crypto.GGCipher;
-import com.gantzgulch.tools.crypto.GGNonce;
-import com.gantzgulch.tools.crypto.alg.rsa.RSACipher;
-import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
+import com.gantzgulch.tools.crypto.GGNonces;
 
 public class RSACipherTest extends AbstractCipherTest {
 
@@ -24,7 +23,7 @@ public class RSACipherTest extends AbstractCipherTest {
     @Before
     public void before(){
     
-        input = GGNonce.SECURE_RANDOM.nonce(128);
+        input = GGNonces.SECURE_RANDOM.nonce(128);
     }
     
     @Test
@@ -41,6 +40,7 @@ public class RSACipherTest extends AbstractCipherTest {
     
         final byte[] encryptedInput = cipher.encrypt(kp1.getPublic(), input, null, null);
         assertThat(encryptedInput, notNullValue());
+        assertThat(encryptedInput, not( equalTo(input)));
         
         final byte[] decryptedInput = cipher.decrypt(kp1.getPrivate(), encryptedInput, null, null);
         assertThat(decryptedInput, notNullValue());
@@ -53,6 +53,7 @@ public class RSACipherTest extends AbstractCipherTest {
     
         final byte[] encryptedInput = cipher.encrypt(kp1.getPrivate(), input, null, null);
         assertThat(encryptedInput, notNullValue());
+        assertThat(encryptedInput, not( equalTo(input)));
         
         final byte[] decryptedInput = cipher.decrypt(kp1.getPublic(), encryptedInput, null, null);
         assertThat(decryptedInput, notNullValue());
