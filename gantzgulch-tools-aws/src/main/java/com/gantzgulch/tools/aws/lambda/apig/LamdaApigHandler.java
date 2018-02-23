@@ -50,7 +50,7 @@ public class LamdaApigHandler implements RequestStreamHandler {
             final OutputStream output, //
             final Context context) throws IOException {
 
-        final ProxyRequest proxyRequest = GGJsonReader.STRICT_MILLIS.read(input, ProxyRequest.class);
+        final ProxyRequest proxyRequest = GGJsonReader.STRICT_ISO8601.read(input, ProxyRequest.class);
 
         LOG.info("handleRequest: proxyRequest: %s", proxyRequest);
 
@@ -81,7 +81,7 @@ public class LamdaApigHandler implements RequestStreamHandler {
                 proxyResponse = new ProxyResponse(le);
             }
 
-            final String responseJson = GGJsonWriter.STRICT_MILLIS.writeAsString(proxyResponse);
+            final String responseJson = GGJsonWriter.STRICT_ISO8601.writeAsString(proxyResponse);
 
             output.write(responseJson.getBytes(GGUtf8.CHARSET));
             output.flush();

@@ -15,7 +15,7 @@ public abstract class AbstractGGJsonImpl {
     
     protected final ObjectMapper mapper;
 
-    public AbstractGGJsonImpl(final boolean allowUncleanJson, final boolean isPretty, final boolean includeMillis) {
+    public AbstractGGJsonImpl(final boolean allowUncleanJson, final boolean isPretty, final boolean useISO8601Dates) {
 
         mapper = new ObjectMapper();
 
@@ -37,7 +37,7 @@ public abstract class AbstractGGJsonImpl {
             mapper.disable(SerializationFeature.INDENT_OUTPUT);
         }
 
-        if( includeMillis ){
+        if( useISO8601Dates ){
             mapper.setDateFormat(new ISO8601WithMillisFormat());
         }
 

@@ -7,15 +7,13 @@ import com.gantzgulch.tools.json.impl.GGJsonReaderImpl;
 
 public interface GGJsonReader {
 
-    public static GGJsonReader STRICT = new GGJsonReaderImpl(false, false, false);
+    public static GGJsonReader STRICT = new GGJsonReaderImpl(false, false);
     
-    public static GGJsonReader STRICT_MILLIS = new GGJsonReaderImpl(false, false, true);
+    public static GGJsonReader STRICT_ISO8601 = new GGJsonReaderImpl(false, true);
     
-    public static GGJsonReader STRICT_PRETTY = new GGJsonReaderImpl(false, true, false);
+    public static GGJsonReader LOOSE = new GGJsonReaderImpl(true, false);
     
-    public static GGJsonReader LOOSE = new GGJsonReaderImpl(true, false, false);
-    
-    public static GGJsonReader LOOSE_PRETTY = new GGJsonReaderImpl(true, true, false);
+    public static GGJsonReader LOOSE_ISO8601 = new GGJsonReaderImpl(true, true);
 
     JsonNode read(final String json);
     

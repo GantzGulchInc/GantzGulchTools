@@ -7,9 +7,9 @@ import com.gantzgulch.tools.json.GGJsonWriter;
 
 public final class GGJsonWriterImpl extends AbstractGGJsonImpl implements GGJsonWriter {
 
-    public GGJsonWriterImpl(final boolean allowUncleanJson, final boolean isPretty, final boolean includeMillis) {
+    public GGJsonWriterImpl(final boolean isPretty, final boolean useISO8601Dates) {
 
-        super(allowUncleanJson, isPretty, includeMillis);
+        super(false, isPretty, useISO8601Dates);
 
     }
 

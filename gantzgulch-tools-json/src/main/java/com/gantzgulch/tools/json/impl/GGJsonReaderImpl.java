@@ -10,9 +10,9 @@ import com.gantzgulch.tools.json.GGJsonReader;
 
 public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJsonReader {
 
-    public GGJsonReaderImpl(final boolean allowUncleanJson, final boolean isPretty, final boolean includeMillis) {
+    public GGJsonReaderImpl(final boolean allowUncleanJson, final boolean useISO8601Dates) {
 
-        super(allowUncleanJson, isPretty, includeMillis);
+        super(allowUncleanJson, false, useISO8601Dates);
     }
 
 
