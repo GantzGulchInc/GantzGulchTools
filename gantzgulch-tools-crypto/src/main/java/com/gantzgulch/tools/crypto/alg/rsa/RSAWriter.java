@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.security.KeyPair;
 import java.security.PublicKey;
 
-import com.gantzgulch.tools.common.lang.Arguments;
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.pem.PEMWriter;
 
@@ -20,7 +20,7 @@ public final class RSAWriter {
 
 	public static String writeToPEM(final KeyPair keyPair) throws IOException {
 
-	    Arguments.isNotNull(keyPair, "keyPair is required to be non null.");
+	    GGArgs.notNull(keyPair, "keyPair");
 
         return PEMWriter.write(keyPair);
 
@@ -28,7 +28,7 @@ public final class RSAWriter {
 
 	public static String writeToPEM(final PublicKey publicKey) throws IOException {
 
-        Arguments.isNotNull(publicKey, "publicKey is required to be non null.");
+        GGArgs.notNull(publicKey, "publicKey");
 
 		return PEMWriter.write(publicKey);
 	}

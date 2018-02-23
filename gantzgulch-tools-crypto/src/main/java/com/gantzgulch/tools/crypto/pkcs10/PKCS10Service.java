@@ -10,7 +10,7 @@ import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 import org.bouncycastle.pkcs.PKCS10CertificationRequestBuilder;
 import org.bouncycastle.pkcs.jcajce.JcaPKCS10CertificationRequestBuilder;
 
-import com.gantzgulch.tools.common.lang.Arguments;
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 
 public class PKCS10Service {
@@ -27,9 +27,9 @@ public class PKCS10Service {
             final X500Name subject, 
             final String algorithm) throws OperatorCreationException {
 
-        Arguments.isNotNull(keyPair, "keyPair is required to be non null.");
-        Arguments.isNotNull(subject, "subject is required to be non null.");
-        Arguments.isNotNull(algorithm, "algorithm is required to be non null.");
+        GGArgs.notNull(keyPair, "keyPair");
+        GGArgs.notNull(subject, "subject");
+        GGArgs.notNull(algorithm, "algorithm");
 
         final PKCS10CertificationRequestBuilder builder = new JcaPKCS10CertificationRequestBuilder(subject, keyPair.getPublic());
 

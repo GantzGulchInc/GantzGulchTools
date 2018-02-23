@@ -3,7 +3,7 @@ package com.gantzgulch.tools.crypto.impl;
 import java.security.SecureRandom;
 import java.util.Random;
 
-import com.gantzgulch.tools.common.lang.Arguments;
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.GGNonce;
 
 public final class GGNonceImpl implements GGNonce {
@@ -25,7 +25,7 @@ public final class GGNonceImpl implements GGNonce {
             return new byte[0];
         }
         
-        Arguments.isGreaterThan(size, 0, "size must be a positive integer.");
+        GGArgs.isGreaterThan(size, 0, "size");
         
         final byte[] nonce = new byte[size];
         

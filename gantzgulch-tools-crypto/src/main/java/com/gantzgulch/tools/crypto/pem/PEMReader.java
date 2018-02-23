@@ -13,7 +13,7 @@ import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
-import com.gantzgulch.tools.common.lang.Arguments;
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.common.lang.Cast;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 
@@ -53,7 +53,7 @@ public final class PEMReader {
 
     public static <T> T read(final String pem, final Class<T> objectClass) {
 
-        Arguments.isNotNull(pem, "pem is required to be non null.");
+        GGArgs.notNull(pem, "pem");
 
         final StringReader stringReader = new StringReader(pem);
 
@@ -62,7 +62,7 @@ public final class PEMReader {
 
     public static <T> T read(final InputStream is, final Class<T> objectClass) {
 
-        Arguments.isNotNull(is, "is is required to be non null.");
+        GGArgs.notNull(is, "is");
 
         final Reader reader = new InputStreamReader(is, Charset.forName("UTF-8"));
 
@@ -72,7 +72,7 @@ public final class PEMReader {
 
     public static <T> T read(final Reader reader, final Class<T> objectClass) {
 
-        Arguments.isNotNull(reader, "reader is required to be non null.");
+        GGArgs.notNull(reader, "reader");
 
         try (final PEMParser pemParser = new PEMParser(reader)) {
 

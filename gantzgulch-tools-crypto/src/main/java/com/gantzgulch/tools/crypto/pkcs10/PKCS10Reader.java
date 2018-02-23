@@ -8,7 +8,7 @@ import org.bouncycastle.cert.X509CertificateHolder;
 import org.bouncycastle.cert.jcajce.JcaX509CertificateConverter;
 import org.bouncycastle.pkcs.PKCS10CertificationRequest;
 
-import com.gantzgulch.tools.common.lang.Arguments;
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 import com.gantzgulch.tools.crypto.pem.PEMReader;
@@ -27,21 +27,21 @@ public final class PKCS10Reader {
 
     public static PKCS10CertificationRequest readCertificateSigningRequest(final String pem) {
 
-        Arguments.isNotNull(pem, "pem is required to be non null.");
+        GGArgs.notNull(pem, "pem");
 
         return PEMReader.read(pem, PKCS10CertificationRequest.class);
     }
 
     public static PKCS10CertificationRequest readCertificateSigningRequest(final Reader reader) {
 
-        Arguments.isNotNull(reader, "reader is required to be non null.");
+        GGArgs.notNull(reader, "reader");
 
         return PEMReader.read(reader, PKCS10CertificationRequest.class);
     }
 
     public static X509Certificate readCertificate(final String pem) {
 
-        Arguments.isNotNull(pem, "pem is required to be non null.");
+        GGArgs.notNull(pem, "pem");
 
         try {
             return X509_CERT_CONVERTER.getCertificate(PEMReader.read(pem, X509CertificateHolder.class));
@@ -53,7 +53,7 @@ public final class PKCS10Reader {
 
     public static X509Certificate readCertificate(final Reader reader) {
 
-        Arguments.isNotNull(reader, "reader is required to be non null.");
+        GGArgs.notNull(reader, "reader");
 
         try {
             return X509_CERT_CONVERTER.getCertificate(PEMReader.read(reader, X509CertificateHolder.class));
