@@ -1,8 +1,14 @@
 package com.gantzgulch.tools.common.lang;
 
+import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.Writer;
+import java.nio.charset.Charset;
 
 public final class GGIO {
 
@@ -39,4 +45,18 @@ public final class GGIO {
 
         return GGStrings.fromBytes(baos.toByteArray());
     }
+    
+    public static BufferedReader newBufferedReader(final InputStream inputStream){
+        
+        final InputStreamReader isReader = new InputStreamReader(inputStream, GGUtf8.CHARSET);
+        
+        return new BufferedReader(isReader);
+    
+    }
+    
+    public static Writer newWriter(final OutputStream outputStream){
+        return new OutputStreamWriter(outputStream, GGUtf8.CHARSET);
+    }
+    
+
 }
