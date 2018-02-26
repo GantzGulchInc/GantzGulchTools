@@ -1,0 +1,19 @@
+#!/bin/bash
+
+TAG=$1
+
+git branch -a
+
+echo About to create GIT tag : ${TAG}
+
+read -p "Press enter to continue."
+
+git tag -s ${TAG}
+
+echo About to push tag
+
+read -p "Press enter to continue."
+
+git push origin ${TAG}
+
+
