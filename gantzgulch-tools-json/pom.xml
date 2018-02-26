@@ -6,8 +6,8 @@
 
 	<parent>
 		<groupId>com.gantzgulch.tools</groupId>
-		<artifactId>gantzgulch-tools</artifactId>
-		<version>1.0.3</version>
+		<artifactId>gantzgulch-tools-top</artifactId>
+		<version>1.0.4</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
