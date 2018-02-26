@@ -76,9 +76,6 @@ public final class GGHttpRequests {
 
                 request.setHeader(name, value);
 
-                // testLogger.trace("setHeaders: addingHeader: %s:%s", name,
-                // value);
-
             });
         }
 
