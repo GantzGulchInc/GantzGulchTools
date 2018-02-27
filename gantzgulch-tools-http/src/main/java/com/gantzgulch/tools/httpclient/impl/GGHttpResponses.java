@@ -9,6 +9,7 @@ import org.apache.http.StatusLine;
 import org.apache.http.util.EntityUtils;
 
 import com.gantzgulch.tools.common.lang.GGUtf8;
+import com.gantzgulch.tools.httpclient.exception.GGHttpClientException;
 
 public final class GGHttpResponses {
 
@@ -25,9 +26,9 @@ public final class GGHttpResponses {
             final StatusLine statusLine = httpResponse.getStatusLine();
 
             if (statusLine != null) {
-                
+
                 statusCode = statusLine.getStatusCode();
-                
+
             }
         }
 
@@ -35,7 +36,7 @@ public final class GGHttpResponses {
 
     }
 
-    public static String getStringContent(final HttpResponse response) throws IOException {
+    public static String getStringContent(final HttpResponse response) {
 
         if (response != null) {
 
@@ -43,7 +44,11 @@ public final class GGHttpResponses {
 
             if (httpEntity != null) {
 
-                return EntityUtils.toString(httpEntity, GGUtf8.CHARSET);
+                try {
+                    return EntityUtils.toString(httpEntity, GGUtf8.CHARSET);
+                } catch (final IOException e) {
+                    throw new GGHttpClientException(e);
+                }
 
             }
 
@@ -53,20 +58,20 @@ public final class GGHttpResponses {
     }
 
     public static void consume(final HttpResponse response) {
-        
+
         if (response != null) {
-            
+
             EntityUtils.consumeQuietly(response.getEntity());
-            
+
         }
     }
 
-    public static String getFirstHeaderValue(final HttpResponse response, final String name){
+    public static String getFirstHeaderValue(final HttpResponse response, final String name) {
 
         final Header header = response.getFirstHeader(name);
-        
+
         return header != null ? header.getValue() : null;
-        
+
     }
-    
+
 }

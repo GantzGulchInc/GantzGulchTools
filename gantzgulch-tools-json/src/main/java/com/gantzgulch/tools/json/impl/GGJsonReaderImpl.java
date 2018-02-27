@@ -2,8 +2,12 @@ package com.gantzgulch.tools.json.impl;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectReader;
 import com.gantzgulch.tools.json.GGJsonException;
@@ -61,6 +65,29 @@ public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJson
     }
 
     @Override
+    public <T> List<T> readArray(final String json, final Class<T> clazz) {
+
+        try {
+
+            final JavaType type = mapper.getTypeFactory().constructCollectionType(List.class, clazz);
+
+            ObjectReader objectReader = mapper.readerFor(type);
+
+            if (json != null) {
+
+                final List<T> result = objectReader.readValue(json);
+
+                return result;
+            }
+
+            return null;
+
+        } catch (final IOException e) {
+            throw new GGJsonException(e);
+        }
+    }
+
+    @Override
     public <T> T read(final JsonNode json, final Class<T> clazz) {
 
         try {
@@ -69,6 +96,20 @@ public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJson
 
             return json != null ? objectReader.treeToValue(json, clazz) : null;
 
+        } catch (final IOException e) {
+            throw new GGJsonException(e);
+        }
+    }
+
+    @Override
+    public <T> T read(final Path path, final Class<T> clazz) {
+
+        if (path == null) {
+            return null;
+        }
+
+        try (final InputStream is = Files.newInputStream(path)) {
+            return read(is, clazz);
         } catch (final IOException e) {
             throw new GGJsonException(e);
         }
@@ -112,6 +153,20 @@ public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJson
 
             return json != null ? objectReader.readValue(json) : null;
 
+        } catch (final IOException e) {
+            throw new GGJsonException(e);
+        }
+    }
+
+    @Override
+    public <T> T read(final Path path, final TypeReference<T> typeRef) {
+
+        if (path == null) {
+            return null;
+        }
+
+        try (final InputStream is = Files.newInputStream(path)) {
+            return read(is, typeRef);
         } catch (final IOException e) {
             throw new GGJsonException(e);
         }

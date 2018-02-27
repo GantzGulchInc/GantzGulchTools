@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.json.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectWriter;
 import com.gantzgulch.tools.json.GGJsonException;
 import com.gantzgulch.tools.json.GGJsonWriter;
@@ -25,6 +26,16 @@ public final class GGJsonWriterImpl extends AbstractGGJsonImpl implements GGJson
         } catch ( JsonProcessingException e) {
             throw new GGJsonException(e);
         }
+    }
+
+    @Override
+    public JsonNode writeAsJsonNode(final Object value) {
+        
+        if( value == null ){
+            return null;
+        }
+
+        return mapper.valueToTree(value);
     }
 
 

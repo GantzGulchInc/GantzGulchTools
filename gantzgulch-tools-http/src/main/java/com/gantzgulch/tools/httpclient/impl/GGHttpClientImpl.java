@@ -28,9 +28,11 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 import com.gantzgulch.tools.common.lang.GGExceptions;
 import com.gantzgulch.tools.common.lang.GGStrings;
+import com.gantzgulch.tools.common.lang.GGUtf8;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.httpclient.GGHttpClient;
 import com.gantzgulch.tools.httpclient.GGHttpClientStats;
+import com.gantzgulch.tools.httpclient.exception.GGHttpClientException;
 
 public class GGHttpClientImpl implements GGHttpClient {
 
@@ -65,7 +67,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     public CloseableHttpResponse get(//
             final URI uri, //
             final Map<String, String> headers, //
-            final HttpClientContext httpClientContext) throws IOException {
+            final HttpClientContext httpClientContext) {
 
         LOG.trace("doGet: %s", uri);
 
@@ -80,7 +82,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     public CloseableHttpResponse head(//
             final URI uri, //
             final Map<String, String> headers, //
-            final HttpClientContext httpClientContext) throws IOException {
+            final HttpClientContext httpClientContext) {
 
         LOG.trace("doHead: %s", uri);
 
@@ -95,7 +97,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     public CloseableHttpResponse delete(//
             final URI uri, //
             final Map<String, String> headers, //
-            final HttpClientContext httpClientContext) throws IOException {
+            final HttpClientContext httpClientContext) {
 
         LOG.trace("doDelete: %s", uri);
 
@@ -112,7 +114,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final URI uri, //
             final Map<String, String> parameters, //
             final Map<String, String> headers, //
-            final HttpClientContext clientContext) throws IOException {
+            final HttpClientContext clientContext) {
 
         LOG.trace("doPost: %s", uri);
 
@@ -122,7 +124,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         final List<NameValuePair> params = GGHttpUtils.toNameValuePairList(parameters);
 
-        request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8")));
+        request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8"), GGUtf8.CHARSET));
 
         return execute(request, clientContext);
     }
@@ -132,7 +134,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final URI uri, //
             final String content, //
             final Map<String, String> headers, //
-            final HttpClientContext clientContext) throws IOException {
+            final HttpClientContext clientContext) {
 
         LOG.trace("doPost: called:");
 
@@ -140,7 +142,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        request.setEntity(new StringEntity(content));
+        request.setEntity(new StringEntity(content, GGUtf8.CHARSET));
 
         return execute(request, clientContext);
     }
@@ -150,7 +152,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final URI uri, //
             final Map<String, String> parameters, //
             final Map<String, String> headers, //
-            final HttpClientContext clientContext) throws IOException {
+            final HttpClientContext clientContext) {
 
         LOG.trace("doPost: %s", uri);
 
@@ -160,7 +162,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         final List<NameValuePair> params = GGHttpUtils.toNameValuePairList(parameters);
 
-        request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8")));
+        request.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8"), GGUtf8.CHARSET));
 
         return execute(request, clientContext);
     }
@@ -170,7 +172,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final URI uri, //
             final String content, //
             final Map<String, String> headers, //
-            final HttpClientContext clientContext) throws IOException {
+            final HttpClientContext clientContext) {
 
         LOG.trace("doPut: %s", uri);
 
@@ -178,7 +180,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        request.setEntity(new StringEntity(content));
+        request.setEntity(new StringEntity(content, GGUtf8.CHARSET));
 
         return execute(request, clientContext);
     }
@@ -202,7 +204,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
     private CloseableHttpResponse execute(//
             final HttpUriRequest request, //
-            final HttpClientContext httpContext) throws IOException {
+            final HttpClientContext httpContext) {
 
         CloseableHttpResponse response = null;
 
@@ -228,7 +230,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
             LOG.warn("execute: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
 
-            throw ex;
+            throw new GGHttpClientException(ex);
         }
 
     }

@@ -25,6 +25,13 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- Self modules -->
+		<dependency>
+			<groupId>com.gantzgulch.tools</groupId>
+			<artifactId>gantzgulch-tools-json</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 		<!-- Apache HTTP -->
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
