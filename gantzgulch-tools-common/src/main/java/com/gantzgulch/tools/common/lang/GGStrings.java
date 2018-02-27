@@ -166,6 +166,12 @@ public final class GGStrings {
 
     }
 
+    public static boolean isEmpty(final String string) {
+        
+        return string == null || string.length() == 0;
+        
+    }
+    
     public static List<String> splitAndClean(final String string, final char separator) {
 
         final List<String> results = new ArrayList<>();
@@ -215,5 +221,30 @@ public final class GGStrings {
         }
         
         return string.substring(0, len);
+    }
+    
+    public static String stripEnd(final String string, final String charactersToRemove) {
+        
+        if( isEmpty(string) ){
+            return string;
+        }
+        
+        if( isEmpty(charactersToRemove) ){
+            return string;
+        }
+    
+        int pos = string.length() - 1;
+
+        while( pos > 0 ){
+            
+            if( charactersToRemove.indexOf( string.codePointAt(pos) ) >= 0 ){
+                pos -= 1;
+            } else {
+                return string.substring(0, pos + 1);
+            }
+
+        }
+
+        return "";
     }
 }

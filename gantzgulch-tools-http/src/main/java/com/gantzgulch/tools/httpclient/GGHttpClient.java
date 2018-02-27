@@ -24,5 +24,7 @@ public interface GGHttpClient {
     CloseableHttpResponse put(URI uri, String content, Map<String,String> headers, HttpClientContext clientContext) throws IOException;
 
     void close();
+    
+    GGHttpClientStats getStats();
 
 }

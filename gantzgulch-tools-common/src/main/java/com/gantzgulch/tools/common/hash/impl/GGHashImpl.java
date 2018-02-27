@@ -8,6 +8,7 @@ import java.util.List;
 import com.gantzgulch.tools.common.codec.GGBase64;
 import com.gantzgulch.tools.common.codec.GGHex;
 import com.gantzgulch.tools.common.hash.GGHash;
+import com.gantzgulch.tools.common.lang.GGStrings;
 
 public final class GGHashImpl implements GGHash {
 
@@ -44,7 +45,18 @@ public final class GGHashImpl implements GGHash {
     }
 
     @Override
+    public byte[] hash(final String input) {
+        return hash( GGStrings.toBytes(input) );
+    }
+
+    @Override
     public String hashToHexString(final byte[] input) {
+
+        return GGHex.toHexString(hash(input));
+    }
+
+    @Override
+    public String hashToHexString(final String input) {
 
         return GGHex.toHexString(hash(input));
     }
@@ -56,7 +68,19 @@ public final class GGHashImpl implements GGHash {
     }
 
     @Override
+    public String hashToBase64String(final String input) {
+
+        return GGBase64.toBase64String(hash(input), false);
+    }
+
+    @Override
     public String hashToBase64UrlString(final byte[] input) {
+
+        return GGBase64.toBase64String(hash(input), true);
+    }
+
+    @Override
+    public String hashToBase64UrlString(final String input) {
 
         return GGBase64.toBase64String(hash(input), true);
     }

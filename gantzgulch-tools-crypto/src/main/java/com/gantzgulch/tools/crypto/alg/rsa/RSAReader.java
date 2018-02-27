@@ -12,6 +12,7 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
+import com.gantzgulch.tools.crypto.exception.CryptoException;
 import com.gantzgulch.tools.crypto.pem.PEMReader;
 
 public final class RSAReader {
@@ -26,46 +27,75 @@ public final class RSAReader {
         throw new UnsupportedOperationException();
     }
 
-    public static KeyPair readKeyPair(final String pem) throws IOException {
+    public static KeyPair readKeyPair(final String pem) {
 
         GGArgs.notNull(pem, "pem");
 
-        return CONVERTER.getKeyPair(PEMReader.read(pem, PEMKeyPair.class));
+        try {
+            return CONVERTER.getKeyPair(PEMReader.read(pem, PEMKeyPair.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
     }
 
-    public static KeyPair readKeyPair(final InputStream is) throws IOException {
+    public static KeyPair readKeyPair(final InputStream is) {
 
         GGArgs.notNull(is, "is");
 
-        return CONVERTER.getKeyPair(PEMReader.read(is, PEMKeyPair.class));
+        try {
+            return CONVERTER.getKeyPair(PEMReader.read(is, PEMKeyPair.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
+
     }
 
-    public static KeyPair readKeyPair(final Reader reader) throws IOException {
+    public static KeyPair readKeyPair(final Reader reader) {
 
         GGArgs.notNull(reader, "reader");
 
-        return CONVERTER.getKeyPair(PEMReader.read(reader, PEMKeyPair.class));
+        try {
+            return CONVERTER.getKeyPair(PEMReader.read(reader, PEMKeyPair.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
+
     }
 
-    public static PublicKey readPublicKey(final String pem) throws IOException {
+    public static PublicKey readPublicKey(final String pem) {
 
         GGArgs.notNull(pem, "pem");
 
-        return CONVERTER.getPublicKey( PEMReader.read(pem, SubjectPublicKeyInfo.class));
+        try {
+            return CONVERTER.getPublicKey(PEMReader.read(pem, SubjectPublicKeyInfo.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
+
     }
 
-    public static PublicKey readPublicKey(final InputStream is) throws IOException {
+    public static PublicKey readPublicKey(final InputStream is) {
 
         GGArgs.notNull(is, "is");
+        
+        try {
+            return CONVERTER.getPublicKey(PEMReader.read(is, SubjectPublicKeyInfo.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
 
-        return CONVERTER.getPublicKey( PEMReader.read(is, SubjectPublicKeyInfo.class));
     }
 
-    public static PublicKey readPublicKey(final Reader reader) throws IOException {
+    public static PublicKey readPublicKey(final Reader reader) {
 
         GGArgs.notNull(reader, "reader");
+        
+        try {
+            return CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
 
-        return CONVERTER.getPublicKey( PEMReader.read(reader, SubjectPublicKeyInfo.class));
     }
 
 }

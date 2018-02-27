@@ -2,6 +2,7 @@ package com.gantzgulch.tools.common.lang;
 
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.assertThat;
 
 import org.junit.Test;
@@ -131,5 +132,27 @@ public class GGStringsTest {
         
         assertThat(GGStrings.isNotBlank(" a"), is(true) );
         assertThat(GGStrings.isNotBlank("a "), is(true) );
+    }
+    
+    @Test
+    public void stripEnd() {
+        
+        
+        assertThat(GGStrings.stripEnd(null, null), nullValue() );
+        assertThat(GGStrings.stripEnd(null, ""), nullValue() );
+        assertThat(GGStrings.stripEnd(null, "abc"), nullValue() );
+        
+        assertThat(GGStrings.stripEnd("abc", "def"), equalTo("abc") );
+        assertThat(GGStrings.stripEnd("abc", "ac"), equalTo("ab") );
+
+        
+        assertThat(GGStrings.stripEnd("ℤbc", "aℤ"), equalTo("ℤbc") );
+        assertThat(GGStrings.stripEnd("aℤc", "aℤ"), equalTo("aℤc") );
+        assertThat(GGStrings.stripEnd("abℤ", "aℤ"), equalTo("ab") );
+
+        assertThat(GGStrings.stripEnd("ℤbc", "ℤa"), equalTo("ℤbc") );
+        assertThat(GGStrings.stripEnd("aℤc", "ℤa"), equalTo("aℤc") );
+        assertThat(GGStrings.stripEnd("abℤ", "ℤa"), equalTo("ab") );
+
     }
 }

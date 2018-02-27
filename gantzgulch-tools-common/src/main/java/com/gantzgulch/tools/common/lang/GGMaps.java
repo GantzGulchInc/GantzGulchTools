@@ -11,7 +11,7 @@ public final class GGMaps {
 
     public static <K,E> Map<K, E> shallowCopy(final Map<K, E> src) {
 
-        return new HashMap<>(src);
+        return src != null ? new HashMap<>(src) : new HashMap<>();
         
     }
 }

@@ -30,6 +30,7 @@ import com.gantzgulch.tools.common.lang.GGExceptions;
 import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.httpclient.GGHttpClient;
+import com.gantzgulch.tools.httpclient.GGHttpClientStats;
 
 public class GGHttpClientImpl implements GGHttpClient {
 
@@ -67,7 +68,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext httpClientContext) throws IOException {
 
         LOG.trace("doGet: %s", uri);
-        
+
         final HttpGet request = new HttpGet(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -82,7 +83,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext httpClientContext) throws IOException {
 
         LOG.trace("doHead: %s", uri);
-        
+
         final HttpHead request = new HttpHead(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -97,7 +98,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext httpClientContext) throws IOException {
 
         LOG.trace("doDelete: %s", uri);
-        
+
         final HttpDelete request = new HttpDelete(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -114,7 +115,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext clientContext) throws IOException {
 
         LOG.trace("doPost: %s", uri);
-        
+
         final HttpPost request = new HttpPost(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -152,7 +153,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext clientContext) throws IOException {
 
         LOG.trace("doPost: %s", uri);
-        
+
         final HttpPut request = new HttpPut(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -172,7 +173,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpClientContext clientContext) throws IOException {
 
         LOG.trace("doPut: %s", uri);
-        
+
         final HttpPut request = new HttpPut(uri);
 
         GGHttpRequests.setHeaders(request, headers);
@@ -180,6 +181,11 @@ public class GGHttpClientImpl implements GGHttpClient {
         request.setEntity(new StringEntity(content));
 
         return execute(request, clientContext);
+    }
+
+    @Override
+    public GGHttpClientStats getStats() {
+        return new GGHttpClientStats(connectionManager);
     }
 
     @Override
@@ -200,7 +206,6 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         CloseableHttpResponse response = null;
 
-
         try {
 
             LOG.trace("execute: Executing request : %s", request.getRequestLine());
@@ -208,7 +213,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             for (final Header h : request.getAllHeaders()) {
                 LOG.trace("execute: header: %s:%s", h.getName(), h.getValue());
             }
-            
+
             if (GGStrings.isNotBlank(agent)) {
                 request.setHeader(HttpHeaders.USER_AGENT, agent);
             }
@@ -218,11 +223,11 @@ public class GGHttpClientImpl implements GGHttpClient {
             return response;
 
         } catch (final RuntimeException | IOException ex) {
-            
+
             GGHttpResponses.consume(response);
-            
+
             LOG.warn("execute: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
-            
+
             throw ex;
         }
 
