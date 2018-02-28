@@ -1,10 +1,12 @@
 package com.gantzgulch.tools.json;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.IntNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import com.fasterxml.jackson.databind.type.TypeFactory;
 
 public final class GGJson {
 
@@ -12,6 +14,14 @@ public final class GGJson {
 
     private GGJson() {
         throw new UnsupportedOperationException();
+    }
+    
+    public static <T> TypeReference<T> typeRef() {
+        return new TypeReference<T>() {};
+    }
+    
+    public static TypeFactory typeFactory() {
+        return mapper.getTypeFactory();
     }
 
     public static ObjectNode createObjectNode() {

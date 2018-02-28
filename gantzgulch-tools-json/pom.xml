@@ -24,6 +24,12 @@
 			<artifactId>gantzgulch-tools-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
+		<dependency>
+			<groupId>com.gantzgulch.tools</groupId>
+			<artifactId>gantzgulch-tools-samples</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
 
 		<!-- Jackson -->
 		<dependency>

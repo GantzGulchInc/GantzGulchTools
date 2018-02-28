@@ -4,51 +4,69 @@ import java.net.URI;
 import java.util.Map;
 
 import org.apache.http.HttpHeaders;
-import org.apache.http.HttpResponse;
-import org.apache.http.StatusLine;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JavaType;
 import com.gantzgulch.tools.common.lang.GGCloseables;
 import com.gantzgulch.tools.httpclient.GGHttpClient;
 import com.gantzgulch.tools.httpclient.GGHttpJsonClient;
-import com.gantzgulch.tools.httpclient.exception.GGHttpClientResponseException;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
 
-public class GGHttpJsonClientImpl implements GGHttpJsonClient {
+public class GGHttpJsonClientImpl extends AbstractGGHttpSpecialClient implements GGHttpJsonClient {
 
     private final GGJsonReader jsonReader;
     private final GGJsonWriter jsonWriter;
 
-    public GGHttpJsonClientImpl(final GGJsonReader jsonReader, final GGJsonWriter jsonWriter) {
+    public GGHttpJsonClientImpl(final GGHttpClient httpClient, final GGJsonReader jsonReader, final GGJsonWriter jsonWriter) {
+        super(httpClient);
         this.jsonReader = jsonReader;
         this.jsonWriter = jsonWriter;
     }
 
     @Override
     public <T> T get(//
-            final GGHttpClient httpClient, //
             final URI uri, //
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext, //
             final Class<T> objectClass) {
 
+        return get(uri, headers, httpClientContext, jsonReader.getTypeFactory().constructType(objectClass));
+    }
+
+    @Override
+    public <T> T get(//
+            final URI uri, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final TypeReference<T> typeRef) {
+
+        return get(uri, headers, httpClientContext, jsonReader.getTypeFactory().constructType(typeRef));
+
+    }
+
+    @Override
+    public <T> T get(//
+            final URI uri, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final JavaType javaType) {
+
         CloseableHttpResponse response = null;
 
         try {
-            
-            if( ! headers.containsKey(HttpHeaders.ACCEPT) ){
-                headers.put(HttpHeaders.ACCEPT, "application/json");
-            }
 
-            response = httpClient.get(uri, headers, httpClientContext);
+            Map<String, String> newHeaders = addHeaderIfMissing(headers, HttpHeaders.ACCEPT, "application/json");
+
+            response = httpClient.get(uri, newHeaders, httpClientContext);
 
             checkResponse(response);
-            
+
             final String result = GGHttpResponses.getStringContent(response);
-            
-            return jsonReader.read(result, objectClass); 
+
+            return jsonReader.read(result, javaType);
 
         } finally {
             GGHttpResponses.consume(response);
@@ -59,27 +77,46 @@ public class GGHttpJsonClientImpl implements GGHttpJsonClient {
 
     @Override
     public <T> T delete(//
-            final GGHttpClient httpClient, //
             final URI uri, //
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext, //
             final Class<T> objectClass) {
-        
+
+        return delete(uri, headers, httpClientContext, jsonReader.getTypeFactory().constructType(objectClass));
+
+    }
+
+    @Override
+    public <T> T delete( //
+            final URI uri, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final TypeReference<T> typeRef) {
+
+        return delete(uri, headers, httpClientContext, jsonReader.getTypeFactory().constructType(typeRef));
+
+    }
+
+    @Override
+    public <T> T delete(//
+            final URI uri, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final JavaType javaType) {
+
         CloseableHttpResponse response = null;
 
         try {
-            
-            if( ! headers.containsKey(HttpHeaders.ACCEPT) ){
-                headers.put(HttpHeaders.ACCEPT, "application/json");
-            }
 
-            response = httpClient.delete(uri, headers, httpClientContext);
+            Map<String, String> newHeaders = addHeaderIfMissing(headers, HttpHeaders.ACCEPT, "application/json");
+
+            response = httpClient.delete(uri, newHeaders, httpClientContext);
 
             checkResponse(response);
 
             final String result = GGHttpResponses.getStringContent(response);
-            
-            return jsonReader.read(result, objectClass); 
+
+            return jsonReader.read(result, javaType);
 
         } finally {
             GGHttpResponses.consume(response);
@@ -89,34 +126,53 @@ public class GGHttpJsonClientImpl implements GGHttpJsonClient {
 
     @Override
     public <T> T post(//
-            final GGHttpClient httpClient, //
+            final URI uri, //
+            final Object content, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final Class<T> objectClass) {
+
+        return post(uri, content, headers, httpClientContext, jsonReader.getTypeFactory().constructType(objectClass));
+
+    }
+
+    @Override
+    public <T> T post(//
+            final URI uri, //
+            final Object content, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final TypeReference<T> typeRef) {
+
+        return post(uri, content, headers, httpClientContext, jsonReader.getTypeFactory().constructType(typeRef));
+
+    }
+
+    @Override
+    public <T> T post(//
             final URI uri, //
             final Object content, //
             final Map<String, String> headers, //
             final HttpClientContext clientContext, //
-            final Class<T> objectClass) {
+            final JavaType javaType) {
 
         CloseableHttpResponse response = null;
 
         try {
-            
-            if( ! headers.containsKey(HttpHeaders.CONTENT_TYPE) ){
-                headers.put(HttpHeaders.CONTENT_TYPE, "application/json");
-            }
-            
-            if( ! headers.containsKey(HttpHeaders.ACCEPT) ){
-                headers.put(HttpHeaders.ACCEPT, "application/json");
-            }
+
+            Map<String, String> newHeaders = addHeaderIfMissing(headers, HttpHeaders.CONTENT_TYPE, "application/json");
+
+            newHeaders = addHeaderIfMissing(headers, HttpHeaders.ACCEPT, "application/json");
 
             final String json = jsonWriter.writeAsString(content);
-            
-            response = httpClient.post(uri, json, headers, clientContext);
+
+            response = httpClient.post(uri, json, newHeaders, clientContext);
 
             checkResponse(response);
 
             final String result = GGHttpResponses.getStringContent(response);
-            
-            return jsonReader.read(result, objectClass); 
+
+            return jsonReader.read(result, javaType);
 
         } finally {
             GGHttpResponses.consume(response);
@@ -126,61 +182,57 @@ public class GGHttpJsonClientImpl implements GGHttpJsonClient {
 
     @Override
     public <T> T put(//
-            final GGHttpClient httpClient, //
+            final URI uri, //
+            final Object content, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final Class<T> objectClass) {
+
+        return put(uri, content, headers, httpClientContext, jsonReader.getTypeFactory().constructType(objectClass));
+
+    }
+
+    @Override
+    public <T> T put(//
+            final URI uri, //
+            final Object content, //
+            final Map<String, String> headers, //
+            final HttpClientContext httpClientContext, //
+            final TypeReference<T> typeRef) {
+
+        return put(uri, content, headers, httpClientContext, jsonReader.getTypeFactory().constructType(typeRef));
+
+    }
+
+    @Override
+    public <T> T put(//
             final URI uri, //
             final Object content, //
             final Map<String, String> headers, //
             final HttpClientContext clientContext, //
-            final Class<T> objectClass) {
-        
+            final JavaType javaType) {
+
         CloseableHttpResponse response = null;
 
         try {
-            
-            if( ! headers.containsKey(HttpHeaders.CONTENT_TYPE) ){
-                headers.put(HttpHeaders.CONTENT_TYPE, "application/json");
-            }
-            
-            if( ! headers.containsKey(HttpHeaders.ACCEPT) ){
-                headers.put(HttpHeaders.ACCEPT, "application/json");
-            }
+
+            Map<String, String> newHeaders = addHeaderIfMissing(headers, HttpHeaders.CONTENT_TYPE, "application/json");
+
+            newHeaders = addHeaderIfMissing(headers, HttpHeaders.ACCEPT, "application/json");
 
             final String json = jsonWriter.writeAsString(content);
-            
-            response = httpClient.put(uri, json, headers, clientContext);
+
+            response = httpClient.put(uri, json, newHeaders, clientContext);
 
             checkResponse(response);
 
             final String result = GGHttpResponses.getStringContent(response);
-            
-            return jsonReader.read(result, objectClass); 
+
+            return jsonReader.read(result, javaType);
 
         } finally {
             GGHttpResponses.consume(response);
             GGCloseables.closeQuietly(response);
-        }
-    }
-
-    private void checkResponse(final CloseableHttpResponse response) {
-        
-        final StatusLine statusLine = response.getStatusLine();
-        
-        if( statusLine == null ){
-            throw new GGHttpClientResponseException("No status returned.", 0, getBody(response) );
-        }
-        
-        final int status = statusLine.getStatusCode();
-        
-        if( status < 200 || status > 299 ){
-            throw new GGHttpClientResponseException("Non 2xx status received", status, getBody(response));
-        }
-    }
-
-    private String getBody(final HttpResponse response) {
-        try{
-            return GGHttpResponses.getStringContent(response);
-        }catch(final RuntimeException e){
-            return null;
         }
     }
 

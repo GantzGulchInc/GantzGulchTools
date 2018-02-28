@@ -32,7 +32,11 @@ import com.gantzgulch.tools.common.lang.GGUtf8;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.httpclient.GGHttpClient;
 import com.gantzgulch.tools.httpclient.GGHttpClientStats;
+import com.gantzgulch.tools.httpclient.GGHttpJsonClient;
+import com.gantzgulch.tools.httpclient.GGHttpStringClient;
 import com.gantzgulch.tools.httpclient.exception.GGHttpClientException;
+import com.gantzgulch.tools.json.GGJsonReader;
+import com.gantzgulch.tools.json.GGJsonWriter;
 
 public class GGHttpClientImpl implements GGHttpClient {
 
@@ -265,6 +269,16 @@ public class GGHttpClientImpl implements GGHttpClient {
                 build();
 
         return httpClient;
+    }
+
+    @Override
+    public GGHttpJsonClient jsonClient(final GGJsonReader jsonReader, final GGJsonWriter jsonWriter) {
+        return new GGHttpJsonClientImpl(this, jsonReader, jsonWriter);
+    }
+
+    @Override
+    public GGHttpStringClient stringClient() {
+        return null;
     }
 
 }

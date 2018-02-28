@@ -11,9 +11,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gantzgulch-tools-http</artifactId>
+	<artifactId>gantzgulch-tools-samples</artifactId>
 
-	<name>GantzGulch Tools - HTTP Client Library</name>
+	<name>GantzGulch Tools - Samples library for rest API's, parsing, etc.</name>
 	<description></description>
 
 	<dependencies>
@@ -25,35 +25,25 @@
 			<version>${project.version}</version>
 		</dependency>
 
+		<!-- Apache Commons -->
 		<dependency>
-			<groupId>com.gantzgulch.tools</groupId>
-			<artifactId>gantzgulch-tools-json</artifactId>
-			<version>${project.version}</version>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
 		</dependency>
 
+		<!-- Jackson -->
 		<dependency>
-			<groupId>com.gantzgulch.tools</groupId>
-			<artifactId>gantzgulch-tools-samples</artifactId>
-			<version>${project.version}</version>
-			<scope>test</scope>
-		</dependency>
-
-		<!-- Apache HTTP -->
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
 		</dependency>
-
-		<!-- Apache Tomcat -->
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-catalina</artifactId>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
 		</dependency>
-
 
 		<!-- Testing Logging -->
 		<dependency>

@@ -6,6 +6,9 @@ import java.util.Map;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 
+import com.gantzgulch.tools.json.GGJsonReader;
+import com.gantzgulch.tools.json.GGJsonWriter;
+
 public interface GGHttpClient {
 
     CloseableHttpResponse get(URI uri, Map<String,String> headers, HttpClientContext httpClientContext);
@@ -25,5 +28,9 @@ public interface GGHttpClient {
     void close();
     
     GGHttpClientStats getStats();
+    
+    GGHttpJsonClient jsonClient(GGJsonReader reader, GGJsonWriter writer);
+    
+    GGHttpStringClient stringClient();
 
 }

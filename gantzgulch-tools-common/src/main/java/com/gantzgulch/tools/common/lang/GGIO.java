@@ -44,6 +44,15 @@ public final class GGIO {
 
         return GGStrings.fromBytes(baos.toByteArray());
     }
+
+    public static String readResourceToString(final Class<?> c, final String resourceName) throws IOException {
+        
+        try(final InputStream is = c.getResourceAsStream(resourceName) ){
+            return readToString(is);
+        }
+        
+        
+    }
     
     public static BufferedReader newBufferedReader(final InputStream inputStream){
         
