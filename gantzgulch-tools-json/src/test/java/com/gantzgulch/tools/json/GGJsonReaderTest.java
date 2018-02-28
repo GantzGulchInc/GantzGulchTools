@@ -4,11 +4,7 @@ import static org.junit.Assert.assertThat;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Objects;
 
-import org.hamcrest.Description;
-import org.hamcrest.Matcher;
-import org.hamcrest.TypeSafeMatcher;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -30,7 +26,7 @@ public class GGJsonReaderTest {
 
         final GGUser result = reader.read(is, GGUser.class);
         
-        assertThat(result, isUser(user));
+        assertThat(result, GGUser.isUser(user));
     }
 
     @Test
@@ -40,7 +36,7 @@ public class GGJsonReaderTest {
 
         final GGUser result = reader.read(json, GGUser.class);
         
-        assertThat(result, isUser(user));
+        assertThat(result, GGUser.isUser(user));
     }
 
     @Test
@@ -52,7 +48,7 @@ public class GGJsonReaderTest {
         
         final GGUser result = reader.read(is, typeRef);
         
-        assertThat(result, isUser(user));
+        assertThat(result, GGUser.isUser(user));
     }
 
     @Test
@@ -64,42 +60,7 @@ public class GGJsonReaderTest {
         
         final GGUser result = reader.read(json, typeRef);
         
-        assertThat(result, isUser(user));
+        assertThat(result, GGUser.isUser(user));
     }
     
-
-    public static Matcher<GGUser> isUser(final GGUser user) {
-
-        return new TypeSafeMatcher<GGUser>() {
-
-            @Override
-            public void describeTo(final Description description) {
-                description.appendText("should return").appendValue(user);
-            }
-
-            @Override
-            protected void describeMismatchSafely(final GGUser item, final Description mismatchDescription) {
-                mismatchDescription.appendText("was").appendValue(item);
-            }
-            
-            @Override
-            protected boolean matchesSafely(GGUser item) {
-
-                if (user == item) {
-                    return true;
-                }
-
-                if (item == null) {
-                    return false;
-                }
-
-                return Objects.equals(item.getId(), user.getId()) && //
-                Objects.equals(item.getFirstName(), user.getFirstName()) && //
-                Objects.equals(item.getLastName(), user.getLastName()) && //
-                Objects.equals(item.getEmail(), user.getEmail());
-            }
-
-        };
-
-    }
 }
