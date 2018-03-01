@@ -18,7 +18,7 @@ public class GGHttpClientTest {
 
     private static final GGLogger LOG = GGLogger.getLogger(GGHttpClientTest.class);
     
-    private final GGHttpClient httpClient = new GGHttpClientImpl(null, 30000, 30000);
+    private final GGHttpClient httpClient = new GGHttpClientImpl(null, false, 30000, 30000);
 
     @Test
     public void getGoogle() throws IOException {

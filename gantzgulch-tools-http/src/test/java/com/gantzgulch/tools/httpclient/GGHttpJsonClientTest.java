@@ -26,7 +26,7 @@ public class GGHttpJsonClientTest {
 
     private static final GGLogger LOG = GGLogger.getLogger(GGHttpJsonClientTest.class);
 
-    private final GGHttpClient httpClient = new GGHttpClientImpl(null, 30000, 30000);
+    private final GGHttpClient httpClient = new GGHttpClientImpl(null, false, 30000, 30000);
 
     private final GGJsonReader reader = GGJsonReaders.STRICT;
     private final GGJsonWriter writer = GGJsonWriters.PRETTY;

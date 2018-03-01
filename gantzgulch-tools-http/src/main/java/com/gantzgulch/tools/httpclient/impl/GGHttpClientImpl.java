@@ -2,9 +2,13 @@ package com.gantzgulch.tools.httpclient.impl;
 
 import java.io.IOException;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
@@ -47,6 +51,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     private static final GGLogger LOG = GGLogger.getLogger(GGHttpClientImpl.class);
 
     private final String agent;
+    private final boolean processRedirects;
 
     private final int connectionRequestTimeout;
     private final int connectionTimeout;
@@ -56,15 +61,26 @@ public class GGHttpClientImpl implements GGHttpClient {
 
     private final CloseableHttpClient httpClient;
 
-    public GGHttpClientImpl(final String agent, final int connectionTimeoutMillis, final int socketReadTimeoutMillis) {
+    public GGHttpClientImpl(final String agent, final boolean processRedirects, final int connectionTimeoutMillis, final int socketReadTimeoutMillis) {
 
         this.agent = agent;
+        this.processRedirects = processRedirects;
         this.connectionRequestTimeout = DEFAULT_CONNECTION_REQUEST_TIMEOUT_IN_MILLIS;
         this.connectionTimeout = connectionTimeoutMillis;
         this.socketReadTimeout = socketReadTimeoutMillis;
 
         this.connectionManager = createConnectionManager();
         this.httpClient = createHttpClient();
+    }
+
+    @Override
+    public GGHttpJsonClient jsonClient(final GGJsonReader jsonReader, final GGJsonWriter jsonWriter) {
+        return new GGHttpJsonClientImpl(this, jsonReader, jsonWriter);
+    }
+
+    @Override
+    public GGHttpStringClient stringClient() {
+        return new GGHttpStringClientImpl(this);
     }
 
     @Override
@@ -210,6 +226,18 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpUriRequest request, //
             final HttpClientContext httpContext) {
 
+        if( processRedirects ){
+            return executeWithRedirects(request, httpContext);
+        }
+        
+        return executeNoRedirects(request, httpContext);
+
+    }
+
+    private CloseableHttpResponse executeNoRedirects(//
+            final HttpUriRequest request, //
+            final HttpClientContext httpContext) {
+
         CloseableHttpResponse response = null;
 
         try {
@@ -238,6 +266,122 @@ public class GGHttpClientImpl implements GGHttpClient {
         }
 
     }
+
+    private CloseableHttpResponse executeWithRedirects(//
+            final HttpUriRequest request2, //
+            final HttpClientContext httpContext) {
+
+        HttpUriRequest localRequest = request2;
+        CloseableHttpResponse response = null;
+
+        String redirectLocation = null;
+
+        httpContext.setAttribute(HttpClientContext.REDIRECT_LOCATIONS, new ArrayList<String>());
+
+        try {
+
+            for (int redirectCount = 0; redirectCount < 100; redirectCount++) {
+
+                LOG.trace("execute: Executing request : %s", localRequest.getRequestLine());
+
+                if (GGStrings.isNotBlank(agent)) {
+                    localRequest.setHeader(HttpHeaders.USER_AGENT, agent);
+                }
+
+                response = httpClient.execute(localRequest, httpContext);
+
+                final HttpUriRequest newRequest = checkForAndProcessRedirect(localRequest, response, httpContext);
+
+                if (newRequest == null) {
+                    return response;
+                } else {
+                    HttpClientUtils.closeQuietly(response);
+                    localRequest = newRequest;
+                    continue;
+                }
+            }
+
+            throw new IOException("execute: Redirect count exceeded.");
+
+        } catch (final RuntimeException | IOException ex) {
+            LOG.warn("execute: Request execution for [%s] failed on I/O : %s", localRequest.getURI(), GGExceptions.createMessageStack(ex));
+            GGHttpResponses.consume(response);
+            throw new GGHttpClientException(ex);
+        } catch (final URISyntaxException e) {
+            LOG.warn("execute: Redirect URI from [%s] was not valid: %s", localRequest.getURI(), redirectLocation);
+            GGHttpResponses.consume(response);
+            throw new GGHttpClientException("execute: Redirect URI was not valid: " + redirectLocation, e);
+        }
+
+    }
+    
+    private HttpUriRequest checkForAndProcessRedirect(//
+            final HttpUriRequest localRequest, //
+            final CloseableHttpResponse response, //
+            final HttpClientContext httpContext) throws URISyntaxException, IOException {
+
+        final int statusCode = GGHttpResponses.getStatusCode(response);
+
+        String redirectLocation = null;
+
+        switch (statusCode) {
+
+        case HttpServletResponse.SC_MOVED_PERMANENTLY:
+        case HttpServletResponse.SC_MOVED_TEMPORARILY:
+        case HttpServletResponse.SC_TEMPORARY_REDIRECT:
+
+            LOG.trace("checkForAndProcessRedirect: Redirect status code received: %d", GGHttpResponses.getStatusCode(response));
+
+            redirectLocation = GGHttpResponses.getFirstHeaderValue(response, "Location");
+
+            LOG.trace("checkForAndProcessRedirect: redirectLocation: %s", redirectLocation);
+
+            if (GGStrings.isNotBlank(redirectLocation)) {
+
+                final URI redirectUri = createRedirectUri(redirectLocation, localRequest);
+                LOG.trace("checkForAndProcessRedirect: Redirecting to: %s", redirectUri);
+
+                httpContext.getRedirectLocations().add(redirectUri);
+
+                return new HttpGet(redirectUri);
+
+            }
+
+            throw new IOException("checkForAndProcessRedirect: Received redirect status code, but no location provided.");
+
+        }
+
+        return null;
+    }
+
+    private URI createRedirectUri(final String redirectLocation, final HttpUriRequest request) throws URISyntaxException {
+
+        URI uri = new URI(redirectLocation);
+
+        if (!uri.isAbsolute()) {
+
+            final StringBuilder urlBuilder = new StringBuilder();
+
+            URI reqURI = request.getURI();
+
+            urlBuilder.append(reqURI.getScheme());
+            urlBuilder.append("://");
+            urlBuilder.append(reqURI.getHost());
+
+            if (!GGStrings.startsWith(redirectLocation, "/")) {
+                urlBuilder.append("/");
+            }
+
+            urlBuilder.append(redirectLocation);
+
+            uri = new URI(urlBuilder.toString());
+
+        }
+
+        return uri;
+    }
+
+
 
     private PoolingHttpClientConnectionManager createConnectionManager() {
 
@@ -269,16 +413,6 @@ public class GGHttpClientImpl implements GGHttpClient {
                 build();
 
         return httpClient;
-    }
-
-    @Override
-    public GGHttpJsonClient jsonClient(final GGJsonReader jsonReader, final GGJsonWriter jsonWriter) {
-        return new GGHttpJsonClientImpl(this, jsonReader, jsonWriter);
-    }
-
-    @Override
-    public GGHttpStringClient stringClient() {
-        return null;
     }
 
 }
