@@ -2,7 +2,6 @@ package com.gantzgulch.tools.httpclient.impl;
 
 import java.io.IOException;
 import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +9,6 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.Header;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.config.RequestConfig;
@@ -23,6 +21,7 @@ import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpUriRequest;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.SocketConfig;
 import org.apache.http.entity.StringEntity;
@@ -39,6 +38,7 @@ import com.gantzgulch.tools.httpclient.GGHttpClientStats;
 import com.gantzgulch.tools.httpclient.GGHttpJsonClient;
 import com.gantzgulch.tools.httpclient.GGHttpStringClient;
 import com.gantzgulch.tools.httpclient.exception.GGHttpClientException;
+import com.gantzgulch.tools.httpclient.exception.GGHttpClientResponseException;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
 
@@ -89,7 +89,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) {
 
-        LOG.trace("doGet: %s", uri);
+        LOG.trace("get: %s", uri);
 
         final HttpGet request = new HttpGet(uri);
 
@@ -104,7 +104,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) {
 
-        LOG.trace("doHead: %s", uri);
+        LOG.trace("head: %s", uri);
 
         final HttpHead request = new HttpHead(uri);
 
@@ -119,7 +119,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext httpClientContext) {
 
-        LOG.trace("doDelete: %s", uri);
+        LOG.trace("delete: %s", uri);
 
         final HttpDelete request = new HttpDelete(uri);
 
@@ -136,7 +136,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext clientContext) {
 
-        LOG.trace("doPost: %s", uri);
+        LOG.trace("post: %s", uri);
 
         final HttpPost request = new HttpPost(uri);
 
@@ -156,7 +156,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext clientContext) {
 
-        LOG.trace("doPost: called:");
+        LOG.trace("post: %s:", uri);
 
         final HttpPost request = new HttpPost(uri);
 
@@ -174,7 +174,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext clientContext) {
 
-        LOG.trace("doPost: %s", uri);
+        LOG.trace("put: %s", uri);
 
         final HttpPut request = new HttpPut(uri);
 
@@ -194,7 +194,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             final Map<String, String> headers, //
             final HttpClientContext clientContext) {
 
-        LOG.trace("doPut: %s", uri);
+        LOG.trace("put: %s", uri);
 
         final HttpPut request = new HttpPut(uri);
 
@@ -226,17 +226,19 @@ public class GGHttpClientImpl implements GGHttpClient {
             final HttpUriRequest request, //
             final HttpClientContext httpContext) {
 
-        if( processRedirects ){
-            return executeWithRedirects(request, httpContext);
-        }
-        
-        return executeNoRedirects(request, httpContext);
+        httpContext.setAttribute(HttpClientContext.REDIRECT_LOCATIONS, new ArrayList<String>());
+
+        return executeWithRedirectChecks(request, httpContext);
 
     }
 
-    private CloseableHttpResponse executeNoRedirects(//
+    private CloseableHttpResponse executeWithRedirectChecks(//
             final HttpUriRequest request, //
             final HttpClientContext httpContext) {
+
+        if (httpContext.getRedirectLocations().size() > 100) {
+            throw new GGHttpClientException("Redirect count exceeded.");
+        }
 
         CloseableHttpResponse response = null;
 
@@ -244,85 +246,50 @@ public class GGHttpClientImpl implements GGHttpClient {
 
             LOG.trace("execute: Executing request : %s", request.getRequestLine());
 
-            for (final Header h : request.getAllHeaders()) {
-                LOG.trace("execute: header: %s:%s", h.getName(), h.getValue());
-            }
-
             if (GGStrings.isNotBlank(agent)) {
                 request.setHeader(HttpHeaders.USER_AGENT, agent);
             }
 
             response = httpClient.execute(request, httpContext);
 
-            return response;
+            final HttpUriRequest newRequest = checkForAndProcessRedirect(request, response, httpContext);
 
-        } catch (final RuntimeException | IOException ex) {
+            if (newRequest != null) {
 
-            GGHttpResponses.consume(response);
+                HttpClientUtils.closeQuietly(response);
 
-            LOG.warn("execute: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
-
-            throw new GGHttpClientException(ex);
-        }
-
-    }
-
-    private CloseableHttpResponse executeWithRedirects(//
-            final HttpUriRequest request2, //
-            final HttpClientContext httpContext) {
-
-        HttpUriRequest localRequest = request2;
-        CloseableHttpResponse response = null;
-
-        String redirectLocation = null;
-
-        httpContext.setAttribute(HttpClientContext.REDIRECT_LOCATIONS, new ArrayList<String>());
-
-        try {
-
-            for (int redirectCount = 0; redirectCount < 100; redirectCount++) {
-
-                LOG.trace("execute: Executing request : %s", localRequest.getRequestLine());
-
-                if (GGStrings.isNotBlank(agent)) {
-                    localRequest.setHeader(HttpHeaders.USER_AGENT, agent);
-                }
-
-                response = httpClient.execute(localRequest, httpContext);
-
-                final HttpUriRequest newRequest = checkForAndProcessRedirect(localRequest, response, httpContext);
-
-                if (newRequest == null) {
-                    return response;
-                } else {
-                    HttpClientUtils.closeQuietly(response);
-                    localRequest = newRequest;
-                    continue;
-                }
+                return executeWithRedirectChecks(newRequest, httpContext);
             }
 
-            throw new IOException("execute: Redirect count exceeded.");
+            return response;
+
+        } catch (final GGHttpClientException e) {
+
+            HttpClientUtils.closeQuietly(response);
+
+            throw e;
 
         } catch (final RuntimeException | IOException ex) {
-            LOG.warn("execute: Request execution for [%s] failed on I/O : %s", localRequest.getURI(), GGExceptions.createMessageStack(ex));
-            GGHttpResponses.consume(response);
+
+            LOG.warn("executeWithRedirectChecks: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
+
+            HttpClientUtils.closeQuietly(response);
+
             throw new GGHttpClientException(ex);
-        } catch (final URISyntaxException e) {
-            LOG.warn("execute: Redirect URI from [%s] was not valid: %s", localRequest.getURI(), redirectLocation);
-            GGHttpResponses.consume(response);
-            throw new GGHttpClientException("execute: Redirect URI was not valid: " + redirectLocation, e);
         }
 
     }
-    
+
     private HttpUriRequest checkForAndProcessRedirect(//
             final HttpUriRequest localRequest, //
             final CloseableHttpResponse response, //
-            final HttpClientContext httpContext) throws URISyntaxException, IOException {
+            final HttpClientContext httpContext) {
+
+        if (!processRedirects) {
+            return null;
+        }
 
         final int statusCode = GGHttpResponses.getStatusCode(response);
-
-        String redirectLocation = null;
 
         switch (statusCode) {
 
@@ -330,15 +297,16 @@ public class GGHttpClientImpl implements GGHttpClient {
         case HttpServletResponse.SC_MOVED_TEMPORARILY:
         case HttpServletResponse.SC_TEMPORARY_REDIRECT:
 
-            LOG.trace("checkForAndProcessRedirect: Redirect status code received: %d", GGHttpResponses.getStatusCode(response));
+            LOG.trace("checkForAndProcessRedirect: Redirect status code received: %d", statusCode);
 
-            redirectLocation = GGHttpResponses.getFirstHeaderValue(response, "Location");
+            final String redirectLocation = GGHttpResponses.getFirstHeaderValue(response, "Location");
 
             LOG.trace("checkForAndProcessRedirect: redirectLocation: %s", redirectLocation);
 
             if (GGStrings.isNotBlank(redirectLocation)) {
 
                 final URI redirectUri = createRedirectUri(redirectLocation, localRequest);
+                
                 LOG.trace("checkForAndProcessRedirect: Redirecting to: %s", redirectUri);
 
                 httpContext.getRedirectLocations().add(redirectUri);
@@ -347,41 +315,20 @@ public class GGHttpClientImpl implements GGHttpClient {
 
             }
 
-            throw new IOException("checkForAndProcessRedirect: Received redirect status code, but no location provided.");
+            throw new GGHttpClientResponseException("Received redirect status with no location.", statusCode, GGHttpResponses.getStringContent(response));
 
         }
 
         return null;
     }
 
-    private URI createRedirectUri(final String redirectLocation, final HttpUriRequest request) throws URISyntaxException {
+    private URI createRedirectUri(final String redirectLocation, final HttpUriRequest request) {
 
-        URI uri = new URI(redirectLocation);
+        final URI base = request.getURI();
 
-        if (!uri.isAbsolute()) {
+        return URIUtils.resolve(base, redirectLocation);
 
-            final StringBuilder urlBuilder = new StringBuilder();
-
-            URI reqURI = request.getURI();
-
-            urlBuilder.append(reqURI.getScheme());
-            urlBuilder.append("://");
-            urlBuilder.append(reqURI.getHost());
-
-            if (!GGStrings.startsWith(redirectLocation, "/")) {
-                urlBuilder.append("/");
-            }
-
-            urlBuilder.append(redirectLocation);
-
-            uri = new URI(urlBuilder.toString());
-
-        }
-
-        return uri;
     }
-
-
 
     private PoolingHttpClientConnectionManager createConnectionManager() {
 
