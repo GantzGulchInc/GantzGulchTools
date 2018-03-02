@@ -13,7 +13,6 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-import org.apache.commons.lang3.StringUtils;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -253,24 +252,6 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         return order;
     }
-
-    protected boolean hasField(final Map<String, String> fields, final String fieldName) {
-        return fields != null && StringUtils.isNotBlank(fields.get(fieldName));
-    }
-
-    protected Predicate or(final CriteriaBuilder builder, final List<Predicate> pList) {
-        return builder.or(pList.toArray(new Predicate[pList.size()]));
-    }
-
-    protected Predicate like(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final String searchValue) {
-
-        LOG.debug("like: %s", fieldName);
-
-        return builder.like(//
-                builder.lower(root.get(fieldName)), //
-                String.format("%%%s%%", searchValue.toLowerCase()));
-    }
-
 
     private int computePageCount(final int count, final int pageSize) {
 
