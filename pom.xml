@@ -47,6 +47,7 @@
 		<module>gantzgulch-tools-crypto</module>
 		<module>gantzgulch-tools-aws</module>
 		<module>gantzgulch-tools-http</module>
+		<module>gantzgulch-tools-hibernate</module>
 	</modules>
 
 	<scm>
@@ -67,11 +68,11 @@
 
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
 		<JACKSON_VERSION>2.9.4</JACKSON_VERSION>
+			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
         <AWS_SDK>1.11.284</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 		
 		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
-			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
 			 <TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
 	</properties>
 
@@ -208,6 +209,18 @@
 				<groupId>com.fasterxml.jackson.core</groupId>
 				<artifactId>jackson-annotations</artifactId>
 				<version>${JACKSON_VERSION}</version>
+			</dependency>
+
+			<!-- Hibernate -->
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-core</artifactId>
+				<version>${HIBERNATE_VERSION}</version>
+			</dependency>
+			<dependency>
+				<groupId>org.hibernate</groupId>
+				<artifactId>hibernate-entitymanager</artifactId>
+				<version>${HIBERNATE_VERSION}</version>
 			</dependency>
 
 
