@@ -25,7 +25,7 @@ public abstract class AbstractGGJsonImpl {
 
         mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, ! allowUncleanJson);
 
-        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, ! allowUncleanJson);
+        mapper.configure(SerializationFeature.FAIL_ON_EMPTY_BEANS, false);
 
         mapper.setVisibility(PropertyAccessor.ALL, Visibility.NONE);
 
