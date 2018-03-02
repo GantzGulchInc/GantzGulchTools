@@ -28,9 +28,9 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
     protected GGLogger LOG = GGLogger.getLogger(getClass());
 
-    private final Class<T> itemClass;
-    private final SessionFactory sessionFactory;
-    private final String itemName;
+    protected final Class<T> itemClass;
+    protected final SessionFactory sessionFactory;
+    protected final String itemName;
 
 
     public AbstractHbrDao(final Class<T> itemClass, final SessionFactory sessionFactory) {

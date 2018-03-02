@@ -20,7 +20,11 @@ public class GGPredicates {
     }
 
     public static Predicate or(final CriteriaBuilder builder, final List<Predicate> pList) {
-        return builder.or(pList.toArray(new Predicate[pList.size()]));
+        return builder.or(toArray(pList));
+    }
+
+    public static Predicate and(final CriteriaBuilder builder, final List<Predicate> pList) {
+        return builder.and(toArray(pList));
     }
 
     public static <T> Predicate like(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final String searchValue) {
@@ -32,4 +36,9 @@ public class GGPredicates {
                 String.format("%%%s%%", searchValue.toLowerCase()));
     }
 
+    public static Predicate[] toArray(final List<Predicate> predicates) {
+
+        return predicates != null ? predicates.toArray(new Predicate[predicates.size()]) : new Predicate[0];
+
+    }
 }
