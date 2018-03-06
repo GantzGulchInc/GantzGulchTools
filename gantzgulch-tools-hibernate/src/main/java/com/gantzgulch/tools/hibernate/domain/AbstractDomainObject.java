@@ -1,5 +1,8 @@
 package com.gantzgulch.tools.hibernate.domain;
 
+import java.util.Objects;
+import java.util.function.Predicate;
+
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -39,4 +42,8 @@ public abstract class AbstractDomainObject implements DomainObject {
 	public String toString() {
 		return ToStringBuilder.reflectionToString(this);
 	}
+    
+    public static <T extends DomainObject> Predicate<T> idPredicate(final String id){
+        return e -> Objects.equals(e.getId(),id);
+    }
 }

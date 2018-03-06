@@ -112,4 +112,17 @@ public final class GGLists {
         
         return list != null && list.size() > 0 ;
     }
+    
+    public static <T> T find(final List<T> list, final Predicate<T> pred){
+        
+        if( list == null || pred == null ){
+            return null;
+        }
+        
+        return list. //
+                stream(). //
+                filter(pred). //
+                findAny(). //
+                orElse(null);
+    }
 }

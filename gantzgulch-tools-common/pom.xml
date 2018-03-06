@@ -18,6 +18,17 @@
 
 	<dependencies>
 
+		<!-- Google -->
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+		</dependency>
+
+
 		<!-- Testing Logging -->
 		<dependency>
 			<groupId>commons-logging</groupId>

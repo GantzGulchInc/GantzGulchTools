@@ -21,7 +21,7 @@
 			<distribution>repo</distribution>
 		</license>
 	</licenses>
-	
+
 	<organization>
 		<name>GantzGulch, Inc.</name>
 		<url>http://www.gantzgulch.com</url>
@@ -68,12 +68,12 @@
 
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
 		<JACKSON_VERSION>2.9.4</JACKSON_VERSION>
-			<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>  
-        <AWS_SDK>1.11.284</AWS_SDK>
+		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
+		<AWS_SDK>1.11.284</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
-		
+
 		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
-			 <TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
+			<TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
 	</properties>
 
 	<profiles>
@@ -230,44 +230,57 @@
 				<artifactId>aws-iot-device-sdk-java</artifactId>
 				<version>1.1.1</version>
 			</dependency>
-			
-            <dependency>
-                <artifactId>aws-java-sdk-core</artifactId>
-                <groupId>com.amazonaws</groupId>
-                <version>${AWS_SDK}</version>
-            </dependency>
 
-            <dependency>
-                <artifactId>aws-java-sdk-s3</artifactId>
-                <groupId>com.amazonaws</groupId>
-                <version>${AWS_SDK}</version>
-            </dependency>
+			<dependency>
+				<artifactId>aws-java-sdk-core</artifactId>
+				<groupId>com.amazonaws</groupId>
+				<version>${AWS_SDK}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-sns</artifactId>
-                <version>${AWS_SDK}</version>
-            </dependency>
+			<dependency>
+				<artifactId>aws-java-sdk-s3</artifactId>
+				<groupId>com.amazonaws</groupId>
+				<version>${AWS_SDK}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-java-sdk-sts</artifactId>
-                <version>${AWS_SDK}</version>
-            </dependency>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-sns</artifactId>
+				<version>${AWS_SDK}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-core</artifactId>
-                <version>1.2.0</version>
-            </dependency>
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-java-sdk-sts</artifactId>
+				<version>${AWS_SDK}</version>
+			</dependency>
 
-            <dependency>
-                <groupId>com.amazonaws</groupId>
-                <artifactId>aws-lambda-java-log4j</artifactId>
-                <version>1.0.0</version>
-            </dependency>
-			
-			
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-lambda-java-core</artifactId>
+				<version>1.2.0</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.amazonaws</groupId>
+				<artifactId>aws-lambda-java-log4j</artifactId>
+				<version>1.0.0</version>
+			</dependency>
+
+			<!-- Google -->
+			<dependency>
+				<groupId>com.google.inject</groupId>
+				<artifactId>guice</artifactId>
+				<version>4.1.0</version>
+				<optional>true</optional>
+			</dependency>
+			<dependency>
+				<groupId>com.google.inject.extensions</groupId>
+				<artifactId>guice-multibindings</artifactId>
+				<version>4.1.0</version>
+				<optional>true</optional>
+			</dependency>
+
 			<!-- Logging -->
 			<dependency>
 				<groupId>org.slf4j</groupId>

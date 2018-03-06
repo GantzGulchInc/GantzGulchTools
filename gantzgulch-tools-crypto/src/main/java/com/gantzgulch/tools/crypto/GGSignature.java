@@ -11,7 +11,7 @@ public interface GGSignature {
     byte[] sign(PrivateKey key, InputStream input);
     
     boolean verify(PublicKey key, byte[] signature, InputStream input);
-    
+
     byte[] sign(PrivateKey key, byte[] input);
 
     boolean verify(PublicKey key, byte[] signature, byte[] input);

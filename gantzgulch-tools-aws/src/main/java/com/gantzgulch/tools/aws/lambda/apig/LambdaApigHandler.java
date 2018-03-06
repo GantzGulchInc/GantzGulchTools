@@ -17,13 +17,13 @@ import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReaders;
 import com.gantzgulch.tools.json.GGJsonWriters;
 
-public class LamdaApigHandler implements RequestStreamHandler {
+public class LambdaApigHandler implements RequestStreamHandler {
 
-    private static final GGLogger LOG = GGLogger.getLogger(LamdaApigHandler.class);
+    private static final GGLogger LOG = GGLogger.getLogger(LambdaApigHandler.class);
 
     private final Map<ApiGatewayHandlerSignature, ApiGatewayHandler> callHandlerMap = new HashMap<>();
 
-    public LamdaApigHandler(final Set<ApiGatewayHandler> callHandlers) {
+    public LambdaApigHandler(final Set<ApiGatewayHandler> callHandlers) {
 
         for (final ApiGatewayHandler ch : callHandlers) {
 
