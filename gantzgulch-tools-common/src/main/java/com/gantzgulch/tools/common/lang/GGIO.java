@@ -7,7 +7,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.Reader;
 import java.io.Writer;
+import java.nio.charset.Charset;
 
 public final class GGIO {
 
@@ -62,9 +64,31 @@ public final class GGIO {
     
     }
     
+    public static BufferedReader newBufferedReader(final InputStream inputStream, final Charset charset){
+        
+        final InputStreamReader isReader = new InputStreamReader(inputStream, charset);
+        
+        return new BufferedReader(isReader);
+    
+    }
+    
     public static Writer newWriter(final OutputStream outputStream){
         return new OutputStreamWriter(outputStream, GGUtf8.CHARSET);
     }
     
+    public static Reader newResourceReader(final Class<?> resourceClass, final String resourceName, final Charset encoding){
+        
+        final InputStream inputStream = resourceClass.getResourceAsStream(resourceName);
+        
+        try{
+
+            return newBufferedReader(inputStream, encoding);
+            
+        }catch(RuntimeException re){
+            GGCloseables.closeQuietly(inputStream);
+            throw re;
+        }
+        
+    }
 
 }

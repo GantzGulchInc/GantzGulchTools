@@ -8,20 +8,23 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 
+import com.gantzgulch.tools.crypto.GGKeySpec;
+import com.gantzgulch.tools.crypto.GGNonceSpec;
 import com.gantzgulch.tools.crypto.alg.impl.AbstractGGCipher;
+import com.gantzgulch.tools.crypto.impl.GGIvSpecNone;
 
 public class AESGCMCipher extends AbstractGGCipher {
 
     public static final List<AESGCMCipher> CIPHERS = new ArrayList<>();
     
 
-    public static final AESGCMCipher AES_GCM_NO_PADDING = new AESGCMCipher("AES/GCM/NoPadding", 12, 16);
+    public static final AESGCMCipher AES_GCM_NO_PADDING = new AESGCMCipher("AES/GCM/NoPadding", KEY_128_192_256, NONCE_12, 16);
 
     private final int tagLength;
 
-    private AESGCMCipher(final String algorithm, final int nonceSize, final int tagLength) {
+    private AESGCMCipher(final String algorithm, final GGKeySpec keySpec, final GGNonceSpec nonceSpec, final int tagLength) {
         
-        super(algorithm, 0, nonceSize);
+        super(algorithm, keySpec, GGIvSpecNone.INSTANCE, nonceSpec);
         
         this.tagLength = tagLength;
         

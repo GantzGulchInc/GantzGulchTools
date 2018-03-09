@@ -8,9 +8,11 @@ public interface GGCipher {
 
     String getAlgorithm();
     
-    int getIvSize();
+    GGKeySpec getKeySpec();
     
-    int getNonceSize();
+    GGIvSpec getIvSpec();
+    
+    GGNonceSpec getNonceSpec();
     
     void encrypt(Key key, InputStream input, OutputStream output, byte[] iv, byte[] nonce);
     

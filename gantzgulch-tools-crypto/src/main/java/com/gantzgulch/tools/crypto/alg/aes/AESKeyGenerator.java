@@ -4,6 +4,7 @@ import java.security.NoSuchAlgorithmException;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
 
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
@@ -33,6 +34,11 @@ public final class AESKeyGenerator {
         } catch (final NoSuchAlgorithmException nsae) {
             throw new CryptoException(nsae);
         }
+    }
+    
+    public static SecretKey create(final byte[] key) {
+        
+        return new SecretKeySpec(key, "AES");
     }
 
 }

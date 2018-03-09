@@ -41,25 +41,30 @@ public final class GGLists {
 
     public static <T> boolean contains(List<T> list, Predicate<? super T> filter) {
 
-        return list != null ? list.stream().anyMatch(filter) : false;
+        if (list == null || filter == null) {
+            return false;
+        }
+
+        return list.stream().anyMatch(filter);
     }
 
     public static <T> T removeFirst(List<T> list, Predicate<? super T> filter) {
 
-        if (list != null && filter != null) {
+        if (list == null || filter == null) {
+            return null;
+        }
 
-            final ListIterator<T> i = list.listIterator();
+        final ListIterator<T> i = list.listIterator();
 
-            while (i.hasNext()) {
+        while (i.hasNext()) {
 
-                final T item = i.next();
+            final T item = i.next();
 
-                if (filter.test(item)) {
+            if (filter.test(item)) {
 
-                    i.remove();
+                i.remove();
 
-                    return item;
-                }
+                return item;
             }
         }
 
@@ -68,22 +73,23 @@ public final class GGLists {
 
     public static <T> List<T> removeAll(List<T> list, Predicate<? super T> filter) {
 
+        if (list == null || filter == null) {
+            return null;
+        }
+
         final List<T> results = new ArrayList<>();
 
-        if (list != null && filter != null) {
+        final ListIterator<T> i = list.listIterator();
 
-            final ListIterator<T> i = list.listIterator();
+        while (i.hasNext()) {
 
-            while (i.hasNext()) {
+            final T item = i.next();
 
-                final T item = i.next();
+            if (filter.test(item)) {
 
-                if (filter.test(item)) {
+                i.remove();
 
-                    i.remove();
-
-                    results.add(item);
-                }
+                results.add(item);
             }
         }
 
@@ -108,21 +114,53 @@ public final class GGLists {
         return list;
     }
 
-    public static boolean isNotEmpty(final List<?> list) {
-        
-        return list != null && list.size() > 0 ;
+    public static boolean isEmpty(final List<?> list) {
+
+        if (list == null) {
+            return true;
+        }
+
+        return list.size() == 0;
+
     }
-    
-    public static <T> T find(final List<T> list, final Predicate<T> pred){
-        
-        if( list == null || pred == null ){
+
+    public static boolean isNotEmpty(final List<?> list) {
+
+        return !isEmpty(list);
+
+    }
+
+    public static <T> T find(final List<T> list, final Predicate<T> pred) {
+
+        if (list == null || pred == null) {
             return null;
         }
-        
+
         return list. //
                 stream(). //
                 filter(pred). //
                 findAny(). //
                 orElse(null);
+    }
+
+    public static <T> String join(final List<T> list, final String separator) {
+
+        final StringBuilder b = new StringBuilder();
+
+        if (isNotEmpty(list)) {
+
+            for (final T item : list) {
+
+                if (b.length() > 0) {
+                    b.append(separator);
+                }
+
+                b.append(item);
+            }
+
+        }
+
+        return b.toString();
+
     }
 }

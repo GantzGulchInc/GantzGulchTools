@@ -8,20 +8,28 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.IvParameterSpec;
 
+import com.gantzgulch.tools.crypto.GGIvSpec;
+import com.gantzgulch.tools.crypto.GGKeySpec;
+import com.gantzgulch.tools.crypto.GGNonceSpec;
 import com.gantzgulch.tools.crypto.alg.impl.AbstractGGCipher;
 
 public class AESAEADCipher extends AbstractGGCipher {
 
     public static final List<AESAEADCipher> CIPHERS = new ArrayList<>();
 
-    public static final AESAEADCipher AES_CBC_NO_PADDING = new AESAEADCipher("AES/CBC/NoPadding", 16, 0);
-    public static final AESAEADCipher AES_CCM_NO_PADDING = new AESAEADCipher("AES/CCM/NoPadding", 12, 0);
-    public static final AESAEADCipher AES_EAX_NO_PADDING = new AESAEADCipher("AES/EAX/NoPadding", 12, 0);
-    public static final AESAEADCipher AES_OCB_NO_PADDING = new AESAEADCipher("AES/OCB/NoPadding", 12, 0);
+    public static final AESAEADCipher AES_CBC_NO_PADDING = new AESAEADCipher("AES/CBC/NoPadding", KEY_128_192_256, IV_128, NONCE_NONE);
 
-    protected AESAEADCipher(final String algorithm, final int ivSize, final int nonceSize) {
+    public static final AESAEADCipher AES_CBC_PKCS7_PADDING = new AESAEADCipher("AES/CBC/PKCS7Padding", KEY_128_192_256, IV_128, NONCE_NONE);
+    
+    public static final AESAEADCipher AES_CCM_NO_PADDING = new AESAEADCipher("AES/CCM/NoPadding", KEY_128_192_256, IV_96, NONCE_NONE);
+    
+    public static final AESAEADCipher AES_EAX_NO_PADDING = new AESAEADCipher("AES/EAX/NoPadding", KEY_128_192_256, IV_96, NONCE_NONE);
 
-        super(algorithm, ivSize, nonceSize);
+    public static final AESAEADCipher AES_OCB_NO_PADDING = new AESAEADCipher("AES/OCB/NoPadding", KEY_128_192_256, IV_ANY, NONCE_NONE);
+
+    protected AESAEADCipher(final String algorithm, final GGKeySpec keySpec, final GGIvSpec ivSpec, final GGNonceSpec nonceSpec) {
+
+        super(algorithm, keySpec, ivSpec, nonceSpec);
 
         CIPHERS.add(this);
     }
@@ -32,7 +40,7 @@ public class AESAEADCipher extends AbstractGGCipher {
         final Cipher cipher = Cipher.getInstance(algorithm, "BC");
 
         final IvParameterSpec ivSpec = new IvParameterSpec(iv);
-        
+
         cipher.init(opMode, key, ivSpec);
 
         return cipher;

@@ -8,26 +8,62 @@ import java.security.Key;
 
 import javax.crypto.Cipher;
 
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.GGCipher;
+import com.gantzgulch.tools.crypto.GGIvSpec;
+import com.gantzgulch.tools.crypto.GGKeySpec;
+import com.gantzgulch.tools.crypto.GGNonceSpec;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
+import com.gantzgulch.tools.crypto.impl.GGIvSpecAny;
+import com.gantzgulch.tools.crypto.impl.GGIvSpecFixed;
+import com.gantzgulch.tools.crypto.impl.GGIvSpecNone;
+import com.gantzgulch.tools.crypto.impl.GGIvSpecSet;
+import com.gantzgulch.tools.crypto.impl.GGNonceSpecFixed;
+import com.gantzgulch.tools.crypto.impl.GGNonceSpecNone;
 
 public abstract class AbstractGGCipher implements GGCipher {
 
+    public static final GGKeySpec KEY_128 = GGKeySpec.create(128);
+    public static final GGKeySpec KEY_128_192_256 = GGKeySpec.create(128,192,256);
+    
+    public static final GGKeySpec KEY_RSA = GGKeySpec.create(1024, 2048, 4096);
+    
+    public static final GGIvSpec IV_NONE = GGIvSpecNone.INSTANCE;
+    public static final GGIvSpec IV_ANY = GGIvSpecAny.INSTANCE;
+    public static final GGIvSpec IV_96 = new GGIvSpecFixed(96);
+    public static final GGIvSpec IV_128 = new GGIvSpecFixed(128);
+    public static final GGIvSpec IV_96_128_192_256 = new GGIvSpecSet(96, 128, 192, 256);
+    public static final GGIvSpec IV_128_192_256 = new GGIvSpecSet(128, 192, 256);
+    
+    
+    public static final GGNonceSpec NONCE_NONE = GGNonceSpecNone.INSTANCE;
+    public static final GGNonceSpec NONCE_12 = new GGNonceSpecFixed(12);
+    
+    
     static {
         BouncyCastleState.init();
     }
 
     protected final String algorithm;
 
-    protected final int ivSize;
+    protected final GGKeySpec keySpec;
+    
+    protected final GGIvSpec ivSpec;
 
-    protected final int nonceSize;
+    protected final GGNonceSpec nonceSpec;
 
-    public AbstractGGCipher(final String algorithm, final int ivSize, final int nonceSize) {
+
+    public AbstractGGCipher(final String algorithm, final GGKeySpec keySpec, final GGIvSpec ivSpec, final GGNonceSpec nonceSpec) {
+        
+        GGArgs.notNull(keySpec, "keySpec");
+        GGArgs.notNull(ivSpec, "ivSpec");
+        GGArgs.notNull(nonceSpec, "nonceSpec");
+        
         this.algorithm = algorithm;
-        this.ivSize = ivSize;
-        this.nonceSize = nonceSize;
+        this.keySpec = keySpec;
+        this.ivSpec = ivSpec;
+        this.nonceSpec = nonceSpec;
     }
 
     @Override
@@ -36,13 +72,18 @@ public abstract class AbstractGGCipher implements GGCipher {
     }
 
     @Override
-    public int getIvSize() {
-        return ivSize;
+    public GGKeySpec getKeySpec() {
+        return keySpec;
+    }
+    
+    @Override
+    public GGIvSpec getIvSpec() {
+        return ivSpec;
     }
 
     @Override
-    public int getNonceSize() {
-        return nonceSize;
+    public GGNonceSpec getNonceSpec() {
+        return nonceSpec;
     }
 
     protected Cipher createCipher(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
@@ -56,13 +97,9 @@ public abstract class AbstractGGCipher implements GGCipher {
     
     private Cipher createCipherWithChecks(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
 
-        if (getIvSize() != size(iv)) {
-            throw new IllegalArgumentException(String.format("Algorithm: %s, Expected an iv of size: %d get %d.", algorithm, getNonceSize(), size(nonce)));
-        }
+        ivSpec.verify(iv);
 
-        if (getNonceSize() != size(nonce)) {
-            throw new IllegalArgumentException(String.format("Algorithm: %s, Expected a nonce of size: %d get %d.", algorithm, getNonceSize(), size(nonce)));
-        }
+        nonceSpec.verify(nonce);
 
         return createCipher(opMode, key, iv, nonce);
     }
@@ -160,9 +197,4 @@ public abstract class AbstractGGCipher implements GGCipher {
         return algorithm;
     }
     
-    private int size(final byte[] data) {
-        return data != null ? data.length : 0;
-    }
-
-
 }

@@ -19,15 +19,15 @@ public final class GGNonceImpl implements GGNonce {
     }
     
     @Override
-    public byte[] nonce(final int size){
+    public byte[] nonce(final int sizeInBytes){
         
-        if( size == 0 ){
+        if( sizeInBytes == 0 ){
             return new byte[0];
         }
         
-        GGArgs.isGreaterThan(size, 0, "size");
+        GGArgs.isGreaterThan(sizeInBytes, 0, "size");
         
-        final byte[] nonce = new byte[size];
+        final byte[] nonce = new byte[sizeInBytes];
         
         random.nextBytes(nonce);
         

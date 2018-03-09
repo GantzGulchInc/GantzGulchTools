@@ -30,4 +30,16 @@ public final class GGArgs {
         
     }
 
+    public static <T> void isGreaterThanOrEqual(final T value, final Comparable<T> comparison, final String field){
+        
+        if( value == null ){
+            throw new IllegalArgumentException(String.format("Field %s must be greater than or equal to (%s) but is null", field, comparison) );
+        }
+        
+        if( comparison.compareTo(value) > 0 ){
+            throw new IllegalArgumentException(String.format("Field %s must be greater than or equal (%s) but is (%s)", field, comparison, value) );
+        }
+        
+    }
+
 }

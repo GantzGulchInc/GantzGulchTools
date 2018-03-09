@@ -9,6 +9,7 @@ import com.gantzgulch.tools.crypto.alg.rsa.RSACipher;
 public final class GGCiphers {
 
     public static final GGCipher AES_CBC_NO_PADDING = AESAEADCipher.AES_CBC_NO_PADDING;
+    public static final GGCipher AES_CBC_PKCS7_PADDING = AESAEADCipher.AES_CBC_PKCS7_PADDING;
     public static final GGCipher AES_CCM_NO_PADDING = AESAEADCipher.AES_CCM_NO_PADDING;
     public static final GGCipher AES_EAX_NO_PADDING = AESAEADCipher.AES_EAX_NO_PADDING;
     public static final GGCipher AES_OCB_NO_PADDING = AESAEADCipher.AES_OCB_NO_PADDING;

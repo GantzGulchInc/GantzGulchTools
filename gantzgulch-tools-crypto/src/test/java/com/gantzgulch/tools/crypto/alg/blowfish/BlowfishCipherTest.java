@@ -1,71 +1,55 @@
 package com.gantzgulch.tools.crypto.alg.blowfish;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import java.security.Key;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-
-import javax.crypto.SecretKey;
-
-import org.junit.Before;
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.crypto.AbstractCipherTest;
 import com.gantzgulch.tools.crypto.GGCipher;
-import com.gantzgulch.tools.crypto.GGNonces;
 
 public class BlowfishCipherTest extends AbstractCipherTest {
 
-    private static final GGLogger LOG = GGLogger.getLogger(BlowfishCipherTest.class);
+    public static final GGCipher CIPHER = BlowfishCipher.BLOWFISH_ECB_NO_PADDING;
+    public static final GGCipher CIPHER_PADDING = BlowfishCipher.BLOWFISH_ECB_NO_PKCS5Padding;
 
-    private SecretKey key = BlowfishKeyGenerator.generate(128);
-
-    @Before
-    public void before() {
-
-    }
-    
     @Test
-    public void testAll() {
+    public void test128() {
 
-        for (final BlowfishCipher c : BlowfishCipher.CIPHERS) {
+        for (int keySize = 32; keySize < 449; keySize++) {
 
-            encryptDecrypt(c);
-            encryptDecrypt_streams(c);
+            final Key key = BlowfishKeyGenerator.generate(keySize);
+
+            testEncryptDecrypt(CIPHER, key, 1024, 0, 0);
         }
-    }
-
-    private void encryptDecrypt(final GGCipher cipher) {
-
-        LOG.info("Testing: %s with byte array.", cipher);
-
-        final byte[] input = GGNonces.SECURE_RANDOM.nonce(4096);
-
-        final byte[] plain = encryptThenDecrypt(cipher, key, input, null, null);
-
-        assertThat(plain, notNullValue());
-
-        assertThat(plain, equalTo(input));
 
     }
 
-    private void encryptDecrypt_streams(final GGCipher cipher) {
+    @Test
+    public void test128Padding() {
 
-        LOG.info("Testing: %s with stream.", cipher);
-        
-        final byte[] input = GGNonces.SECURE_RANDOM.nonce(1024 * 1024 * 4);
+        final Key key = BlowfishKeyGenerator.generate(128);
 
-        final ByteArrayInputStream is = new ByteArrayInputStream(input);
-        final ByteArrayOutputStream os = new ByteArrayOutputStream(input.length);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0, 0);
 
-        encryptThenDecrypt(cipher, key, is, os, null, null);
+    }
 
-        final byte[] plainBytes = os.toByteArray();
-        
-        assertThat(plainBytes, equalTo(input));
+    @Test
+    public void test256() {
+
+        final Key key = BlowfishKeyGenerator.generate(256);
+
+        testEncryptDecrypt(CIPHER, key, 1024, 0, 0);
+
+    }
+
+    @Test
+    public void test256Padding() {
+
+        final Key key = BlowfishKeyGenerator.generate(256);
+
+        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0, 0);
 
     }
 
