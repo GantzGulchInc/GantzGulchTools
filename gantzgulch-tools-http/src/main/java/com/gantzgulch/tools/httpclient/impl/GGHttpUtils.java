@@ -1,6 +1,8 @@
 package com.gantzgulch.tools.httpclient.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URI;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -10,6 +12,7 @@ import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.gantzgulch.tools.common.lang.GGLists;
+import com.gantzgulch.tools.common.lang.GGUtf8;
 
 public final class GGHttpUtils {
 
@@ -32,4 +35,14 @@ public final class GGHttpUtils {
 
         return params;
     }
+
+    public static String urlEncode(final String value) {
+        
+        try {
+            return URLEncoder.encode(value, GGUtf8.NAME);
+        } catch (final UnsupportedEncodingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

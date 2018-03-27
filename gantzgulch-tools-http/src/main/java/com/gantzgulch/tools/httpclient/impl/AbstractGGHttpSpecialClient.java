@@ -41,7 +41,7 @@ public class AbstractGGHttpSpecialClient {
         final int status = statusLine.getStatusCode();
         
         if( status < 200 || status > 299 ){
-            throw new GGHttpClientResponseException("Non 2xx status received", status, getBody(response));
+            throw new GGHttpClientResponseException("Non 2xx status received: " + status, status, getBody(response));
         }
     }
 

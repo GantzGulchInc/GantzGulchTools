@@ -11,6 +11,14 @@ import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class ProxyResponse {
 
+    public static final int SC_UNAUTHORIZED = 401;
+
+    public static final int SC_FORBIDDEN = 403;
+
+    public static final int SC_NOT_FOUND = 404;
+    
+    public static final int SC_CONFLICT = 409;
+    
     @JsonProperty("isBase64Encoded")
     private boolean isBase64Encoded;
 

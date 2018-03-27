@@ -1,5 +1,6 @@
 package com.gantzgulch.tools.httpclient.impl;
 
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -11,7 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.http.Header;
 import org.apache.http.HttpRequest;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicNameValuePair;
 
 import com.gantzgulch.tools.common.lang.GGStrings;
@@ -93,6 +96,17 @@ public final class GGHttpRequests {
 
         return URLEncodedUtils.format(parmList, GGUtf8.NAME);
 
+    }
+
+    public static void addParameters(final HttpPost postRequest, final Map<String, String> parameters) throws UnsupportedEncodingException {
+
+        final List<NameValuePair> params = new ArrayList<>();
+
+        for (final Map.Entry<String, String> e : parameters.entrySet()) {
+            params.add(new BasicNameValuePair(e.getKey(), e.getValue()));
+        }
+
+        postRequest.setEntity(new StringEntity(URLEncodedUtils.format(params, "UTF-8")));
     }
 
 }

@@ -61,6 +61,16 @@ public class GGAwsIotConnectorImpl implements GGAwsIotConnector {
     }
 
     @Override
+    public void close() {
+
+        try {
+            client.disconnect();
+        } catch (final AWSIotException e) {
+            throw new GGAwsException(e);
+        }
+    }
+    
+    @Override
     public void updateShadow(final GGAwsIotShadow state) {
 
     }

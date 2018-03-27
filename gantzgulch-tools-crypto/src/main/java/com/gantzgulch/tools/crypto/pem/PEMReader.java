@@ -13,12 +13,17 @@ import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
-import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.common.lang.Cast;
+import com.gantzgulch.tools.common.lang.GGArgs;
+import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 
 public final class PEMReader {
 
+    static {
+        BouncyCastleState.init();
+    }
+    
     private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
 
     private PEMReader() {

@@ -167,11 +167,11 @@ public final class GGStrings {
     }
 
     public static boolean isEmpty(final String string) {
-        
+
         return string == null || string.length() == 0;
-        
+
     }
-    
+
     public static List<String> splitAndClean(final String string, final char separator) {
 
         final List<String> results = new ArrayList<>();
@@ -190,54 +190,54 @@ public final class GGStrings {
     }
 
     public static boolean startsWith(final String string, final String prefix) {
-        
-        if( string == null ){
+
+        if (string == null) {
             return false;
         }
-        
-        if( prefix == null ){
+
+        if (prefix == null) {
             return false;
         }
-        
+
         return string.startsWith(prefix);
     }
 
     public static String defaultIfBlank(final String string, final String defaultValue) {
-        
+
         return isBlank(string) ? defaultValue : string;
     }
-    
+
     public static String left(final String string, final int len) {
-        
+
         if (string == null) {
             return null;
         }
         if (len < 0) {
             return "";
         }
-        
+
         if (string.length() <= len) {
             return string;
         }
-        
+
         return string.substring(0, len);
     }
-    
+
     public static String stripEnd(final String string, final String charactersToRemove) {
-        
-        if( isEmpty(string) ){
+
+        if (isEmpty(string)) {
             return string;
         }
-        
-        if( isEmpty(charactersToRemove) ){
+
+        if (isEmpty(charactersToRemove)) {
             return string;
         }
-    
+
         int pos = string.length() - 1;
 
-        while( pos > 0 ){
-            
-            if( charactersToRemove.indexOf( string.codePointAt(pos) ) >= 0 ){
+        while (pos > 0) {
+
+            if (charactersToRemove.indexOf(string.codePointAt(pos)) >= 0) {
                 pos -= 1;
             } else {
                 return string.substring(0, pos + 1);
@@ -247,4 +247,20 @@ public final class GGStrings {
 
         return "";
     }
+
+    public static String substringAfterLast(final String value, final char term) {
+
+        if (value == null) {
+            return value;
+        }
+
+        final int pos = value.lastIndexOf(term);
+
+        if (pos < 0) {
+            return value;
+        }
+
+        return value.substring(pos + 1);
+    }
+    
 }

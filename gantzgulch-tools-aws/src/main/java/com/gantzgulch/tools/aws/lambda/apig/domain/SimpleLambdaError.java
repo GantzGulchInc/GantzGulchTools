@@ -32,5 +32,7 @@ public class SimpleLambdaError implements LambdaError {
 			return "";
 		}
 	}
+	
+	
 
 }

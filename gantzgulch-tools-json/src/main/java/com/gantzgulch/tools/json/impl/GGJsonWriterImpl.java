@@ -2,6 +2,8 @@ package com.gantzgulch.tools.json.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -53,6 +55,16 @@ public final class GGJsonWriterImpl extends AbstractGGJsonImpl implements GGJson
             }
 
         } catch (final IOException e) {
+            throw new GGJsonException(e);
+        }
+    }
+    
+    @Override
+    public void write(final Object value, final Path path) {
+
+        try( final OutputStream os = Files.newOutputStream(path) ){
+            write(value, os);
+        }catch(final IOException e){
             throw new GGJsonException(e);
         }
     }

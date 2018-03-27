@@ -12,6 +12,7 @@ import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyRequest;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyResponse;
 import com.gantzgulch.tools.aws.lambda.apig.domain.SimpleLambdaError;
+import com.gantzgulch.tools.common.lang.GGIO;
 import com.gantzgulch.tools.common.lang.GGUtf8;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReaders;
@@ -19,7 +20,7 @@ import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class LambdaApigHandler implements RequestStreamHandler {
 
-    private static final GGLogger LOG = GGLogger.getLogger(LambdaApigHandler.class);
+    protected final GGLogger LOG = GGLogger.getLogger(getClass());
 
     private final Map<ApiGatewayHandlerSignature, ApiGatewayHandler> callHandlerMap = new HashMap<>();
 
@@ -50,7 +51,11 @@ public class LambdaApigHandler implements RequestStreamHandler {
             final OutputStream output, //
             final Context context) throws IOException {
 
-        final ProxyRequest proxyRequest = GGJsonReaders.STRICT_ISO8601.read(input, ProxyRequest.class);
+        final String inputString = GGIO.readToString(input);
+        
+        LOG.info("handleRequest: input: \n%s", inputString);
+        
+        final ProxyRequest proxyRequest = GGJsonReaders.LOOSE_ISO8601.read(inputString, ProxyRequest.class);
 
         LOG.info("handleRequest: proxyRequest: %s", proxyRequest);
 
@@ -76,13 +81,15 @@ public class LambdaApigHandler implements RequestStreamHandler {
 
                 LOG.warn("handleRequest: returning invalid url.");
 
-                final LambdaError le = new SimpleLambdaError(404, "Url not found.");
+                final LambdaError le = new SimpleLambdaError(ProxyResponse.SC_NOT_FOUND, "Url not found.");
 
                 proxyResponse = new ProxyResponse(le);
             }
 
-            final String responseJson = GGJsonWriters.STRICT_ISO8601.writeAsString(proxyResponse);
+            final String responseJson = GGJsonWriters.PRETTY_IOS8601.writeAsString(proxyResponse);
 
+            LOG.debug("handleRequest: response: \n%s", responseJson);
+            
             output.write(responseJson.getBytes(GGUtf8.CHARSET));
             output.flush();
 
@@ -102,7 +109,7 @@ public class LambdaApigHandler implements RequestStreamHandler {
         try {
 
             return callHandler.handle(proxyRequest, context);
-
+            
         } catch (final RuntimeException | IOException e) {
 
             LOG.warn(e, "handleCall: error.");

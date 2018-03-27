@@ -6,6 +6,7 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 
@@ -37,6 +38,8 @@ public final class AESKeyGenerator {
     }
     
     public static SecretKey create(final byte[] key) {
+        
+        GGArgs.notNull(key, "key");
         
         return new SecretKeySpec(key, "AES");
     }
