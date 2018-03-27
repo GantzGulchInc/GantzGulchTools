@@ -5,6 +5,7 @@ import java.util.Map;
 
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
@@ -33,4 +34,5 @@ public interface GGHttpClient {
     
     GGHttpStringClient stringClient();
 
+    PoolingHttpClientConnectionManager getConnectionManager();
 }

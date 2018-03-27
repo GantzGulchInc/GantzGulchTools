@@ -222,6 +222,11 @@ public class GGHttpClientImpl implements GGHttpClient {
         }
     }
 
+    @Override
+    public PoolingHttpClientConnectionManager getConnectionManager() {
+        return connectionManager;
+    }
+    
     private CloseableHttpResponse execute(//
             final HttpUriRequest request, //
             final HttpClientContext httpContext) {
