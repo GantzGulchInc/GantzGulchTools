@@ -13,7 +13,7 @@ import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyRequest;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyResponse;
 import com.gantzgulch.tools.aws.lambda.apig.domain.SimpleLambdaError;
 import com.gantzgulch.tools.common.lang.GGIO;
-import com.gantzgulch.tools.common.lang.GGUtf8;
+import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReaders;
 import com.gantzgulch.tools.json.GGJsonWriters;
@@ -52,9 +52,9 @@ public class LambdaApigHandler implements RequestStreamHandler {
             final Context context) throws IOException {
 
         final String inputString = GGIO.readToString(input);
-        
+
         LOG.info("handleRequest: input: \n%s", inputString);
-        
+
         final ProxyRequest proxyRequest = GGJsonReaders.LOOSE_ISO8601.read(inputString, ProxyRequest.class);
 
         LOG.info("handleRequest: proxyRequest: %s", proxyRequest);
@@ -86,17 +86,17 @@ public class LambdaApigHandler implements RequestStreamHandler {
                 proxyResponse = new ProxyResponse(le);
             }
 
-            final String responseJson = GGJsonWriters.PRETTY_IOS8601.writeAsString(proxyResponse);
+            final String responseJson = GGJsonWriters.PRETTY_ISO8601.writeAsString(proxyResponse);
 
-            LOG.debug("handleRequest: response: \n%s", responseJson);
-            
-            output.write(responseJson.getBytes(GGUtf8.CHARSET));
+            LOG.info("handleRequest: response: \n%s", responseJson);
+
+            output.write(GGStrings.toBytes(responseJson));
             output.flush();
 
         } catch (final Throwable e) {
             LOG.error(e, "An unexpected error occured.");
             throw e;
-        } finally      {
+        } finally {
             afterCall(context, proxyResponse);
         }
     }
@@ -109,13 +109,13 @@ public class LambdaApigHandler implements RequestStreamHandler {
         try {
 
             return callHandler.handle(proxyRequest, context);
-            
+
         } catch (final RuntimeException | IOException e) {
 
             LOG.warn(e, "handleCall: error.");
 
             final LambdaError le = new SimpleLambdaError(500, "Internal error.");
-            
+
             return new ProxyResponse(le);
         }
     }

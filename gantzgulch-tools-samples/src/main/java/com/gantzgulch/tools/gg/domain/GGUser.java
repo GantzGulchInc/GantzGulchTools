@@ -1,5 +1,6 @@
 package com.gantzgulch.tools.gg.domain;
 
+import java.util.Date;
 import java.util.Objects;
 
 import org.hamcrest.Description;
@@ -23,6 +24,9 @@ public class GGUser extends AbstractJsonObject {
     @JsonProperty("email")
     private String email;
     
+    @JsonProperty("created")
+    private Date created;
+    
     public GGUser() {
     }
 
@@ -31,6 +35,7 @@ public class GGUser extends AbstractJsonObject {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.created = new Date();
     }
 
     public String getId() {

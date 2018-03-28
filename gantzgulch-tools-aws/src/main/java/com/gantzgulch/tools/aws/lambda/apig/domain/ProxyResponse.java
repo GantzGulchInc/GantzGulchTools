@@ -51,7 +51,7 @@ public class ProxyResponse {
         this.isBase64Encoded = false;
         this.statusCode = 200;
         this.headers = new HashMap<>();
-        this.body = GGJsonWriters.STRICT.writeAsString(resp);
+        this.body = GGJsonWriters.STRICT_ISO8601.writeAsString(resp);
     }
 
     public boolean isBase64Encoded() {

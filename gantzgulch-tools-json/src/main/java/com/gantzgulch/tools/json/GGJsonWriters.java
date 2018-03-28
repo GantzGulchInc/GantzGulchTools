@@ -10,6 +10,6 @@ public final class GGJsonWriters {
     
     public static GGJsonWriter PRETTY = new GGJsonWriterImpl(true, false);
     
-    public static GGJsonWriter PRETTY_IOS8601 = new GGJsonWriterImpl(true, true);
+    public static GGJsonWriter PRETTY_ISO8601 = new GGJsonWriterImpl(true, true);
     
 }
