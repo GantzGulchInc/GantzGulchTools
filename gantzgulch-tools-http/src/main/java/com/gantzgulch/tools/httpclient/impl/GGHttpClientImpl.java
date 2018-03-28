@@ -162,7 +162,12 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        request.setEntity(new StringEntity(content, GGUtf8.CHARSET));
+        if (content != null) {
+
+            final StringEntity entity = new StringEntity(content, GGUtf8.CHARSET);
+
+            request.setEntity(entity);
+        }
 
         return execute(request, clientContext);
     }
@@ -200,7 +205,12 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         GGHttpRequests.setHeaders(request, headers);
 
-        request.setEntity(new StringEntity(content, GGUtf8.CHARSET));
+        if (content != null) {
+
+            final StringEntity entity = new StringEntity(content, GGUtf8.CHARSET);
+
+            request.setEntity(entity);
+        }
 
         return execute(request, clientContext);
     }
@@ -226,7 +236,7 @@ public class GGHttpClientImpl implements GGHttpClient {
     public PoolingHttpClientConnectionManager getConnectionManager() {
         return connectionManager;
     }
-    
+
     private CloseableHttpResponse execute(//
             final HttpUriRequest request, //
             final HttpClientContext httpContext) {
@@ -311,7 +321,7 @@ public class GGHttpClientImpl implements GGHttpClient {
             if (GGStrings.isNotBlank(redirectLocation)) {
 
                 final URI redirectUri = createRedirectUri(redirectLocation, localRequest);
-                
+
                 LOG.trace("checkForAndProcessRedirect: Redirecting to: %s", redirectUri);
 
                 httpContext.getRedirectLocations().add(redirectUri);
