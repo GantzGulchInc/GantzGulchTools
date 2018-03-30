@@ -27,7 +27,7 @@ public class SimpleLambdaError implements LambdaError {
 	public static String formatBody(final Object body){
 		
 		try {
-			return GGJsonWriters.STRICT.writeAsString(body);
+			return GGJsonWriters.STRICT_ISO8601.writeAsString(body);
 		}catch(final RuntimeException e){
 			return "";
 		}
