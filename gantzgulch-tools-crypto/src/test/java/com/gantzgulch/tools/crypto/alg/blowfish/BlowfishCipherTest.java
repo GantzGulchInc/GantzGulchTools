@@ -19,7 +19,7 @@ public class BlowfishCipherTest extends AbstractCipherTest {
 
             final Key key = BlowfishKeyGenerator.generate(keySize);
 
-            testEncryptDecrypt(CIPHER, key, 1024, 0, 0);
+            testEncryptDecrypt(CIPHER, key, 1024, 0);
         }
 
     }
@@ -29,8 +29,8 @@ public class BlowfishCipherTest extends AbstractCipherTest {
 
         final Key key = BlowfishKeyGenerator.generate(128);
 
-        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0, 0);
-        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0);
 
     }
 
@@ -39,7 +39,7 @@ public class BlowfishCipherTest extends AbstractCipherTest {
 
         final Key key = BlowfishKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 0, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 0);
 
     }
 
@@ -48,8 +48,8 @@ public class BlowfishCipherTest extends AbstractCipherTest {
 
         final Key key = BlowfishKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0, 0);
-        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1024, 0);
+        testEncryptDecrypt(CIPHER_PADDING, key, 1345, 0);
 
     }
 

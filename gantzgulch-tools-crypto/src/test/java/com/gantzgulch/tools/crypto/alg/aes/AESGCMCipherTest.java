@@ -40,9 +40,9 @@ public class AESGCMCipherTest extends AbstractCipherTest {
         
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(4096);
         
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(cipher.getNonceSpec().getMaxSize());
+        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(cipher.getIvNonceSpec().getMaxSizeInBits() / 8);
 
-        final byte[] plain = encryptThenDecrypt(cipher, key, input, null, nonce);
+        final byte[] plain = encryptThenDecrypt(cipher, key, input, nonce);
 
         assertThat(plain, equalTo(input));
 
@@ -54,12 +54,12 @@ public class AESGCMCipherTest extends AbstractCipherTest {
         
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(1024 * 1024 * 4);
 
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(cipher.getNonceSpec().getMaxSize());
+        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(cipher.getIvNonceSpec().getMaxSizeInBits() / 8);
 
         final ByteArrayInputStream is = new ByteArrayInputStream(input);
         final ByteArrayOutputStream os = new ByteArrayOutputStream(input.length);
 
-        encryptThenDecrypt(cipher, key, is, os, null, nonce);
+        encryptThenDecrypt(cipher, key, is, os, nonce);
         
         final byte[] plainBytes = os.toByteArray();
         

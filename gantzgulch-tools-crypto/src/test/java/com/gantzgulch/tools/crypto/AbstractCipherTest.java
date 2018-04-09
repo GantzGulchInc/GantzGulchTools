@@ -19,15 +19,14 @@ public class AbstractCipherTest {
     protected final GGLogger LOG = GGLogger.getLogger( getClass() );
 
     
-    protected void testEncryptDecrypt(final GGCipher cipher, final Key key, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptDecrypt(final GGCipher cipher, final Key key, final int inputSize, final int ivNonceSize) {
 
         LOG.info("Testing: %s with byte array.", cipher);
 
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
 
-        final byte[] plain = encryptThenDecrypt(cipher, key, input, iv, nonce);
+        final byte[] plain = encryptThenDecrypt(cipher, key, input, iv);
 
         assertThat(plain, notNullValue());
 
@@ -35,18 +34,17 @@ public class AbstractCipherTest {
 
     }
 
-    protected void testEncryptDecrypt_streams(final GGCipher cipher, final Key key, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptDecrypt_streams(final GGCipher cipher, final Key key, final int inputSize, final int ivNonceSize) {
 
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
 
         final ByteArrayInputStream is = new ByteArrayInputStream(input);
         final ByteArrayOutputStream os = new ByteArrayOutputStream(input.length);
 
-        encryptThenDecrypt(cipher, key, is, os, iv, nonce);
+        encryptThenDecrypt(cipher, key, is, os, iv);
 
         final byte[] plainBytes = os.toByteArray();
         
@@ -55,40 +53,38 @@ public class AbstractCipherTest {
 
     }
 
-    protected void testEncryptWithPublicDecryptWithPrivate(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptWithPublicDecryptWithPrivate(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivNonceSize) {
         
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
         
-        final byte[] encryptedInput = cipher.encrypt(kp1.getPublic(), input, iv, nonce);
+        final byte[] encryptedInput = cipher.encrypt(kp1.getPublic(), input, iv);
         
         assertThat(encryptedInput, notNullValue());
         assertThat(encryptedInput, not( equalTo(input)));
         
-        final byte[] decryptedInput = cipher.decrypt(kp1.getPrivate(), encryptedInput, iv, nonce);
+        final byte[] decryptedInput = cipher.decrypt(kp1.getPrivate(), encryptedInput, iv);
 
         assertThat(decryptedInput, notNullValue());
         assertThat(decryptedInput, equalTo(input) );
         
     }
 
-    protected void testEncryptWithPrivateDecryptWithPublic(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptWithPrivateDecryptWithPublic(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivNonceSize) {
     
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
  
-        final byte[] encryptedInput = cipher.encrypt(kp1.getPrivate(), input, iv, nonce);
+        final byte[] encryptedInput = cipher.encrypt(kp1.getPrivate(), input, iv);
         
         assertThat(encryptedInput, notNullValue());
         assertThat(encryptedInput, not( equalTo(input)));
         
-        final byte[] decryptedInput = cipher.decrypt(kp1.getPublic(), encryptedInput, iv, nonce);
+        final byte[] decryptedInput = cipher.decrypt(kp1.getPublic(), encryptedInput, iv);
         
         assertThat(decryptedInput, notNullValue());
         assertThat(decryptedInput, equalTo(input) );
@@ -96,18 +92,17 @@ public class AbstractCipherTest {
     }
 
 
-    protected void testEncryptWithPublicDecryptWithPrivateStreams(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptWithPublicDecryptWithPrivateStreams(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivNonceSize) {
         
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
         
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(input);
         final ByteArrayOutputStream encryptedOutputStream = new ByteArrayOutputStream();
         
-        cipher.encrypt(kp1.getPublic(), inputStream, encryptedOutputStream, iv, nonce);
+        cipher.encrypt(kp1.getPublic(), inputStream, encryptedOutputStream, iv);
         
         final byte[] encryptedInput = encryptedOutputStream.toByteArray();
         
@@ -116,7 +111,7 @@ public class AbstractCipherTest {
         final ByteArrayInputStream encryptedInputStream = new ByteArrayInputStream(encryptedInput);
         final ByteArrayOutputStream decryptedOutputStream = new ByteArrayOutputStream();
         
-        cipher.decrypt(kp1.getPrivate(), encryptedInputStream, decryptedOutputStream, iv, nonce);
+        cipher.decrypt(kp1.getPrivate(), encryptedInputStream, decryptedOutputStream, iv);
 
         final byte[] decryptedInput = decryptedOutputStream.toByteArray();
         
@@ -125,19 +120,18 @@ public class AbstractCipherTest {
         
     }
 
-    protected void testEncryptWithPrivateDecryptWithPublicStreams(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivSize, final int nonceSize) {
+    protected void testEncryptWithPrivateDecryptWithPublicStreams(final GGCipher cipher, final KeyPair kp1, final int inputSize, final int ivNonceSize) {
     
         
         LOG.info("Testing: %s with stream.", cipher);
         
-        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivSize);
-        final byte[] nonce = GGNonces.SECURE_RANDOM.nonce(nonceSize);
+        final byte[] iv = GGNonces.SECURE_RANDOM.nonce(ivNonceSize);
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(inputSize);
         
         final ByteArrayInputStream inputStream = new ByteArrayInputStream(input);
         final ByteArrayOutputStream encryptedOutputStream = new ByteArrayOutputStream();
         
-        cipher.encrypt(kp1.getPrivate(), inputStream, encryptedOutputStream, iv, nonce);
+        cipher.encrypt(kp1.getPrivate(), inputStream, encryptedOutputStream, iv);
         
         final byte[] encryptedInput = encryptedOutputStream.toByteArray();
         
@@ -146,7 +140,7 @@ public class AbstractCipherTest {
         final ByteArrayInputStream encryptedInputStream = new ByteArrayInputStream(encryptedInput);
         final ByteArrayOutputStream decryptedOutputStream = new ByteArrayOutputStream();
         
-        cipher.decrypt(kp1.getPublic(), encryptedInputStream, decryptedOutputStream, iv, nonce);
+        cipher.decrypt(kp1.getPublic(), encryptedInputStream, decryptedOutputStream, iv);
 
         final byte[] decryptedInput = decryptedOutputStream.toByteArray();
         
@@ -156,24 +150,24 @@ public class AbstractCipherTest {
 
 
 
-    protected byte[] encryptThenDecrypt(final GGCipher cipher, final Key key, final byte[] input, final byte[] iv, final byte[] nonce) {
+    protected byte[] encryptThenDecrypt(final GGCipher cipher, final Key key, final byte[] input, final byte[] iv) {
         
-        final byte[] cipherText = cipher.encrypt(key, input, iv, nonce);
+        final byte[] cipherText = cipher.encrypt(key, input, iv);
         
-        final byte[] plainText = cipher.decrypt(key, cipherText, iv, nonce);
+        final byte[] plainText = cipher.decrypt(key, cipherText, iv);
         
         return plainText;
     }
     
-    protected void encryptThenDecrypt(final GGCipher cipher, final Key key, final InputStream is, final OutputStream os, final byte[] iv, final byte[] nonce) {
+    protected void encryptThenDecrypt(final GGCipher cipher, final Key key, final InputStream is, final OutputStream os, final byte[] ivNonce) {
         
         final ByteArrayOutputStream cipherOutputStream = new ByteArrayOutputStream();
         
-        cipher.encrypt(key, is, cipherOutputStream, iv, nonce);
+        cipher.encrypt(key, is, cipherOutputStream, ivNonce);
         
         final ByteArrayInputStream cipherInputStream = new ByteArrayInputStream(cipherOutputStream.toByteArray());
         
-        cipher.decrypt(key, cipherInputStream, os, iv, nonce);
+        cipher.decrypt(key, cipherInputStream, os, ivNonce);
     }
     
 }

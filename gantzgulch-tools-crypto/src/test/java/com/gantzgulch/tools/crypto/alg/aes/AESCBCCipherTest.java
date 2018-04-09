@@ -17,8 +17,8 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(128);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 16);
     }
 
 
@@ -27,8 +27,8 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(192);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 16);
     }
 
     @Test
@@ -36,8 +36,8 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 16);
     }
 
     @Test
@@ -45,11 +45,11 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(128);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16);
     }
 
 
@@ -58,11 +58,11 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(192);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16);
     }
 
     @Test
@@ -70,11 +70,11 @@ public class AESCBCCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1024, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1024, 16);
 
-        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
-        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16, 0);
+        testEncryptDecrypt(CIPHER_PKCS7_PADDING, key, 1345, 16);
+        testEncryptDecrypt_streams(CIPHER_PKCS7_PADDING, key, 1345, 16);
     }
 
 }

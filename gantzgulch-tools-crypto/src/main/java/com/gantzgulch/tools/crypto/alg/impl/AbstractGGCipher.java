@@ -11,16 +11,13 @@ import javax.crypto.Cipher;
 import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.GGCipher;
-import com.gantzgulch.tools.crypto.GGIvSpec;
+import com.gantzgulch.tools.crypto.GGIvNonceSpec;
 import com.gantzgulch.tools.crypto.GGKeySpec;
-import com.gantzgulch.tools.crypto.GGNonceSpec;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
-import com.gantzgulch.tools.crypto.impl.GGIvSpecAny;
-import com.gantzgulch.tools.crypto.impl.GGIvSpecFixed;
-import com.gantzgulch.tools.crypto.impl.GGIvSpecNone;
-import com.gantzgulch.tools.crypto.impl.GGIvSpecSet;
-import com.gantzgulch.tools.crypto.impl.GGNonceSpecFixed;
-import com.gantzgulch.tools.crypto.impl.GGNonceSpecNone;
+import com.gantzgulch.tools.crypto.impl.GGIvNonceSpecAny;
+import com.gantzgulch.tools.crypto.impl.GGIvNonceSpecFixed;
+import com.gantzgulch.tools.crypto.impl.GGIvNonceSpecNone;
+import com.gantzgulch.tools.crypto.impl.GGIvNonceSpecSet;
 
 public abstract class AbstractGGCipher implements GGCipher {
 
@@ -29,17 +26,12 @@ public abstract class AbstractGGCipher implements GGCipher {
     
     public static final GGKeySpec KEY_RSA = GGKeySpec.create(1024, 2048, 4096);
     
-    public static final GGIvSpec IV_NONE = GGIvSpecNone.INSTANCE;
-    public static final GGIvSpec IV_ANY = GGIvSpecAny.INSTANCE;
-    public static final GGIvSpec IV_96 = new GGIvSpecFixed(96);
-    public static final GGIvSpec IV_128 = new GGIvSpecFixed(128);
-    public static final GGIvSpec IV_96_128_192_256 = new GGIvSpecSet(96, 128, 192, 256);
-    public static final GGIvSpec IV_128_192_256 = new GGIvSpecSet(128, 192, 256);
-    
-    
-    public static final GGNonceSpec NONCE_NONE = GGNonceSpecNone.INSTANCE;
-    public static final GGNonceSpec NONCE_12 = new GGNonceSpecFixed(12);
-    
+    public static final GGIvNonceSpec IV_NONCE_NONE = GGIvNonceSpecNone.INSTANCE;
+    public static final GGIvNonceSpec IV_NONCE_ANY = GGIvNonceSpecAny.INSTANCE;
+    public static final GGIvNonceSpec IV_NONCE_96 = new GGIvNonceSpecFixed(96);
+    public static final GGIvNonceSpec IV_NOCNE_128 = new GGIvNonceSpecFixed(128);
+    public static final GGIvNonceSpec IV_NOCNE_96_128_192_256 = new GGIvNonceSpecSet(96, 128, 192, 256);
+    public static final GGIvNonceSpec IV_NONCE_128_192_256 = new GGIvNonceSpecSet(128, 192, 256);
     
     static {
         BouncyCastleState.init();
@@ -49,21 +41,17 @@ public abstract class AbstractGGCipher implements GGCipher {
 
     protected final GGKeySpec keySpec;
     
-    protected final GGIvSpec ivSpec;
-
-    protected final GGNonceSpec nonceSpec;
+    protected final GGIvNonceSpec ivNonceSpec;
 
 
-    public AbstractGGCipher(final String algorithm, final GGKeySpec keySpec, final GGIvSpec ivSpec, final GGNonceSpec nonceSpec) {
+    public AbstractGGCipher(final String algorithm, final GGKeySpec keySpec, final GGIvNonceSpec ivNonceSpec) {
         
         GGArgs.notNull(keySpec, "keySpec");
-        GGArgs.notNull(ivSpec, "ivSpec");
-        GGArgs.notNull(nonceSpec, "nonceSpec");
+        GGArgs.notNull(ivNonceSpec, "ivSpec");
         
         this.algorithm = algorithm;
         this.keySpec = keySpec;
-        this.ivSpec = ivSpec;
-        this.nonceSpec = nonceSpec;
+        this.ivNonceSpec = ivNonceSpec;
     }
 
     @Override
@@ -77,16 +65,11 @@ public abstract class AbstractGGCipher implements GGCipher {
     }
     
     @Override
-    public GGIvSpec getIvSpec() {
-        return ivSpec;
+    public GGIvNonceSpec getIvNonceSpec() {
+        return ivNonceSpec;
     }
 
-    @Override
-    public GGNonceSpec getNonceSpec() {
-        return nonceSpec;
-    }
-
-    protected Cipher createCipher(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
+    protected Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
 
         final Cipher cipher = Cipher.getInstance(algorithm, "BC");
 
@@ -95,20 +78,18 @@ public abstract class AbstractGGCipher implements GGCipher {
         return cipher;
     }
     
-    private Cipher createCipherWithChecks(final int opMode, final Key key, final byte[] iv, final byte[] nonce) throws GeneralSecurityException {
+    private Cipher createCipherWithChecks(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
 
-        ivSpec.verify(iv);
+        ivNonceSpec.verify(ivNonce);
 
-        nonceSpec.verify(nonce);
-
-        return createCipher(opMode, key, iv, nonce);
+        return createCipher(opMode, key, ivNonce);
     }
 
     @Override
-    public void encrypt(final Key key, final InputStream input, final OutputStream output, final byte[] iv, final byte[] nonce) {
+    public void encrypt(final Key key, final InputStream input, final OutputStream output, final byte[] ivNonce) {
 
         try {
-            final Cipher cipher = createCipherWithChecks(Cipher.ENCRYPT_MODE, key, iv, nonce);
+            final Cipher cipher = createCipherWithChecks(Cipher.ENCRYPT_MODE, key, ivNonce);
 
             final byte[] buffer = new byte[64 * 1024];
             byte[] eBuffer;
@@ -135,10 +116,10 @@ public abstract class AbstractGGCipher implements GGCipher {
     }
 
     @Override
-    public byte[] encrypt(final Key key, final byte[] input, final byte[] iv, final byte[] nonce) {
+    public byte[] encrypt(final Key key, final byte[] input, final byte[] ivNonce) {
 
         try {
-            final Cipher cipher = createCipherWithChecks(Cipher.ENCRYPT_MODE, key, iv, nonce);
+            final Cipher cipher = createCipherWithChecks(Cipher.ENCRYPT_MODE, key, ivNonce);
 
             return cipher.doFinal(input);
 
@@ -148,10 +129,10 @@ public abstract class AbstractGGCipher implements GGCipher {
     }
 
     @Override
-    public void decrypt(final Key key, final InputStream input, final OutputStream output, final byte[] iv, final byte[] nonce) {
+    public void decrypt(final Key key, final InputStream input, final OutputStream output, final byte[] ivNonce) {
 
         try {
-            final Cipher cipher = createCipherWithChecks(Cipher.DECRYPT_MODE, key, iv, nonce);
+            final Cipher cipher = createCipherWithChecks(Cipher.DECRYPT_MODE, key, ivNonce);
 
             final byte[] buffer = new byte[64 * 1024];
             byte[] eBuffer;
@@ -179,11 +160,11 @@ public abstract class AbstractGGCipher implements GGCipher {
     }
 
     @Override
-    public byte[] decrypt(final Key key, final byte[] input, final byte[] iv, final byte[] nonce) {
+    public byte[] decrypt(final Key key, final byte[] input, final byte[] iv) {
 
         try {
             
-            final Cipher cipher = createCipherWithChecks(Cipher.DECRYPT_MODE, key, iv, nonce);
+            final Cipher cipher = createCipherWithChecks(Cipher.DECRYPT_MODE, key, iv);
 
             return cipher.doFinal(input);
 

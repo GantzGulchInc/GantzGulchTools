@@ -10,16 +10,14 @@ public interface GGCipher {
     
     GGKeySpec getKeySpec();
     
-    GGIvSpec getIvSpec();
+    GGIvNonceSpec getIvNonceSpec();
     
-    GGNonceSpec getNonceSpec();
+    void encrypt(Key key, InputStream input, OutputStream output, byte[] ivNonce);
     
-    void encrypt(Key key, InputStream input, OutputStream output, byte[] iv, byte[] nonce);
+    void decrypt(Key key, InputStream input, OutputStream output, byte[] ivNonce);
     
-    void decrypt(Key key, InputStream input, OutputStream output, byte[] iv, byte[] nonce);
-    
-    byte[] encrypt(Key key, byte[] input, byte[] iv, byte[] nonce);
+    byte[] encrypt(Key key, byte[] input, byte[] ivNonce);
 
-    byte[] decrypt(Key key, byte[] input, byte[] iv, byte[] nonce);
+    byte[] decrypt(Key key, byte[] input, byte[] ivNonce);
 
 }

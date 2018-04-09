@@ -16,11 +16,11 @@ public class AESCCMCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(128);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 12);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 12);
     }
 
 
@@ -29,11 +29,11 @@ public class AESCCMCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(192);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 12);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 12);
     }
 
     @Test
@@ -41,11 +41,11 @@ public class AESCCMCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 12);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 12, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 12);
     }
 
 

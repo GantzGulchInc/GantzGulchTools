@@ -1,14 +1,14 @@
 package com.gantzgulch.tools.crypto.impl;
 
 import com.gantzgulch.tools.common.lang.GGArgs;
-import com.gantzgulch.tools.crypto.GGIvSpec;
+import com.gantzgulch.tools.crypto.GGIvNonceSpec;
 
-public abstract class AbstractGGIvSpec implements GGIvSpec {
+public abstract class AbstractGGIvNonceSpec implements GGIvNonceSpec {
 
     private final int minSizeBits;
     private final int maxSizeBits;
 
-    public AbstractGGIvSpec(final int minSizeBits, final int maxSizeBits) {
+    public AbstractGGIvNonceSpec(final int minSizeBits, final int maxSizeBits) {
         
         GGArgs.isGreaterThanOrEqual(minSizeBits, 0, "minSizeBits");
         GGArgs.isGreaterThanOrEqual(maxSizeBits, minSizeBits, "maxSizeBits");

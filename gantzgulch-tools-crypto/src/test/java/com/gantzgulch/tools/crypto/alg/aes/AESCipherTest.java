@@ -44,7 +44,7 @@ public class AESCipherTest extends AbstractCipherTest {
 
         final byte[] input = GGNonces.SECURE_RANDOM.nonce(4096);
 
-        final byte[] plain = encryptThenDecrypt(cipher, key, input, null, null);
+        final byte[] plain = encryptThenDecrypt(cipher, key, input, null);
 
         assertThat(plain, notNullValue());
 
@@ -61,7 +61,7 @@ public class AESCipherTest extends AbstractCipherTest {
         final ByteArrayInputStream is = new ByteArrayInputStream(input);
         final ByteArrayOutputStream os = new ByteArrayOutputStream(input.length);
 
-        encryptThenDecrypt(cipher, key, is, os, null, null);
+        encryptThenDecrypt(cipher, key, is, os, null);
 
         final byte[] plainBytes = os.toByteArray();
         

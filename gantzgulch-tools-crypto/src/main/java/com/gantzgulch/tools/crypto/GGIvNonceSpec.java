@@ -1,6 +1,6 @@
 package com.gantzgulch.tools.crypto;
 
-public interface GGIvSpec {
+public interface GGIvNonceSpec {
 
     int getMinSizeInBits();
 

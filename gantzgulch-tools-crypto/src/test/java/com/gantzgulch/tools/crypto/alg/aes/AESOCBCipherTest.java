@@ -16,19 +16,19 @@ public class AESOCBCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(128);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 1);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 1);
 
         
         
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 15);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 15);
     }
 
 
@@ -37,18 +37,18 @@ public class AESOCBCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(192);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 1);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 1);
 
         
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 15);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 15);
     }
 
     @Test
@@ -56,18 +56,18 @@ public class AESOCBCipherTest extends AbstractCipherTest {
 
         final Key key = AESKeyGenerator.generate(256);
 
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 1);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 1, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 1);
 
         
-        testEncryptDecrypt(CIPHER, key, 1024, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1024, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1024, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1024, 15);
 
-        testEncryptDecrypt(CIPHER, key, 1345, 12, 0);
-        testEncryptDecrypt_streams(CIPHER, key, 1345, 15, 0);
+        testEncryptDecrypt(CIPHER, key, 1345, 12);
+        testEncryptDecrypt_streams(CIPHER, key, 1345, 15);
     }
 
 

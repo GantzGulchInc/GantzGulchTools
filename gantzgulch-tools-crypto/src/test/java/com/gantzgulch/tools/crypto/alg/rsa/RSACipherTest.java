@@ -14,11 +14,11 @@ public class RSACipherTest extends AbstractCipherTest {
         
         final KeyPair keyPair = RSAKeyGenerator.generate(1024);
         
-        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithMD5AndMGF1Padding, keyPair, 94, 0, 0);
-        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_1AndMGF1Padding, keyPair, 86, 0, 0);
-        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_224AndMGF1Padding, keyPair, 70, 0, 0);
-        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_256AndMGF1Padding, keyPair, 60, 0, 0);
-        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_384AndMGF1Padding, keyPair, 30, 0, 0);
+        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithMD5AndMGF1Padding, keyPair, 94, 0);
+        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_1AndMGF1Padding, keyPair, 86, 0);
+        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_224AndMGF1Padding, keyPair, 70, 0);
+        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_256AndMGF1Padding, keyPair, 60, 0);
+        testEncryptWithPublicDecryptWithPrivate(RSACipher.RSA_NONE_OAEPWithSHA_384AndMGF1Padding, keyPair, 30, 0);
     }
     
     @Test
@@ -27,10 +27,10 @@ public class RSACipherTest extends AbstractCipherTest {
         final KeyPair keyPair = RSAKeyGenerator.generate(2048);
         
         for(final GGCipher cipher : RSACipher.CIPHERS){
-            testEncryptWithPublicDecryptWithPrivate(cipher, keyPair, 115, 0, 0);
-            testEncryptWithPrivateDecryptWithPublic(cipher, keyPair, 115, 0, 0);
-            testEncryptWithPublicDecryptWithPrivateStreams(cipher, keyPair, 115, 0, 0);
-            testEncryptWithPrivateDecryptWithPublicStreams(cipher, keyPair, 115, 0, 0);
+            testEncryptWithPublicDecryptWithPrivate(cipher, keyPair, 115, 0);
+            testEncryptWithPrivateDecryptWithPublic(cipher, keyPair, 115, 0);
+            testEncryptWithPublicDecryptWithPrivateStreams(cipher, keyPair, 115, 0);
+            testEncryptWithPrivateDecryptWithPublicStreams(cipher, keyPair, 115, 0);
         }
     }
     
@@ -40,10 +40,10 @@ public class RSACipherTest extends AbstractCipherTest {
         final KeyPair keyPair = RSAKeyGenerator.generate(4096);
         
         for(final GGCipher cipher : RSACipher.CIPHERS){
-            testEncryptWithPublicDecryptWithPrivate(cipher, keyPair, 128, 0, 0);
-            testEncryptWithPrivateDecryptWithPublic(cipher, keyPair, 128, 0, 0);
-            testEncryptWithPublicDecryptWithPrivateStreams(cipher, keyPair, 128, 0, 0);
-            testEncryptWithPrivateDecryptWithPublicStreams(cipher, keyPair, 128, 0, 0);
+            testEncryptWithPublicDecryptWithPrivate(cipher, keyPair, 128, 0);
+            testEncryptWithPrivateDecryptWithPublic(cipher, keyPair, 128, 0);
+            testEncryptWithPublicDecryptWithPrivateStreams(cipher, keyPair, 128, 0);
+            testEncryptWithPrivateDecryptWithPublicStreams(cipher, keyPair, 128, 0);
         }
     }
     
