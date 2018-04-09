@@ -34,7 +34,7 @@ public class AESAEADCipher extends AbstractGGCipher {
     }
 
     @Override
-    protected Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
+    public Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
 
         final Cipher cipher = Cipher.getInstance(algorithm, "BC");
 

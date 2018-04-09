@@ -17,25 +17,25 @@ public class AESGCMCipher extends AbstractGGCipher {
     public static final List<AESGCMCipher> CIPHERS = new ArrayList<>();
     
 
-    public static final AESGCMCipher AES_GCM_NO_PADDING = new AESGCMCipher("AES/GCM/NoPadding", KEY_128_192_256, IV_NONCE_96, 16);
+    public static final AESGCMCipher AES_GCM_NO_PADDING = new AESGCMCipher("AES/GCM/NoPadding", KEY_128_192_256, IV_NONCE_96, 128);
 
-    private final int tagLength;
+    private final int tagLengthBits;
 
-    private AESGCMCipher(final String algorithm, final GGKeySpec keySpec, final GGIvNonceSpec ivNonceSpec, final int tagLength) {
+    private AESGCMCipher(final String algorithm, final GGKeySpec keySpec, final GGIvNonceSpec ivNonceSpec, final int tagLengthBits) {
         
         super(algorithm, keySpec, ivNonceSpec);
         
-        this.tagLength = tagLength;
+        this.tagLengthBits = tagLengthBits;
         
         CIPHERS.add(this);
     }
 
     @Override
-    protected Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
+    public Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
         
         final Cipher cipher = Cipher.getInstance(algorithm, "BC");
 
-        final GCMParameterSpec spec = new GCMParameterSpec(tagLength * 8, ivNonce);
+        final GCMParameterSpec spec = new GCMParameterSpec(tagLengthBits, ivNonce);
         
         cipher.init(opMode, key, spec);
         

@@ -2,7 +2,10 @@ package com.gantzgulch.tools.crypto;
 
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.security.GeneralSecurityException;
 import java.security.Key;
+
+import javax.crypto.Cipher;
 
 public interface GGCipher {
 
@@ -19,5 +22,7 @@ public interface GGCipher {
     byte[] encrypt(Key key, byte[] input, byte[] ivNonce);
 
     byte[] decrypt(Key key, byte[] input, byte[] ivNonce);
+
+    Cipher createCipher(int opMode, Key key, byte[] ivNonce) throws GeneralSecurityException;
 
 }

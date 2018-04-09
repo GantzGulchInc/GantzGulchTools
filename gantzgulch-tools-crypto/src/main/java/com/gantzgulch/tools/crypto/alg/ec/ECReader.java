@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.alg.rsa;
+package com.gantzgulch.tools.crypto.alg.ec;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -16,9 +16,9 @@ import com.gantzgulch.tools.crypto.alg.impl.GGKeyPairs;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 import com.gantzgulch.tools.crypto.pem.PEMReader;
 
-public final class RSAReader {
+public final class ECReader {
 
-    private static final String ALGORITHM = "RSA";
+    private static final String ALGORITHM = "ECDSA";
 
     static {
         BouncyCastleState.init();
@@ -26,7 +26,7 @@ public final class RSAReader {
 
     private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
 
-    private RSAReader() {
+    private ECReader() {
         throw new UnsupportedOperationException();
     }
 
@@ -52,7 +52,6 @@ public final class RSAReader {
         GGArgs.notNull(is, "is");
 
         try {
-
             final KeyPair kp = CONVERTER.getKeyPair(PEMReader.read(is, PEMKeyPair.class));
 
             GGKeyPairs.verifyAlgorithm(kp, ALGORITHM);
@@ -124,7 +123,7 @@ public final class RSAReader {
         GGArgs.notNull(reader, "reader");
 
         try {
-            
+
             final PublicKey key = CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);

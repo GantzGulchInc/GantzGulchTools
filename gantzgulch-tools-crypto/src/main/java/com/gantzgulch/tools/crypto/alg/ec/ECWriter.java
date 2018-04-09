@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.crypto.alg.rsa;
+package com.gantzgulch.tools.crypto.alg.ec;
 
 import java.security.KeyPair;
 import java.security.PublicKey;
@@ -8,15 +8,15 @@ import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.alg.impl.GGKeyPairs;
 import com.gantzgulch.tools.crypto.pem.PEMWriter;
 
-public final class RSAWriter {
+public final class ECWriter {
 
-    private static final String ALGORITHM = "RSA";
+    private static final String ALGORITHM = "ECDSA";
     
     static {
         BouncyCastleState.init();
     }
 
-    private RSAWriter() {
+    private ECWriter() {
         throw new UnsupportedOperationException();
     }
 
@@ -35,7 +35,7 @@ public final class RSAWriter {
         GGArgs.notNull(publicKey, "publicKey");
 
         GGKeyPairs.verifyAlgorithm(publicKey, ALGORITHM);
-
+        
         return PEMWriter.write(publicKey);
 
     }

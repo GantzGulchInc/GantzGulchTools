@@ -68,8 +68,9 @@ public abstract class AbstractGGCipher implements GGCipher {
     public GGIvNonceSpec getIvNonceSpec() {
         return ivNonceSpec;
     }
-
-    protected Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
+    
+    @Override
+    public Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
 
         final Cipher cipher = Cipher.getInstance(algorithm, "BC");
 
