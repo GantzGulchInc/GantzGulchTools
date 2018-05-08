@@ -372,6 +372,7 @@ public class GGHttpClientImpl implements GGHttpClient {
                 setDefaultRequestConfig(rc). //
                 setConnectionManager(connectionManager). //
                 disableRedirectHandling(). //
+                addInterceptorLast(new GGHttpSslResponseInterceptor()). //
                 build();
 
         return httpClient;

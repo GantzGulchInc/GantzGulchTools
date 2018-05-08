@@ -28,6 +28,7 @@
 			<groupId>com.gantzgulch.tools</groupId>
 			<artifactId>gantzgulch-tools-crypto</artifactId>
 			<version>${project.version}</version>
+			<scope>test</scope>
 		</dependency>
 
 		<dependency>
