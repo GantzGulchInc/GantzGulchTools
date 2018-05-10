@@ -286,7 +286,7 @@ public class GGHttpClientImpl implements GGHttpClient {
 
         } catch (final RuntimeException | IOException ex) {
 
-            LOG.warn("executeWithRedirectChecks: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
+            LOG.warn(ex, "executeWithRedirectChecks: Request execution for [%s] failed on I/O : %s", request.getURI(), GGExceptions.createMessageStack(ex));
 
             HttpClientUtils.closeQuietly(response);
 
@@ -304,6 +304,10 @@ public class GGHttpClientImpl implements GGHttpClient {
             return null;
         }
 
+        if( httpContext.getAttribute("IGNORE_REDIRECTS") != null ){
+            return null;
+        }
+        
         final int statusCode = GGHttpResponses.getStatusCode(response);
 
         switch (statusCode) {
@@ -372,7 +376,6 @@ public class GGHttpClientImpl implements GGHttpClient {
                 setDefaultRequestConfig(rc). //
                 setConnectionManager(connectionManager). //
                 disableRedirectHandling(). //
-                addInterceptorLast(new GGHttpSslResponseInterceptor()). //
                 build();
 
         return httpClient;
