@@ -19,7 +19,7 @@ public final class PKCS10Reader {
         BouncyCastleState.init();
     }
 
-    private static final JcaX509CertificateConverter X509_CERT_CONVERTER = new JcaX509CertificateConverter().setProvider("BC");
+    private static final JcaX509CertificateConverter X509_CERT_CONVERTER = BouncyCastleState.createX509Converter();
 
     private PKCS10Reader() {
         throw new UnsupportedOperationException();

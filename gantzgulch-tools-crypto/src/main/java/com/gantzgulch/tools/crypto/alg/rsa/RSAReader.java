@@ -24,7 +24,7 @@ public final class RSAReader {
         BouncyCastleState.init();
     }
 
-    private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
+    private static final JcaPEMKeyConverter CONVERTER = BouncyCastleState.createPemKeyConverter();
 
     private RSAReader() {
         throw new UnsupportedOperationException();
@@ -124,7 +124,7 @@ public final class RSAReader {
         GGArgs.notNull(reader, "reader");
 
         try {
-            
+
             final PublicKey key = CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);

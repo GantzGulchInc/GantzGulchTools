@@ -25,7 +25,7 @@ public final class ECKeyGenerator {
 
         try {
 
-            final KeyPairGenerator generator = KeyPairGenerator.getInstance("ECDSA", "BC");
+            final KeyPairGenerator generator = KeyPairGenerator.getInstance("ECDSA", BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
             generator.initialize(ecGenParameterSpec, new SecureRandom());
 

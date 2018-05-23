@@ -30,7 +30,7 @@ public abstract class AbstractGGSignature implements GGSignature {
     
     protected Signature createSignature(final PrivateKey key) throws GeneralSecurityException {
 
-        final Signature sig = Signature.getInstance(algorithm, "BC");
+        final Signature sig = Signature.getInstance(algorithm, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
         sig.initSign(key);
         
@@ -39,7 +39,7 @@ public abstract class AbstractGGSignature implements GGSignature {
     
     protected Signature createSignature(final PublicKey key) throws GeneralSecurityException {
 
-        final Signature sig = Signature.getInstance(algorithm, "BC");
+        final Signature sig = Signature.getInstance(algorithm, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
         sig.initVerify(key);
         

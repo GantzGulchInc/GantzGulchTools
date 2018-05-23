@@ -72,7 +72,7 @@ public abstract class AbstractGGCipher implements GGCipher {
     @Override
     public Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
 
-        final Cipher cipher = Cipher.getInstance(algorithm, "BC");
+        final Cipher cipher = Cipher.getInstance(algorithm, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
         cipher.init(opMode, key);
 

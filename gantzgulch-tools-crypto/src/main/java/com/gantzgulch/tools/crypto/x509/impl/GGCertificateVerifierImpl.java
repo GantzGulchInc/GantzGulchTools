@@ -86,7 +86,7 @@ public class GGCertificateVerifierImpl implements GGCertificateVerifier {
             
             final PublicKey key = cert.getPublicKey();
 
-            cert.verify(key, "BC");
+            cert.verify(key, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
             return true;
 
@@ -118,7 +118,7 @@ public class GGCertificateVerifierImpl implements GGCertificateVerifier {
         final CertStore intermediateCertStore = trustedCerts.createIntermediateCertStore();
         pkixParams.addCertStore(intermediateCertStore);
 
-        final CertPathBuilder builder = CertPathBuilder.getInstance("PKIX", "BC");
+        final CertPathBuilder builder = CertPathBuilder.getInstance("PKIX", BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
         final PKIXCertPathBuilderResult result = (PKIXCertPathBuilderResult) builder.build(pkixParams);
 
@@ -175,7 +175,7 @@ public class GGCertificateVerifierImpl implements GGCertificateVerifier {
 
             final CollectionCertStoreParameters params = new CollectionCertStoreParameters(intermeditateCerts);
 
-            final CertStore intermediateCertStore = CertStore.getInstance("Collection", params, "BC");
+            final CertStore intermediateCertStore = CertStore.getInstance("Collection", params, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
             return intermediateCertStore;
 

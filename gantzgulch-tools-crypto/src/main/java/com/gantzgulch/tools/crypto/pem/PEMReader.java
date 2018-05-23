@@ -7,7 +7,9 @@ import java.io.Reader;
 import java.io.StringReader;
 import java.nio.charset.Charset;
 import java.security.KeyPair;
+import java.security.PublicKey;
 
+import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
 import org.bouncycastle.openssl.PEMException;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.PEMParser;
@@ -23,37 +25,65 @@ public final class PEMReader {
     static {
         BouncyCastleState.init();
     }
-    
-    private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
+
+    private static final JcaPEMKeyConverter CONVERTER = BouncyCastleState.createPemKeyConverter();
 
     private PEMReader() {
         throw new UnsupportedOperationException();
     }
 
     public static KeyPair readKeyPair(final Reader reader) {
-        
+
         try {
-            
+
             final PEMKeyPair pemKeyPair = read(reader, PEMKeyPair.class);
 
             return CONVERTER.getKeyPair(pemKeyPair);
-            
+
         } catch (final PEMException e) {
             throw new CryptoException(e);
         }
     }
 
     public static KeyPair readKeyPair(final String pem) {
-        
+
         try {
-            
+
             final PEMKeyPair pemKeyPair = read(pem, PEMKeyPair.class);
 
             return CONVERTER.getKeyPair(pemKeyPair);
-            
+
         } catch (final PEMException e) {
             throw new CryptoException(e);
         }
+    }
+
+    public static PublicKey readPublicKey(final Reader reader) {
+
+        try {
+
+            final SubjectPublicKeyInfo publicKeyInfo = read(reader, SubjectPublicKeyInfo.class);
+
+            return CONVERTER.getPublicKey(publicKeyInfo);
+
+        } catch (final PEMException e) {
+            throw new CryptoException(e);
+        }
+
+    }
+
+    public static PublicKey readPublicKey(final String pem) {
+
+        try {
+
+            final SubjectPublicKeyInfo publicKeyInfo = read(pem, SubjectPublicKeyInfo.class);
+
+            return CONVERTER.getPublicKey(publicKeyInfo);
+
+        } catch (final PEMException e) {
+            throw new CryptoException(e);
+        }
+
     }
 
     public static <T> T read(final String pem, final Class<T> objectClass) {

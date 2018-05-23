@@ -3,10 +3,20 @@ package com.gantzgulch.tools.crypto.alg.ec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.security.GeneralSecurityException;
+import java.security.KeyFactory;
 import java.security.KeyPair;
 import java.security.PublicKey;
+import java.security.interfaces.ECPublicKey;
+import java.security.spec.ECParameterSpec;
+import java.security.spec.ECPoint;
+import java.security.spec.ECPublicKeySpec;
 
 import org.bouncycastle.asn1.x509.SubjectPublicKeyInfo;
+import org.bouncycastle.jce.ECNamedCurveTable;
+import org.bouncycastle.jce.ECPointUtil;
+import org.bouncycastle.jce.spec.ECNamedCurveParameterSpec;
+import org.bouncycastle.jce.spec.ECNamedCurveSpec;
 import org.bouncycastle.openssl.PEMKeyPair;
 import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
@@ -24,7 +34,7 @@ public final class ECReader {
         BouncyCastleState.init();
     }
 
-    private static final JcaPEMKeyConverter CONVERTER = new JcaPEMKeyConverter().setProvider("BC");
+    private static final JcaPEMKeyConverter CONVERTER = BouncyCastleState.createPemKeyConverter();
 
     private ECReader() {
         throw new UnsupportedOperationException();
@@ -134,6 +144,29 @@ public final class ECReader {
             throw new CryptoException(e);
         }
 
+    }
+
+    public static PublicKey readPublicKeyX963(final String curveName, final byte[] data) {
+
+        try {
+
+            final ECNamedCurveParameterSpec params2 = ECNamedCurveTable.getParameterSpec(curveName);
+
+            final ECParameterSpec params = new ECNamedCurveSpec(curveName, params2.getCurve(), params2.getG(), params2.getN());
+
+            final ECPoint ecPoint = ECPointUtil.decodePoint(params.getCurve(), data);
+
+            final ECPublicKeySpec pubKey = new ECPublicKeySpec(ecPoint, params);
+
+            final KeyFactory eckf = KeyFactory.getInstance("EC", BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
+
+            final ECPublicKey ecPubKey = (ECPublicKey) eckf.generatePublic(pubKey);
+
+            return ecPubKey;
+
+        } catch (final GeneralSecurityException e) {
+            throw new CryptoException(e);
+        }
     }
 
 }

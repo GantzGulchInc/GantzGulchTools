@@ -27,11 +27,11 @@ public class ECSignatureTest {
         final KeyPair kp = ECKeyGenerator.generate( ecGenSpec ); 
         
         
-        final byte[] signature = ECSignature.ECDSA.sign(kp.getPrivate(), INPUT);
+        final byte[] signature = ECSignature.SHA1_ECDSA.sign(kp.getPrivate(), INPUT);
         
         LOG.info("testSignature: signature: %s", GGHex.toHexString(signature));
         
-        final boolean verified = ECSignature.ECDSA.verify(kp.getPublic(), signature, INPUT);
+        final boolean verified = ECSignature.SHA1_ECDSA.verify(kp.getPublic(), signature, INPUT);
         
         LOG.info("testSignature: verified: %s", verified);
     }

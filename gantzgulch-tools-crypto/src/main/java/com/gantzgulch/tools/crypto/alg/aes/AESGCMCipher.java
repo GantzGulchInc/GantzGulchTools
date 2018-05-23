@@ -8,6 +8,7 @@ import java.util.List;
 import javax.crypto.Cipher;
 import javax.crypto.spec.GCMParameterSpec;
 
+import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.GGIvNonceSpec;
 import com.gantzgulch.tools.crypto.GGKeySpec;
 import com.gantzgulch.tools.crypto.alg.impl.AbstractGGCipher;
@@ -33,7 +34,7 @@ public class AESGCMCipher extends AbstractGGCipher {
     @Override
     public Cipher createCipher(final int opMode, final Key key, final byte[] ivNonce) throws GeneralSecurityException {
         
-        final Cipher cipher = Cipher.getInstance(algorithm, "BC");
+        final Cipher cipher = Cipher.getInstance(algorithm, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);
 
         final GCMParameterSpec spec = new GCMParameterSpec(tagLengthBits, ivNonce);
         
