@@ -6,7 +6,6 @@ import java.io.Reader;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
-import java.security.PublicKey;
 import java.security.interfaces.ECPublicKey;
 import java.security.spec.ECParameterSpec;
 import java.security.spec.ECPoint;
@@ -92,13 +91,13 @@ public final class ECReader {
 
     }
 
-    public static PublicKey readPublicKey(final String pem) {
+    public static ECPublicKey readPublicKey(final String pem) {
 
         GGArgs.notNull(pem, "pem");
 
         try {
 
-            final PublicKey key = CONVERTER.getPublicKey(PEMReader.read(pem, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(pem, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -110,13 +109,13 @@ public final class ECReader {
 
     }
 
-    public static PublicKey readPublicKey(final InputStream is) {
+    public static ECPublicKey readPublicKey(final InputStream is) {
 
         GGArgs.notNull(is, "is");
 
         try {
 
-            final PublicKey key = CONVERTER.getPublicKey(PEMReader.read(is, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(is, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -128,13 +127,13 @@ public final class ECReader {
 
     }
 
-    public static PublicKey readPublicKey(final Reader reader) {
+    public static ECPublicKey readPublicKey(final Reader reader) {
 
         GGArgs.notNull(reader, "reader");
 
         try {
 
-            final PublicKey key = CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -146,7 +145,7 @@ public final class ECReader {
 
     }
 
-    public static PublicKey readPublicKeyX963(final String curveName, final byte[] data) {
+    public static ECPublicKey readPublicKeyX963(final String curveName, final byte[] data) {
 
         try {
 

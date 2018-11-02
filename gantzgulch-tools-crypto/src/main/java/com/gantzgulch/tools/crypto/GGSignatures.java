@@ -15,6 +15,8 @@ public final class GGSignatures {
     
     public static final GGSignature SHA1_ECDSA = ECSignature.SHA1_ECDSA;
     public static final GGSignature SHA256_ECDSA = ECSignature.SHA256_ECDSA;
+    public static final GGSignature SHA384_ECDSA = ECSignature.SHA384_ECDSA;
+    public static final GGSignature SHA512_ECDSA = ECSignature.SHA512_ECDSA;
     
     private GGSignatures() {
         throw new UnsupportedOperationException();

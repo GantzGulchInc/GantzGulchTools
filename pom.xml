@@ -48,6 +48,7 @@
 		<module>gantzgulch-tools-aws</module>
 		<module>gantzgulch-tools-http</module>
 		<module>gantzgulch-tools-hibernate</module>
+		<module>gantzgulch-tools-jwt</module>
 	</modules>
 
 	<scm>

@@ -37,8 +37,8 @@ public class ECReaderTest {
         
         
         
-        final byte[] signature =  GGHex.fromHexString("3045022100dbbc8514e726f44415d3433a0560e99346f7e2d0b7e23e557182d5e71efa1f0e0220723b655feb437d51dc68257f47630e7f755993a3869a00c571f87af0be8f2571");
-        final byte[] input = GGStrings.toBytes("SN-0A-00000233");
+        final byte[] signature =  GGHex.fromHexString("304502202bfd4062195e8c37548db5e44f3b5e61a4888558278f2383ef8e4c7bee9e1a91022100debcffe1b610b1e2e078367de6c5e5876fc60051ed267cff0726c2329ff2dd75");
+        final byte[] input = GGStrings.toBytes("T01-8a018414a992487180b2630efbe13d56");
         
         final boolean v = GGSignatures.SHA1_ECDSA.verify(publicKey, signature, input);
 
