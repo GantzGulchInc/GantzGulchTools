@@ -6,7 +6,7 @@
 
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools-top</artifactId>
-	<version>1.0.13</version>
+	<version>1.0.14</version>
 	<packaging>pom</packaging>
 
 	<name>GantzGulch, Inc. Tools - Master Pom</name>
@@ -68,9 +68,9 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 
 		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
-		<JACKSON_VERSION>2.9.4</JACKSON_VERSION>
+		<JACKSON_VERSION>2.9.7</JACKSON_VERSION>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
-		<AWS_SDK>1.11.284</AWS_SDK>
+		<AWS_SDK>1.11.441</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 
 		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
@@ -142,13 +142,13 @@
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcprov-jdk15on</artifactId>
-				<version>1.59</version>
+				<version>1.60</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcpkix-jdk15on</artifactId>
-				<version>1.59</version>
+				<version>1.60</version>
 			</dependency>
 
 			<!-- Apache Commons -->
@@ -160,7 +160,7 @@
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
-				<version>3.7</version>
+				<version>3.8.1</version>
 			</dependency>
 			<dependency>
 				<groupId>commons-io</groupId>
@@ -172,12 +172,12 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpclient</artifactId>
-				<version>4.5.5</version>
+				<version>4.5.6</version>
 			</dependency>
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
-				<version>4.4.9</version>
+				<version>4.4.10</version>
 			</dependency>
 
 			<!-- Tomcat -->
@@ -192,7 +192,7 @@
 			<dependency>
 				<groupId>com.opencsv</groupId>
 				<artifactId>opencsv</artifactId>
-				<version>4.1</version>
+				<version>4.3.2</version>
 			</dependency>
 
 			<!-- Jackson -->
@@ -272,13 +272,13 @@
 			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
-				<version>4.1.0</version>
+				<version>4.2.2</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>com.google.inject.extensions</groupId>
 				<artifactId>guice-multibindings</artifactId>
-				<version>4.1.0</version>
+				<version>4.2.2</version>
 				<optional>true</optional>
 			</dependency>
 

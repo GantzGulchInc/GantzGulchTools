@@ -74,6 +74,8 @@ public class GGCertificateVerifierImpl implements GGCertificateVerifier {
 
         try {
             
+            LOG.trace("NotAfter: %s", cert.getNotAfter() );
+            
             final X500Principal subject = cert.getSubjectX500Principal();
             final X500Principal issuer = cert.getIssuerX500Principal();
 
@@ -84,6 +86,8 @@ public class GGCertificateVerifierImpl implements GGCertificateVerifier {
                 return false;
             }
             
+            LOG.trace("isSelfSignedImpl: match: subject: %s, issue: %s", subject, issuer);
+
             final PublicKey key = cert.getPublicKey();
 
             cert.verify(key, BouncyCastleState.BOUNCY_CASTLE_PROVIDER);

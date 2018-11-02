@@ -17,30 +17,34 @@ public class GGCertificateVerifierTest {
 
     // Google wildcard certificate
     public static final String CERTIFICATE1 = "" + //
-            "-----BEGIN CERTIFICATE-----\n" + //
-            "MIIDxzCCAq+gAwIBAgIIBQoKGOts8hswDQYJKoZIhvcNAQELBQAwVDELMAkGA1UE\n" + //
-            "BhMCVVMxHjAcBgNVBAoTFUdvb2dsZSBUcnVzdCBTZXJ2aWNlczElMCMGA1UEAxMc\n" + //
-            "R29vZ2xlIEludGVybmV0IEF1dGhvcml0eSBHMzAeFw0xODA0MTcxMzI3MzZaFw0x\n" + //
-            "ODA3MTAxMjM5MDBaMGgxCzAJBgNVBAYTAlVTMRMwEQYDVQQIDApDYWxpZm9ybmlh\n" + //
-            "MRYwFAYDVQQHDA1Nb3VudGFpbiBWaWV3MRMwEQYDVQQKDApHb29nbGUgSW5jMRcw\n" + //
-            "FQYDVQQDDA53d3cuZ29vZ2xlLmNvbTBZMBMGByqGSM49AgEGCCqGSM49AwEHA0IA\n" + //
-            "BDe3g/rFaC7eGVPGidStIyuVs55ryUeB8LN7G/fxW/aPCycuM/FH+RHR9bE5YgLJ\n" + //
-            "0qEEELQoRmGJQK+b7up6S52jggFSMIIBTjATBgNVHSUEDDAKBggrBgEFBQcDATAO\n" + //
-            "BgNVHQ8BAf8EBAMCB4AwGQYDVR0RBBIwEIIOd3d3Lmdvb2dsZS5jb20waAYIKwYB\n" + //
-            "BQUHAQEEXDBaMC0GCCsGAQUFBzAChiFodHRwOi8vcGtpLmdvb2cvZ3NyMi9HVFNH\n" + //
-            "SUFHMy5jcnQwKQYIKwYBBQUHMAGGHWh0dHA6Ly9vY3NwLnBraS5nb29nL0dUU0dJ\n" + //
-            "QUczMB0GA1UdDgQWBBQU05cN9ehLernVmgLZkCNM8xVhLzAMBgNVHRMBAf8EAjAA\n" + //
-            "MB8GA1UdIwQYMBaAFHfCuFCaZ3Z2sS3ChtCDoH6mfrpLMCEGA1UdIAQaMBgwDAYK\n" + //
-            "KwYBBAHWeQIFAzAIBgZngQwBAgIwMQYDVR0fBCowKDAmoCSgIoYgaHR0cDovL2Ny\n" + //
-            "bC5wa2kuZ29vZy9HVFNHSUFHMy5jcmwwDQYJKoZIhvcNAQELBQADggEBAHc8Uokb\n" + //
-            "KRxwjUmS/zbmxCqdYhPq8NhxgHooTBUOwpqQmtrYVejnoScNGMSHhlc6eDbg3Cmo\n" + //
-            "BLCqW8By4IgMW/5iunMTzKeLn8QXKY+3CnjBQ+O6M8NBI/wDVvPE6mBjkSo5u/kR\n" + //
-            "svashIWE/EhU67AeW8n+XB03uJsLy2Jh2x5c60kXSFshSm3X0u+2jj2dyvbGfP/a\n" + //
-            "1CjCeQs0f+RJOKvC53jVoutQT5TqsnHnx5IVvwiwKM2IkGXngPw3dxO7XbDguToi\n" + //
-            "MOtdgxEZ8VtiD7ivXWpS1YZnquoNhM4lyD8GYyolD4j+IXC8Yl+xk/9WFBnfoUqI\n" + //
-            "RtvR3Ujwfb+64L4=\n" + //
-            "-----END CERTIFICATE-----\n";
-
+    "-----BEGIN CERTIFICATE-----\n" + //
+    "MIIEXDCCA0SgAwIBAgINAeOpMBz8cgY4P5pTHTANBgkqhkiG9w0BAQsFADBMMSAw\n" + //
+    "HgYDVQQLExdHbG9iYWxTaWduIFJvb3QgQ0EgLSBSMjETMBEGA1UEChMKR2xvYmFs\n" + //
+    "U2lnbjETMBEGA1UEAxMKR2xvYmFsU2lnbjAeFw0xNzA2MTUwMDAwNDJaFw0yMTEy\n" + //
+    "MTUwMDAwNDJaMFQxCzAJBgNVBAYTAlVTMR4wHAYDVQQKExVHb29nbGUgVHJ1c3Qg\n" + //
+    "U2VydmljZXMxJTAjBgNVBAMTHEdvb2dsZSBJbnRlcm5ldCBBdXRob3JpdHkgRzMw\n" + //
+    "ggEiMA0GCSqGSIb3DQEBAQUAA4IBDwAwggEKAoIBAQDKUkvqHv/OJGuo2nIYaNVW\n" + //
+    "XQ5IWi01CXZaz6TIHLGp/lOJ+600/4hbn7vn6AAB3DVzdQOts7G5pH0rJnnOFUAK\n" + //
+    "71G4nzKMfHCGUksW/mona+Y2emJQ2N+aicwJKetPKRSIgAuPOB6Aahh8Hb2XO3h9\n" + //
+    "RUk2T0HNouB2VzxoMXlkyW7XUR5mw6JkLHnA52XDVoRTWkNty5oCINLvGmnRsJ1z\n" + //
+    "ouAqYGVQMc/7sy+/EYhALrVJEA8KbtyX+r8snwU5C1hUrwaW6MWOARa8qBpNQcWT\n" + //
+    "kaIeoYvy/sGIJEmjR0vFEwHdp1cSaWIr6/4g72n7OqXwfinu7ZYW97EfoOSQJeAz\n" + //
+    "AgMBAAGjggEzMIIBLzAOBgNVHQ8BAf8EBAMCAYYwHQYDVR0lBBYwFAYIKwYBBQUH\n" + //
+    "AwEGCCsGAQUFBwMCMBIGA1UdEwEB/wQIMAYBAf8CAQAwHQYDVR0OBBYEFHfCuFCa\n" + //
+    "Z3Z2sS3ChtCDoH6mfrpLMB8GA1UdIwQYMBaAFJviB1dnHB7AagbeWbSaLd/cGYYu\n" + //
+    "MDUGCCsGAQUFBwEBBCkwJzAlBggrBgEFBQcwAYYZaHR0cDovL29jc3AucGtpLmdv\n" + //
+    "b2cvZ3NyMjAyBgNVHR8EKzApMCegJaAjhiFodHRwOi8vY3JsLnBraS5nb29nL2dz\n" + //
+    "cjIvZ3NyMi5jcmwwPwYDVR0gBDgwNjA0BgZngQwBAgIwKjAoBggrBgEFBQcCARYc\n" + //
+    "aHR0cHM6Ly9wa2kuZ29vZy9yZXBvc2l0b3J5LzANBgkqhkiG9w0BAQsFAAOCAQEA\n" + //
+    "HLeJluRT7bvs26gyAZ8so81trUISd7O45skDUmAge1cnxhG1P2cNmSxbWsoiCt2e\n" + //
+    "ux9LSD+PAj2LIYRFHW31/6xoic1k4tbWXkDCjir37xTTNqRAMPUyFRWSdvt+nlPq\n" + //
+    "wnb8Oa2I/maSJukcxDjNSfpDh/Bd1lZNgdd/8cLdsE3+wypufJ9uXO1iQpnh9zbu\n" + //
+    "FIwsIONGl1p3A8CgxkqI/UAih3JaGOqcpcdaCIzkBaR9uYQ1X4k2Vg5APRLouzVy\n" + //
+    "7a8IVk6wuy6pm+T7HT4LY8ibS5FEZlfAFLSW8NwsVz9SBK2Vqn1N0PIMn5xA6NZV\n" + //
+    "c7o835DLAFshEWfC7TIe3g==\n" + //
+    "-----END CERTIFICATE-----\n";
+    
+    
     // Google intermediate certificate
     public static final String CERTIFICATE2 = "" + //
             "-----BEGIN CERTIFICATE-----\n" + //
