@@ -12,6 +12,8 @@ public class ECWriterTest {
 
     private static final GGLogger LOG = GGLogger.getLogger(ECWriterTest.class);
     
+    private ECReader ecReader = new ECReader();
+    
     public ECWriterTest() {
     }
 
@@ -44,9 +46,9 @@ public class ECWriterTest {
         final String publicKey = ECWriter.writeToPEM(kp.getPublic());
 
         
-        final KeyPair actualKeyPair = ECReader.readKeyPair(key);
+        final KeyPair actualKeyPair = ecReader.readKeyPair(key);
         
-        final PublicKey acutalPublicKey = ECReader.readPublicKey(publicKey);
+        final PublicKey acutalPublicKey = ecReader.readPublicKey(publicKey);
         
         
         LOG.info("testRead: actualKeyPair: %s", actualKeyPair);

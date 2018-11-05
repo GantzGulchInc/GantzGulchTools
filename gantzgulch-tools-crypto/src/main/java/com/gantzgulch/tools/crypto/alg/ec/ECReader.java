@@ -3,6 +3,8 @@ package com.gantzgulch.tools.crypto.alg.ec;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.GeneralSecurityException;
 import java.security.KeyFactory;
 import java.security.KeyPair;
@@ -21,11 +23,12 @@ import org.bouncycastle.openssl.jcajce.JcaPEMKeyConverter;
 
 import com.gantzgulch.tools.common.lang.GGArgs;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
+import com.gantzgulch.tools.crypto.GGReader;
 import com.gantzgulch.tools.crypto.alg.impl.GGKeyPairs;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 import com.gantzgulch.tools.crypto.pem.PEMReader;
 
-public final class ECReader {
+public final class ECReader implements GGReader<ECPublicKey> {
 
     private static final String ALGORITHM = "ECDSA";
 
@@ -35,11 +38,7 @@ public final class ECReader {
 
     private static final JcaPEMKeyConverter CONVERTER = BouncyCastleState.createPemKeyConverter();
 
-    private ECReader() {
-        throw new UnsupportedOperationException();
-    }
-
-    public static KeyPair readKeyPair(final String pem) {
+    public KeyPair readKeyPair(final String pem) {
 
         GGArgs.notNull(pem, "pem");
 
@@ -56,7 +55,7 @@ public final class ECReader {
         }
     }
 
-    public static KeyPair readKeyPair(final InputStream is) {
+    public KeyPair readKeyPair(final InputStream is) {
 
         GGArgs.notNull(is, "is");
 
@@ -73,7 +72,7 @@ public final class ECReader {
 
     }
 
-    public static KeyPair readKeyPair(final Reader reader) {
+    public KeyPair readKeyPair(final Reader reader) {
 
         GGArgs.notNull(reader, "reader");
 
@@ -91,13 +90,27 @@ public final class ECReader {
 
     }
 
-    public static ECPublicKey readPublicKey(final String pem) {
+    public KeyPair readKeyPair(final Path path) {
+
+        GGArgs.notNull(path, "path");
+
+        try (InputStream is = Files.newInputStream(path)) {
+
+            return readKeyPair(is);
+
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
+
+    }
+
+    public ECPublicKey readPublicKey(final String pem) {
 
         GGArgs.notNull(pem, "pem");
 
         try {
 
-            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(pem, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey) CONVERTER.getPublicKey(PEMReader.read(pem, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -109,13 +122,13 @@ public final class ECReader {
 
     }
 
-    public static ECPublicKey readPublicKey(final InputStream is) {
+    public ECPublicKey readPublicKey(final InputStream is) {
 
         GGArgs.notNull(is, "is");
 
         try {
 
-            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(is, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey) CONVERTER.getPublicKey(PEMReader.read(is, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -127,13 +140,13 @@ public final class ECReader {
 
     }
 
-    public static ECPublicKey readPublicKey(final Reader reader) {
+    public ECPublicKey readPublicKey(final Reader reader) {
 
         GGArgs.notNull(reader, "reader");
 
         try {
 
-            final ECPublicKey key = (ECPublicKey)CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
+            final ECPublicKey key = (ECPublicKey) CONVERTER.getPublicKey(PEMReader.read(reader, SubjectPublicKeyInfo.class));
 
             GGKeyPairs.verifyAlgorithm(key, ALGORITHM);
 
@@ -145,7 +158,21 @@ public final class ECReader {
 
     }
 
-    public static ECPublicKey readPublicKeyX963(final String curveName, final byte[] data) {
+    public ECPublicKey readPublicKey(final Path path) {
+
+        GGArgs.notNull(path, "path");
+
+        try (InputStream is = Files.newInputStream(path)) {
+
+            return readPublicKey(is);
+
+        } catch (final IOException e) {
+            throw new CryptoException(e);
+        }
+
+    }
+
+    public ECPublicKey readPublicKeyX963(final String curveName, final byte[] data) {
 
         try {
 

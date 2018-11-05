@@ -23,6 +23,8 @@ public class ECReaderTest {
 
     private static final GGLogger LOG = GGLogger.getLogger(ECReaderTest.class);
     
+    private ECReader ecReader = new ECReader();
+    
     public ECReaderTest() {
     }
 
@@ -32,7 +34,7 @@ public class ECReaderTest {
 
         final byte[] pubKeyRaw = GGHex.fromHexString("04681d5cedced95395a714748b506c9413d5d4ef5684ae55acad84daf2318707bd9b42836d6c9b6f3b25cba9e3983a3f1c6b98f0316009713d5c5c34cb564615fe");
         
-        final PublicKey publicKey = ECReader.readPublicKeyX963("secp256r1", pubKeyRaw);
+        final PublicKey publicKey = ecReader.readPublicKeyX963("secp256r1", pubKeyRaw);
         
         
         

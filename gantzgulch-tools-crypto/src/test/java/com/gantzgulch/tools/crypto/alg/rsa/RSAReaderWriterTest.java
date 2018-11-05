@@ -21,6 +21,9 @@ import com.gantzgulch.tools.crypto.matchers.RSA;
 
 public class RSAReaderWriterTest {
 
+    
+    private RSAReader rsaReader = new RSAReader();
+    
     @Test
     public void readAndWrite2048BitKeyPair_asString() throws IOException {
     
@@ -29,7 +32,7 @@ public class RSAReaderWriterTest {
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
         
-        final KeyPair kp = RSAReader.readKeyPair(pem);
+        final KeyPair kp = rsaReader.readKeyPair(pem);
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -45,7 +48,7 @@ public class RSAReaderWriterTest {
         
         final Reader reader = new StringReader(pem);
         
-        final KeyPair kp = RSAReader.readKeyPair( reader );
+        final KeyPair kp = rsaReader.readKeyPair( reader );
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -61,7 +64,7 @@ public class RSAReaderWriterTest {
         
         final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
-        final KeyPair kp = RSAReader.readKeyPair( is );
+        final KeyPair kp = rsaReader.readKeyPair( is );
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -75,7 +78,7 @@ public class RSAReaderWriterTest {
         
         final String pem = RSAWriter.writeToPEM(expectedKeyPair);
         
-        final KeyPair kp = RSAReader.readKeyPair(pem);
+        final KeyPair kp = rsaReader.readKeyPair(pem);
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -91,7 +94,7 @@ public class RSAReaderWriterTest {
         
         final Reader reader = new StringReader(pem);
         
-        final KeyPair kp = RSAReader.readKeyPair( reader );
+        final KeyPair kp = rsaReader.readKeyPair( reader );
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -107,7 +110,7 @@ public class RSAReaderWriterTest {
         
         final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
-        final KeyPair kp = RSAReader.readKeyPair( is );
+        final KeyPair kp = rsaReader.readKeyPair( is );
         
         assertThat(kp, RSA.equalTo(expectedKeyPair));
         
@@ -127,7 +130,7 @@ public class RSAReaderWriterTest {
         
         final String pem = RSAWriter.writeToPEM(expectedPublicKey);
         
-        final PublicKey publicKey = RSAReader.readPublicKey(pem);
+        final PublicKey publicKey = rsaReader.readPublicKey(pem);
         
         assertThat(publicKey, RSA.equalTo(expectedPublicKey));
         
@@ -145,7 +148,7 @@ public class RSAReaderWriterTest {
         
         final Reader reader = new StringReader(pem);
         
-        final PublicKey publicKey = RSAReader.readPublicKey( reader );
+        final PublicKey publicKey = rsaReader.readPublicKey( reader );
         
         assertThat(publicKey, RSA.equalTo(expectedPublicKey));
         
@@ -163,7 +166,7 @@ public class RSAReaderWriterTest {
         
         final InputStream is = new ByteArrayInputStream( GGStrings.toBytes(pem) );
         
-        final PublicKey publicKey = RSAReader.readPublicKey( is );
+        final PublicKey publicKey = rsaReader.readPublicKey( is );
         
         assertThat(publicKey, RSA.equalTo(expectedPublicKey));
         

@@ -54,7 +54,9 @@ public class JWTVerifierTest {
 
     private PublicKey parsePublicKey(final String pem) {
 
-        final PublicKey key = ECReader.readPublicKey(pem);
+        final ECReader ecReader = new ECReader();
+        
+        final PublicKey key = ecReader.readPublicKey(pem);
 
         LOG.debug("key: %s", key);
 
