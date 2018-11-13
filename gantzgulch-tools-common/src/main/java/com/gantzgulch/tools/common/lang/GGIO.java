@@ -16,13 +16,15 @@ import java.nio.charset.Charset;
 
 public final class GGIO {
 
+    private static final int MEGABYTE = 1024 * 1024;
+    
     private GGIO() {
         throw new UnsupportedOperationException();
     }
 
     public static byte[] read(final InputStream is) throws IOException {
 
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        final ByteArrayOutputStream baos = new ByteArrayOutputStream(MEGABYTE);
 
         final byte[] buffer = new byte[1024 * 1024];
 
@@ -37,17 +39,8 @@ public final class GGIO {
 
     public static String readToString(final InputStream is) throws IOException {
 
-        final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 
-        final byte[] buffer = new byte[1024 * 1024];
-
-        int len = 0;
-
-        while ((len = is.read(buffer)) >= 0) {
-            baos.write(buffer, 0, len);
-        }
-
-        return GGStrings.fromBytes(baos.toByteArray());
+        return GGStrings.fromBytes( read(is) );
     }
 
     public static String readResourceToString(final Class<?> c, final String resourceName) throws IOException {
@@ -97,9 +90,9 @@ public final class GGIO {
 
         try (final OutputStream os = new FileOutputStream(file)) {
 
-            final ByteArrayInputStream bais = new ByteArrayInputStream(value.getBytes(GGUtf8.CHARSET));
+            os.write( GGStrings.toBytes(value) );
 
-            copy(bais, os);
+            os.flush();
         }
 
     }
@@ -109,7 +102,7 @@ public final class GGIO {
         GGArgs.notNull(inputStream, "inputStream");
         GGArgs.notNull(outputStream, "outputStream");
         
-        final byte[] buffer = new byte[1024 * 1024];
+        final byte[] buffer = new byte[MEGABYTE];
         
         long total = 0;
         int len = 0;

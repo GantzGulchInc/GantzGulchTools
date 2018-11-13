@@ -45,7 +45,9 @@ public final class GGLists {
             return false;
         }
 
-        return list.stream().anyMatch(filter);
+        return list//
+                .stream()//
+                .anyMatch(filter);
     }
 
     public static <T> T removeFirst(List<T> list, Predicate<? super T> filter) {
@@ -53,7 +55,7 @@ public final class GGLists {
         if (list == null || filter == null) {
             return null;
         }
-
+        
         final ListIterator<T> i = list.listIterator();
 
         while (i.hasNext()) {
@@ -71,7 +73,7 @@ public final class GGLists {
         return null;
     }
 
-    public static <T> List<T> removeAll(List<T> list, Predicate<? super T> filter) {
+    public static <T> List<T> removeAll(final List<T> list, final Predicate<? super T> filter) {
 
         if (list == null || filter == null) {
             return null;
@@ -79,19 +81,13 @@ public final class GGLists {
 
         final List<T> results = new ArrayList<>();
 
-        final ListIterator<T> i = list.listIterator();
-
-        while (i.hasNext()) {
-
-            final T item = i.next();
-
-            if (filter.test(item)) {
-
-                i.remove();
-
-                results.add(item);
+        list.removeIf( (i) -> {
+            if( filter.test(i) ){
+                results.add(i);
+                return true;
             }
-        }
+            return false;
+        });
 
         return results;
     }
@@ -116,11 +112,7 @@ public final class GGLists {
 
     public static boolean isEmpty(final List<?> list) {
 
-        if (list == null) {
-            return true;
-        }
-
-        return list.size() == 0;
+        return list == null || list.size() == 0;
 
     }
 
