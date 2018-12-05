@@ -7,9 +7,9 @@ import java.security.interfaces.ECPublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Arrays;
+import java.util.Objects;
 
 import com.auth0.jwt.algorithms.Algorithm;
-import com.google.common.base.Objects;
 
 public enum JWTAlgorithm {
 
@@ -53,7 +53,7 @@ public enum JWTAlgorithm {
         return Arrays //
                 .stream(values()) //
                 .filter((p) -> {
-                    return Objects.equal(p.alg, alg);
+                    return Objects.equals(p.alg, alg);
                 }) //
                 .findFirst() //
                 .orElse(null);

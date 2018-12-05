@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.hibernate.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ import org.hibernate.query.Query;
 import com.gantzgulch.tools.common.lang.Cast;
 import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.hibernate.Dao;
+import com.gantzgulch.tools.hibernate.SearchField;
 import com.gantzgulch.tools.hibernate.SearchRequest;
 import com.gantzgulch.tools.hibernate.SearchResponse;
 import com.gantzgulch.tools.hibernate.domain.DomainObject;
@@ -32,16 +34,23 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     protected final SessionFactory sessionFactory;
     protected final String itemName;
 
+    protected final List<SearchField> searchFields;
 
-    public AbstractHbrDao(final Class<T> itemClass, final SessionFactory sessionFactory) {
+    public AbstractHbrDao(final Class<T> itemClass, final Collection<SearchField> searchFields, final SessionFactory sessionFactory) {
         this.itemClass = itemClass;
         this.sessionFactory = sessionFactory;
         this.itemName = itemClass.getName();
+        this.searchFields = new ArrayList<>(searchFields);
     }
 
     @Override
     public Class<T> getObjectClass() {
         return itemClass;
+    }
+
+    @Override
+    public void flush() {
+        sessionFactory.getCurrentSession().flush();
     }
 
     @Override
@@ -150,6 +159,11 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
         return item;
     }
 
+    @Override
+    public Collection<SearchField> getSearchFields() {
+        return searchFields;
+    }
+    
     /**
      * New search
      */
@@ -177,11 +191,19 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         long itemCount = itemCountQuery.getSingleResult();
 
+        LOG.info("search: itemCount: %d", itemCount);
         //
         // Compute page specs
         //
 
         final int pageCount = computePageCount((int) itemCount, searchRequest.getPageSize());
+        
+        LOG.info("search: pageCount: %d", pageCount);
+        
+        if( itemCount == 0 ){
+            return new SearchResponse<T>(searchRequest.getPageSize(), 0, 0, 0, new ArrayList<>() );
+        }
+        
         final int realPageNumber = Math.min(pageCount - 1, searchRequest.getPageNumber() - 1);
 
         //

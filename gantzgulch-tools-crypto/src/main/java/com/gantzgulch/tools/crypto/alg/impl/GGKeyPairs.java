@@ -2,9 +2,9 @@ package com.gantzgulch.tools.crypto.alg.impl;
 
 import java.security.KeyPair;
 import java.security.PublicKey;
+import java.util.Objects;
 
 import com.gantzgulch.tools.crypto.exception.CryptoException;
-import com.google.common.base.Objects;
 
 public final class GGKeyPairs {
 
@@ -17,7 +17,7 @@ public final class GGKeyPairs {
         
         final String actualAlgorithm = keyPair.getPrivate().getAlgorithm();
         
-        if( ! Objects.equal(algorithm, actualAlgorithm) ){
+        if( ! Objects.equals(algorithm, actualAlgorithm) ){
             
             final String msg = String.format("Expected algorithm: %s but algorithm was: %s", algorithm, actualAlgorithm);
             
@@ -31,7 +31,7 @@ public final class GGKeyPairs {
         
         final String actualAlgorithm = publicKey.getAlgorithm();
         
-        if( ! Objects.equal(algorithm, actualAlgorithm) ){
+        if( ! Objects.equals(algorithm, actualAlgorithm) ){
             
             final String msg = String.format("Expected algorithm: %s but algorithm was: %s", algorithm, actualAlgorithm);
             

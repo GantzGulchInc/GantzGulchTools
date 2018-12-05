@@ -1,5 +1,6 @@
 package com.gantzgulch.tools.hibernate.impl;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -34,6 +35,27 @@ public class GGPredicates {
         return builder.like(//
                 builder.lower(root.get(fieldName)), //
                 String.format("%%%s%%", searchValue.toLowerCase()));
+    }
+
+    public static <T> Predicate eq(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Object searchValue) {
+
+        LOG.debug("eq: %s", fieldName);
+
+        return builder.equal(root.get(fieldName), searchValue);
+    }
+
+    public static <T> Predicate gt(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Date searchValue) {
+
+        LOG.debug("gt: %s", fieldName);
+
+        return builder.greaterThan(root.get(fieldName), searchValue);
+    }
+
+    public static <T> Predicate lt(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Date searchValue) {
+
+        LOG.debug("gt: %s", fieldName);
+
+        return builder.lessThan(root.get(fieldName), searchValue);
     }
 
     public static Predicate[] toArray(final List<Predicate> predicates) {
