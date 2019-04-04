@@ -14,6 +14,9 @@ import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
+import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
@@ -25,6 +28,7 @@ import com.gantzgulch.tools.hibernate.SearchField;
 import com.gantzgulch.tools.hibernate.SearchRequest;
 import com.gantzgulch.tools.hibernate.SearchResponse;
 import com.gantzgulch.tools.hibernate.domain.DomainObject;
+import com.google.common.base.Objects;
 
 public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
@@ -163,7 +167,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     public Collection<SearchField> getSearchFields() {
         return searchFields;
     }
-    
+
     /**
      * New search
      */
@@ -197,13 +201,13 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
         //
 
         final int pageCount = computePageCount((int) itemCount, searchRequest.getPageSize());
-        
+
         LOG.info("search: pageCount: %d", pageCount);
-        
-        if( itemCount == 0 ){
-            return new SearchResponse<T>(searchRequest.getPageSize(), 0, 0, 0, new ArrayList<>() );
+
+        if (itemCount == 0) {
+            return new SearchResponse<T>(searchRequest.getPageSize(), 0, 0, 0, new ArrayList<>());
         }
-        
+
         final int realPageNumber = Math.min(pageCount - 1, searchRequest.getPageNumber() - 1);
 
         //
@@ -256,23 +260,50 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
             for (final String field : fields) {
 
-                Path<T> p = null;
+                if (StringUtils.isNotBlank(field)) {
 
-                try {
-                    p = root.get(field);
-                } catch (final Exception e) {
-                    p = null;
-                }
+                    final Pair<String, String> orderPair = parseOrderPair(field);
 
-                if (p != null) {
-                    final Order o = builder.asc(p);
-                    order.add(o);
+                    Path<T> p = null;
+
+                    try {
+                        p = root.get(orderPair.getLeft());
+                    } catch (final Exception e) {
+                        p = null;
+                    }
+
+                    if (p != null) {
+
+                        if (Objects.equal("-", orderPair.getRight())) {
+                            
+                            final Order o = builder.desc(p);
+                            order.add(o);
+
+                        } else {
+                            
+                            final Order o = builder.asc(p);
+                            order.add(o);
+                        }
+                    }
                 }
 
             }
         }
 
         return order;
+    }
+
+    private Pair<String, String> parseOrderPair(final String field) {
+
+        if (field.endsWith("-")) {
+            return new ImmutablePair<String, String>(StringUtils.left(field, field.length() - 1), "-");
+        }
+
+        if (field.endsWith("+")) {
+            return new ImmutablePair<String, String>(StringUtils.left(field, field.length() - 1), "+");
+        }
+
+        return new ImmutablePair<String, String>(field, "+");
     }
 
     private int computePageCount(final int count, final int pageSize) {
