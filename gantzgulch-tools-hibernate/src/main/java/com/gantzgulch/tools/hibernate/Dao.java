@@ -29,4 +29,6 @@ public interface Dao<T extends DomainObject> {
     
     void flush();
     
+    void refresh(T item);
+    
 }

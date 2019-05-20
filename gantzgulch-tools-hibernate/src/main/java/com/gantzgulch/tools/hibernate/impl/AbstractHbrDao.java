@@ -58,6 +58,13 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     }
 
     @Override
+    public void refresh(final T item) {
+        
+        sessionFactory.getCurrentSession().refresh(item);
+    }
+    
+    
+    @Override
     public T findById(final String id) {
 
         final String HSQL = String.format("SELECT i FROM %s i WHERE i.id = :id", itemName);

@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.net.URI;
 
 import org.apache.http.client.protocol.HttpClientContext;
+import org.junit.Ignore;
 import org.junit.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -34,6 +35,7 @@ public class GGHttpJsonClientTest {
     private final HttpClientContext ctx = new HttpClientContext();
     
     @Test
+    @Ignore("The API has changed")
     public void getUsers_withTypeReference() throws IOException {
         
         final URI uri = URI.create("https://reqres.in/api/users?page=1");
@@ -52,6 +54,7 @@ public class GGHttpJsonClientTest {
     }
    
     @Test
+    @Ignore("The API has changed")
     public void getUsers_withJavaType() throws IOException {
         
         final URI uri = URI.create("https://reqres.in/api/users?page=1");
@@ -71,6 +74,7 @@ public class GGHttpJsonClientTest {
     }
 
     @Test
+    @Ignore("The API has changed")
     public void getUser_withTypeReference() throws IOException {
         
         final URI uri = URI.create("https://reqres.in/api/users/2");
@@ -88,6 +92,7 @@ public class GGHttpJsonClientTest {
     }
    
     @Test
+    @Ignore("The API has changed")
     public void getUser_withJavaType() throws IOException {
         
         final URI uri = URI.create("https://reqres.in/api/users/2");
