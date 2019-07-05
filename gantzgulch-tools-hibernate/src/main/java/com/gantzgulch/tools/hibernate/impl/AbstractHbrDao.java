@@ -271,11 +271,16 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
                     final Pair<String, String> orderPair = parseOrderPair(field);
 
-                    Path<T> p = null;
+                    Path<?> p = null;
 
                     try {
-                        p = root.get(orderPair.getLeft());
+                        
+                        p = findPath(root, orderPair.getLeft());
+                        
+                        // p = root.get(orderPair.getLeft());
+                        
                     } catch (final Exception e) {
+                        LOG.warn(e, "Unable to find path: %s", orderPair.getLeft());
                         p = null;
                     }
 
@@ -298,6 +303,25 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
         }
 
         return order;
+    }
+    
+    private Path<?> findPath(final Root<?> root, final String dottedPath) {
+        
+        final String[] elements = StringUtils.split(dottedPath, ".");
+        
+        Path<?> path = null;
+        
+        for(final String element : elements) {
+        
+            if( path == null ){
+                path = root.get(element);
+            }else{
+                path = path.get(element);
+            }
+            
+        }
+        
+        return path;
     }
 
     private Pair<String, String> parseOrderPair(final String field) {
