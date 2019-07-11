@@ -181,6 +181,11 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     @Override
     public SearchResponse<T> search(final SearchRequest searchRequest) {
 
+        final int pageSize = normalizePageSize(searchRequest);
+        
+        final int pageNumber = normalizePageNumber(searchRequest);
+        
+        
         final CriteriaBuilder builder = criteriaBuilder();
 
         //
@@ -207,15 +212,15 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
         // Compute page specs
         //
 
-        final int pageCount = computePageCount((int) itemCount, searchRequest.getPageSize());
+        final int pageCount = computePageCount((int) itemCount, pageSize);
 
         LOG.info("search: pageCount: %d", pageCount);
 
         if (itemCount == 0) {
-            return new SearchResponse<T>(searchRequest.getPageSize(), 0, 0, 0, new ArrayList<>());
+            return new SearchResponse<T>(pageSize, 0, 0, 0, new ArrayList<>());
         }
 
-        final int realPageNumber = Math.min(pageCount - 1, searchRequest.getPageNumber() - 1);
+        final int realPageNumber = Math.min(pageCount - 1, pageNumber - 1);
 
         //
         // Do Search
@@ -242,8 +247,8 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         Query<T> itemQuery = sessionFactory.getCurrentSession().createQuery(critQuery);
 
-        itemQuery.setFirstResult(searchRequest.getPageSize() * realPageNumber);
-        itemQuery.setMaxResults(searchRequest.getPageSize());
+        itemQuery.setFirstResult(pageSize * realPageNumber);
+        itemQuery.setMaxResults(pageSize);
 
         final List<T> items = itemQuery.getResultList();
 
@@ -251,8 +256,19 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
             populate(item);
         }
 
-        return new SearchResponse<T>(searchRequest.getPageSize(), realPageNumber + 1, pageCount, (int) itemCount, items);
+        return new SearchResponse<T>(pageSize, realPageNumber + 1, pageCount, (int) itemCount, items);
     }
+
+    private int normalizePageNumber(final SearchRequest searchRequest) {
+        return Math.max(1, searchRequest.getPageNumber());
+    }
+
+    private int normalizePageSize(final SearchRequest searchRequest) {
+        
+        return Math.max(0, Math.min(256, searchRequest.getPageSize() ));
+        
+    }
+    
 
     protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields) {
 
@@ -267,6 +283,8 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
             for (final String field : fields) {
 
+                LOG.debug("buildSearchOrder: field: %s", field);
+                
                 if (StringUtils.isNotBlank(field)) {
 
                     final Pair<String, String> orderPair = parseOrderPair(field);
@@ -276,8 +294,6 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
                     try {
                         
                         p = findPath(root, orderPair.getLeft());
-                        
-                        // p = root.get(orderPair.getLeft());
                         
                     } catch (final Exception e) {
                         LOG.warn(e, "Unable to find path: %s", orderPair.getLeft());
@@ -301,6 +317,8 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
             }
         }
+        
+        LOG.debug("Order:%s", order);
 
         return order;
     }
