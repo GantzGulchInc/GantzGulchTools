@@ -1,5 +1,7 @@
 package com.gantzgulch.tools.common.lang;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * This class consists of a {@code static} utility method for sleeping without throwing exceptions.
  * 
@@ -12,6 +14,13 @@ public final class GGSleep {
 		throw new UnsupportedOperationException();
 	}
 
+	public static void sleep(final long duration, final TimeUnit unit) {
+	    
+	    sleep(unit.toMillis(duration));
+	    
+	}
+	
+	
 	/**
 	 * Sleep for millis ignoring exceptions.
 	 * 
