@@ -6,7 +6,7 @@
 
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools-top</artifactId>
-	<version>1.0.17</version>
+	<version>1.0.18-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GantzGulch, Inc. Tools - Master Pom</name>
@@ -124,7 +124,7 @@
 									<goal>sign</goal>
 								</goals>
 								<configuration>
-									<keyname>0xF809E18F92BDB2EA!</keyname>
+									<keyname>0x4513616A1201738C!</keyname>
 								</configuration>
 							</execution>
 						</executions>
