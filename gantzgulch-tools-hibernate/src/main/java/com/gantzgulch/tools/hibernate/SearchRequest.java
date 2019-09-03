@@ -13,4 +13,11 @@ public interface SearchRequest {
 
     List<String> getOrderFields();
 
+    FieldMatch getFieldMatch();
+    
+    enum FieldMatch {
+        
+        OR, AND;
+        
+    }
 }

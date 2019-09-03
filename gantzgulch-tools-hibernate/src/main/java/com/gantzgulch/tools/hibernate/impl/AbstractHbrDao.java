@@ -197,7 +197,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         countCritQuery.select(builder.count(countRoot));
 
-        final Predicate countPred = buildSearchWhere(builder, countRoot, searchRequest.getSearchFields());
+        final Predicate countPred = buildSearchWhere(builder, countRoot, searchRequest.getSearchFields(), searchRequest.getFieldMatch());
 
         if (countPred != null) {
             countCritQuery.where(countPred);
@@ -232,7 +232,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         critQuery.select(root);
 
-        final Predicate pred = buildSearchWhere(builder, root, searchRequest.getSearchFields());
+        final Predicate pred = buildSearchWhere(builder, root, searchRequest.getSearchFields(), searchRequest.getFieldMatch());
 
         if (pred != null) {
 
@@ -270,7 +270,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     }
     
 
-    protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields) {
+    protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields, final SearchRequest.FieldMatch fieldMatch) {
 
         return null;
     }
