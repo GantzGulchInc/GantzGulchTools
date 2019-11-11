@@ -4,22 +4,18 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.charset.StandardCharsets;
+import java.security.Key;
 
-import org.bouncycastle.crypto.BufferedBlockCipher;
 import org.bouncycastle.crypto.CipherParameters;
-import org.bouncycastle.crypto.engines.AESEngine;
 import org.bouncycastle.crypto.generators.OpenSSLPBEParametersGenerator;
-import org.bouncycastle.crypto.io.CipherInputStream;
-import org.bouncycastle.crypto.io.CipherOutputStream;
-import org.bouncycastle.crypto.modes.CBCBlockCipher;
-import org.bouncycastle.crypto.paddings.BlockCipherPadding;
-import org.bouncycastle.crypto.paddings.PKCS7Padding;
-import org.bouncycastle.crypto.paddings.PaddedBufferedBlockCipher;
+import org.bouncycastle.crypto.params.KeyParameter;
+import org.bouncycastle.crypto.params.ParametersWithIV;
 
-import com.gantzgulch.tools.common.lang.GGIO;
 import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.tools.crypto.GGCiphers;
 import com.gantzgulch.tools.crypto.GGNonces;
 import com.gantzgulch.tools.crypto.GGOpenSSL;
+import com.gantzgulch.tools.crypto.alg.aes.AESKeyGenerator;
 import com.gantzgulch.tools.crypto.exception.CryptoException;
 
 public class AESOpenSSL implements GGOpenSSL {
@@ -45,19 +41,23 @@ public class AESOpenSSL implements GGOpenSSL {
 
         byte[] salt = GGNonces.SECURE_RANDOM.nonce(8);
 
-        final BufferedBlockCipher cipher = createCipher(true, password, salt);
+        final ParametersWithIV piv = (ParametersWithIV) getCipherParameters(keyLengthBits, password, salt);
 
-        try (final CipherOutputStream cos = new CipherOutputStream(os, cipher)) {
+        final byte[] iv = piv.getIV();
+
+        final KeyParameter kp = (KeyParameter) piv.getParameters();
+
+        final Key key = AESKeyGenerator.create(kp.getKey());
+
+        try {
 
             os.write(salted);
 
             os.write(salt);
-            
+
             os.flush();
 
-            GGIO.copy(is, cos);
-
-            cos.flush();
+            GGCiphers.AES_CBC_PKCS7_PADDING.encrypt(key, is, os, iv);
 
         } catch (final IOException e) {
 
@@ -78,90 +78,17 @@ public class AESOpenSSL implements GGOpenSSL {
 
         readFully(is, salt);
 
-        final BufferedBlockCipher cipher = createCipher(false, password, salt);
+        final ParametersWithIV piv = (ParametersWithIV) getCipherParameters(keyLengthBits, password, salt);
 
-        try (final CipherInputStream cis = new CipherInputStream(is, cipher)) {
+        final byte[] iv = piv.getIV();
 
-            GGIO.copy(cis, os);
+        final KeyParameter kp = (KeyParameter) piv.getParameters();
 
-        } catch (final IOException e) {
+        final Key key = AESKeyGenerator.create(kp.getKey());
 
-            LOG.warn(e, "Error decrypting stream: %s", e.getMessage());
-
-            throw new CryptoException(e);
-
-        }
-    }
-
-    private BufferedBlockCipher createCipher(final boolean forEncryption, final byte[] password, final byte[] salt) {
-
-        BlockCipherPadding padding = new PKCS7Padding();
-        BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new CBCBlockCipher(new AESEngine()), padding);
-
-        CipherParameters params = getCipherParameters(keyLengthBits, password, salt);
-        cipher.reset();
-        cipher.init(forEncryption, params);
-
-        return cipher;
+        GGCiphers.AES_CBC_PKCS7_PADDING.decrypt(key, is, os, iv);
 
     }
-
-    // public static void aes256cbcDecrypt(final byte[] password, final
-    // InputStream is, final OutputStream os) {
-    //
-    // final int keyLenBits = 256;
-    //
-    // byte[] salted = new byte[8];
-    // byte[] salt = new byte[8];
-    //
-    // // byte[] salt = Arrays.copyOfRange(src, 8, 16); // 0..7 is "SALTED__",
-    // // 8..15 is the salt
-    //
-    // try {
-    //
-    // readFully(is, salted);
-    //
-    // readFully(is, salt);
-    //
-    // // Encryption algorithm. Note that the "strength" (bitsize) is
-    // // controlled by the key object that is used.
-    // // Note that PKCS5 padding and PKCS7 padding are identical.
-    // BlockCipherPadding padding = new PKCS7Padding();
-    // BufferedBlockCipher cipher = new PaddedBufferedBlockCipher(new
-    // CBCBlockCipher(new AESEngine()), padding);
-    //
-    // CipherParameters params = getCipherParameters(keyLenBits, password,
-    // salt);
-    // cipher.reset();
-    // cipher.init(false, params);
-    //
-    // final CipherInputStream cis = new CipherInputStream(is, cipher);
-    //
-    // GGIO.copy(cis, os);
-    //
-    // // int buflen = cipher.getOutputSize(src.length - 16);
-    // // byte[] workingBuffer = new byte[buflen];
-    // // int len = cipher.processBytes(src, 16, src.length - 16,
-    // // workingBuffer, 0);
-    // // len += cipher.doFinal(workingBuffer, len);
-    // //
-    // // // Note that getOutputSize returns a number which includes space
-    // // for "padding" bytes to be stored in.
-    // // // However we don't want these padding bytes; the "len" variable
-    // // contains the length of the *real* data
-    // // // (which is always less than the return value of getOutputSize.
-    // // byte[] bytesDec = new byte[len];
-    // // System.arraycopy(workingBuffer, 0, bytesDec, 0, len);
-    // // return bytesDec;
-    //
-    // } catch (final IOException | RuntimeException e) {
-    //
-    // LOG.warn(e, "Unexpected error: %s", e.getMessage());
-    //
-    // throw new CryptoException(e);
-    // }
-    //
-    // }
 
     private void readFully(final InputStream is, final byte[] buffer) {
 
@@ -187,6 +114,7 @@ public class AESOpenSSL implements GGOpenSSL {
     }
 
     private CipherParameters getCipherParameters(int keyLenBits, byte[] pwd, byte[] salt) {
+
         // Use bouncycastle implementation of openssl non-standard
         // (pwd,salt)->(key,iv) algorithm.
         // Note that if a "CBC" cipher is selected, then an IV is required as
