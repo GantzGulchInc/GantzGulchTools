@@ -207,14 +207,13 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
         long itemCount = itemCountQuery.getSingleResult();
 
-        LOG.info("search: itemCount: %d", itemCount);
         //
         // Compute page specs
         //
 
         final int pageCount = computePageCount((int) itemCount, pageSize);
 
-        LOG.info("search: pageCount: %d", pageCount);
+        LOG.info("search: itemCount: %d, pageCount: %d", itemCount, pageCount);
 
         if (itemCount == 0) {
             return new SearchResponse<T>(pageSize, 0, 0, 0, new ArrayList<>());
