@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.httpclient.impl;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
+import org.apache.http.client.HttpRequestRetryHandler;
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpDelete;
@@ -24,10 +26,12 @@ import org.apache.http.client.utils.HttpClientUtils;
 import org.apache.http.client.utils.URIUtils;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.SocketConfig;
+import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.HttpContext;
 
 import com.gantzgulch.tools.common.lang.GGExceptions;
 import com.gantzgulch.tools.common.lang.GGStrings;
@@ -63,6 +67,17 @@ public class GGHttpClientImpl implements GGHttpClient {
 
     public GGHttpClientImpl(final String agent, final boolean processRedirects, final int connectionTimeoutMillis, final int socketReadTimeoutMillis) {
 
+        this(agent, processRedirects, connectionTimeoutMillis, socketReadTimeoutMillis, 3);
+
+    }
+
+    public GGHttpClientImpl(//
+            final String agent, //
+            final boolean processRedirects, //
+            final int connectionTimeoutMillis, //
+            final int socketReadTimeoutMillis, //
+            final int retryCount) {
+
         this.agent = agent;
         this.processRedirects = processRedirects;
         this.connectionRequestTimeout = DEFAULT_CONNECTION_REQUEST_TIMEOUT_IN_MILLIS;
@@ -70,7 +85,8 @@ public class GGHttpClientImpl implements GGHttpClient {
         this.socketReadTimeout = socketReadTimeoutMillis;
 
         this.connectionManager = createConnectionManager();
-        this.httpClient = createHttpClient();
+
+        this.httpClient = createHttpClient(retryCount);
     }
 
     @Override
@@ -165,6 +181,29 @@ public class GGHttpClientImpl implements GGHttpClient {
         if (content != null) {
 
             final StringEntity entity = new StringEntity(content, GGUtf8.CHARSET);
+
+            request.setEntity(entity);
+        }
+
+        return execute(request, clientContext);
+    }
+
+    @Override
+    public CloseableHttpResponse post(//
+            final URI uri, //
+            final InputStream content, //
+            final Map<String, String> headers, //
+            final HttpClientContext clientContext) {
+
+        LOG.trace("post: %s:", uri);
+
+        final HttpPost request = new HttpPost(uri);
+
+        GGHttpRequests.setHeaders(request, headers);
+
+        if (content != null) {
+
+            final InputStreamEntity entity = new InputStreamEntity(content);
 
             request.setEntity(entity);
         }
@@ -304,10 +343,10 @@ public class GGHttpClientImpl implements GGHttpClient {
             return null;
         }
 
-        if( httpContext.getAttribute("IGNORE_REDIRECTS") != null ){
+        if (httpContext.getAttribute("IGNORE_REDIRECTS") != null) {
             return null;
         }
-        
+
         final int statusCode = GGHttpResponses.getStatusCode(response);
 
         switch (statusCode) {
@@ -363,7 +402,7 @@ public class GGHttpClientImpl implements GGHttpClient {
         return connectionManager;
     }
 
-    private CloseableHttpClient createHttpClient() {
+    private CloseableHttpClient createHttpClient(final int retryCount) {
 
         final RequestConfig rc = RequestConfig.custom(). //
                 setConnectionRequestTimeout(connectionRequestTimeout). //
@@ -376,9 +415,27 @@ public class GGHttpClientImpl implements GGHttpClient {
                 setDefaultRequestConfig(rc). //
                 setConnectionManager(connectionManager). //
                 disableRedirectHandling(). //
+                setRetryHandler(new CustomHttpRequestRetryHandler(retryCount)). //
                 build();
 
         return httpClient;
+    }
+
+    public static class CustomHttpRequestRetryHandler implements HttpRequestRetryHandler {
+
+        private final int retryCount;
+
+        public CustomHttpRequestRetryHandler(final int retryCount) {
+            this.retryCount = retryCount;
+        }
+
+        @Override
+        public boolean retryRequest(final IOException exception, final int executionCount, final HttpContext context) {
+
+            return executionCount < retryCount;
+
+        }
+
     }
 
 }

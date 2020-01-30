@@ -1,5 +1,6 @@
 package com.gantzgulch.tools.httpclient;
 
+import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
 
@@ -21,6 +22,8 @@ public interface GGHttpClient {
     CloseableHttpResponse post(URI uri, Map<String, String> parameters, Map<String,String> headers, HttpClientContext clientContext);
 
     CloseableHttpResponse post(URI uri, String content, Map<String,String> headers, HttpClientContext clientContext);
+
+    CloseableHttpResponse post(URI uri, InputStream content, Map<String,String> headers, HttpClientContext clientContext);
 
     CloseableHttpResponse put(URI uri, Map<String, String> parameters, Map<String,String> headers, HttpClientContext clientContext);
 
