@@ -5,8 +5,8 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -28,7 +28,7 @@ public class GGPredicates {
         return builder.and(toArray(pList));
     }
 
-    public static <T> Predicate like(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final String searchValue) {
+    public static <T> Predicate like(final CriteriaBuilder builder, final Path<T> root, final String fieldName, final String searchValue) {
 
         LOG.debug("like: %s", fieldName);
 
@@ -37,21 +37,21 @@ public class GGPredicates {
                 String.format("%%%s%%", searchValue.toLowerCase()));
     }
 
-    public static <T> Predicate eq(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Object searchValue) {
+    public static <T> Predicate eq(final CriteriaBuilder builder, final Path<T> root, final String fieldName, final Object searchValue) {
 
         LOG.debug("eq: %s", fieldName);
 
         return builder.equal(root.get(fieldName), searchValue);
     }
 
-    public static <T> Predicate gt(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Date searchValue) {
+    public static <T> Predicate gt(final CriteriaBuilder builder, final Path<T> root, final String fieldName, final Date searchValue) {
 
         LOG.debug("gt: %s", fieldName);
 
         return builder.greaterThan(root.get(fieldName), searchValue);
     }
 
-    public static <T> Predicate lt(final CriteriaBuilder builder, final Root<T> root, final String fieldName, final Date searchValue) {
+    public static <T> Predicate lt(final CriteriaBuilder builder, final Path<T> root, final String fieldName, final Date searchValue) {
 
         LOG.debug("gt: %s", fieldName);
 
