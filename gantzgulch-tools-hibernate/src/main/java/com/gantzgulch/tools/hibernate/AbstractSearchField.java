@@ -1,24 +1,35 @@
 package com.gantzgulch.tools.hibernate;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.From;
+import javax.persistence.criteria.Path;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.SingularAttribute;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 public abstract class AbstractSearchField implements SearchField {
 
+    // private final GGLogger LOG = GGLogger.getLogger(getClass());
+    
     protected final String formName;
     
-    protected final Attribute<?,?> attr;
+    protected final List<SingularAttribute<?,?>> attributes = new ArrayList<>();
 
     private String type;
 
     private String description;
     
-    public AbstractSearchField(final String formName, final Attribute<?,?> attr, final String type, final String description) {
+    public AbstractSearchField(final String formName, final List<SingularAttribute<?,?>> attributes, final String type, final String description) {
         this.formName = formName;
-        this.attr = attr;
+        this.attributes.addAll(attributes);
         this.type = type;
         this.description = description;
     }
@@ -29,8 +40,8 @@ public abstract class AbstractSearchField implements SearchField {
     }
 
     @Override
-    public Attribute<?,?> getAttribute() {
-        return attr;
+    public List<SingularAttribute<?,?>> getAttributes() {
+        return attributes;
     }
 
     @Override
@@ -42,6 +53,46 @@ public abstract class AbstractSearchField implements SearchField {
     public String getDescription() {
         return description;
     }
+   
+    @Override
+    public Predicate execute(CriteriaBuilder builder, Root<?> root, Map<String, String> formFields) {
+    	
+    	if( hasFormField(formFields) ) {
+    	
+    	    final Pair<Path<?>, SingularAttribute<?,?>> pathPair = computePath(builder, root);
+    	    
+    		return executeImpl(builder, pathPair.getLeft(), pathPair.getRight(), formFields);
+    		
+    	}
+    	
+    	return null;
+    }
+   
+    public String getValue(final Map<String, String> formFields) {
+        return formFields.get(formName);
+    }
+    
+    public Pair<Path<?>, SingularAttribute<?,?>> computePath(final CriteriaBuilder builder, final Root<?> root) {
+        
+        
+        final List<SingularAttribute<?,?>> w = new ArrayList<>();
+        
+        w.addAll(attributes);
+        
+        From<?, ?> from = root;
+        
+        while( w.size() > 1 ) {
+            
+            final SingularAttribute<?,?> a = w.remove(0);
+            
+            from = from.join( a.getName() );
+        }
+        
+        return new ImmutablePair<>(from, w.get(0) );
+        
+    }
+    
+    public abstract Predicate executeImpl(CriteriaBuilder builder, Path<?> root, SingularAttribute<?,?> attr, Map<String, String> formFields);
     
     protected boolean hasFormField(final Map<String,String> formFields) {
         
@@ -54,4 +105,12 @@ public abstract class AbstractSearchField implements SearchField {
         return false;
     }
     
+    public static List<SingularAttribute<?,?>> makeList(final SingularAttribute<?,?> attr) {
+        
+        final List<SingularAttribute<?,?>> list = new ArrayList<>();
+        
+        list.add(attr);
+        
+        return list;
+    }
 }

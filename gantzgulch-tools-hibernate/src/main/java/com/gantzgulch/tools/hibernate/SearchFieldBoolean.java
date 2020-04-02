@@ -1,32 +1,33 @@
 package com.gantzgulch.tools.hibernate;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.Path;
 import javax.persistence.criteria.Predicate;
-import javax.persistence.criteria.Root;
-import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.SingularAttribute;
 
 import com.gantzgulch.tools.hibernate.impl.GGPredicates;
 
 public class SearchFieldBoolean extends AbstractSearchField {
 
-    public SearchFieldBoolean(final Attribute<?,Boolean> attr, final String description) {
-        super(attr.getName(), attr, "Boolean", description);
+    public SearchFieldBoolean(final SingularAttribute<?,?> attr, final String description) {
+        super(attr.getName(), AbstractSearchField.makeList(attr), "Boolean", description);
     }
 
-    public Predicate execute(final CriteriaBuilder builder, final Root<?> root, final Map<String,String> formFields ) {
-        
-        if( hasFormField(formFields) ) {
-            
-            final boolean value = parseBoolean(formFields.get(formName) );
-            
-            return GGPredicates.eq(builder, root, attr.getName(), value );
-        }
-        
-        return null;
+    public SearchFieldBoolean(final String formName, final List<SingularAttribute<?,?>> attrs, final String description) {
+        super(formName, attrs, "Boolean", description);
     }
 
+    public Predicate executeImpl(CriteriaBuilder builder, Path<?> root, SingularAttribute<?,?> attr, Map<String, String> formFields) {
+
+        final boolean value = parseBoolean( getValue(formFields) );
+        
+        return GGPredicates.eq(builder, root, attr.getName(), value );
+
+    }
+    
     private boolean parseBoolean(final String value) {
         return Boolean.parseBoolean(value);
     }
