@@ -4,6 +4,11 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
 import static org.junit.Assert.assertThat;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.security.Key;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
@@ -12,6 +17,8 @@ import java.security.interfaces.RSAPrivateKey;
 
 import org.junit.Test;
 
+import com.gantzgulch.tools.common.lang.GGCloseables;
+import com.gantzgulch.tools.common.lang.GGIO;
 import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class GGKeyStoreTest {
@@ -33,7 +40,7 @@ public class GGKeyStoreTest {
 
         final GGKeyStore keyStore = new GGKeyStore();
 
-        final String certFilename = getClass().getResource("/keys/key1-cert.pem").getFile();
+        final String certFilename = makeTemporaryFileFromStream(getClass().getResourceAsStream("/keys/key1-cert.pem"));
 
         keyStore.setCertificateEntryFromFile("alias1", certFilename);
     }
@@ -43,8 +50,8 @@ public class GGKeyStoreTest {
 
         final GGKeyStore keyStore = new GGKeyStore();
 
-        final String keyFilename = getClass().getResource("/keys/key1-private.pem").getFile();
-        final String certFilename = getClass().getResource("/keys/key1-cert.pem").getFile();
+        final String keyFilename =  makeTemporaryFileFromStream(getClass().getResourceAsStream("/keys/key1-private.pem"));
+        final String certFilename = makeTemporaryFileFromStream(getClass().getResourceAsStream("/keys/key1-cert.pem")); 
 
         keyStore.setCertificateEntryFromFile("alias1", certFilename);
         keyStore.setKeyEntryFromFile("alias2", keyFilename, certFilename);
@@ -83,4 +90,26 @@ public class GGKeyStoreTest {
         return b.toString();
     }
 
+    private String makeTemporaryFileFromStream(final InputStream is) {
+
+        try {
+            
+            final File temp = File.createTempFile("temp.", ".tmp");
+            temp.deleteOnExit();
+
+            try(final OutputStream os = new FileOutputStream(temp)){
+                
+                GGIO.copy(is, os);
+                
+            }finally {
+                GGCloseables.closeQuietly(is);
+            }
+            
+            return temp.getCanonicalPath();
+
+        } catch (final IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
 }
