@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.crypto.x509;
 
-import static org.hamcrest.Matchers.is;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.security.cert.X509Certificate;
 import java.util.HashSet;
@@ -140,7 +140,7 @@ public class GGCertificateVerifierTest {
         
         LOG.info("result: %s", result);
         
-        assertThat(result.isValid(), is(true));
+        assertThat(result.isValid(), equalTo(true));
     
     }
     

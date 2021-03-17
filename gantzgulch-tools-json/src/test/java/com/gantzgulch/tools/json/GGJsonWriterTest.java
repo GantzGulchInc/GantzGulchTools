@@ -1,6 +1,6 @@
 package com.gantzgulch.tools.json;
 
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 

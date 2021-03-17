@@ -10,6 +10,7 @@ import org.apache.http.pool.PoolStats;
 
 public class GGHttpClientStats {
 
+    @SuppressWarnings("unused")
     private GGHttpClientRouteStats totalPoolStatistics;
     
     private Map<String,GGHttpClientRouteStats> routePoolStatistics;

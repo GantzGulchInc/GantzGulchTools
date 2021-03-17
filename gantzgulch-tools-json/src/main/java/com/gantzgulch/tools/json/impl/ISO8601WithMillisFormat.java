@@ -6,6 +6,7 @@ import java.util.Date;
 import com.fasterxml.jackson.databind.util.ISO8601DateFormat;
 import com.fasterxml.jackson.databind.util.ISO8601Utils;
 
+@SuppressWarnings("deprecation")
 public class ISO8601WithMillisFormat extends ISO8601DateFormat {
 
     private static final long serialVersionUID = 3136029199078988682L;

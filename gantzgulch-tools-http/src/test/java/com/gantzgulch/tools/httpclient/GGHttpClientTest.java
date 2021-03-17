@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.httpclient;
 
 import static org.hamcrest.Matchers.notNullValue;
-import static org.junit.Assert.assertThat;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 import java.net.URI;
