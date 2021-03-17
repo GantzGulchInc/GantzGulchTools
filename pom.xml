@@ -112,6 +112,9 @@
 								</goals>
 							</execution>
 						</executions>
+						<configuration>
+							<detectJavaApiLink>false</detectJavaApiLink>
+						</configuration>
 					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
