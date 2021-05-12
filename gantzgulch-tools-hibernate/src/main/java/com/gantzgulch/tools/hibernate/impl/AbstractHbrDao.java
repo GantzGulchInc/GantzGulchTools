@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -28,7 +29,6 @@ import com.gantzgulch.tools.hibernate.SearchField;
 import com.gantzgulch.tools.hibernate.SearchRequest;
 import com.gantzgulch.tools.hibernate.SearchResponse;
 import com.gantzgulch.tools.hibernate.domain.DomainObject;
-import com.google.common.base.Objects;
 
 public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
@@ -301,7 +301,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
                     if (p != null) {
 
-                        if (Objects.equal("-", orderPair.getRight())) {
+                        if (Objects.equals("-", orderPair.getRight())) {
                             
                             final Order o = builder.desc(p);
                             order.add(o);

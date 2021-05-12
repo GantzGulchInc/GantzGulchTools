@@ -11,12 +11,23 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gantzgulch-tools-common</artifactId>
+	<artifactId>gantzgulch-tools-guice</artifactId>
 
-	<name>GantzGulch Tools - Common language library</name>
+	<name>GantzGulch Tools - Guice utility library</name>
 	<description></description>
 
 	<dependencies>
+
+		<!-- Google -->
+		<dependency>
+			<groupId>com.google.inject</groupId>
+			<artifactId>guice</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.google.inject.extensions</groupId>
+			<artifactId>guice-multibindings</artifactId>
+		</dependency>
+
 
 		<!-- Testing Logging -->
 		<dependency>

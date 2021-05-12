@@ -42,6 +42,7 @@
 
 	<modules>
 		<module>gantzgulch-tools-common</module>
+		<module>gantzgulch-tools-guice</module>
 		<module>gantzgulch-tools-samples</module>
 		<module>gantzgulch-tools-json</module>
 		<module>gantzgulch-tools-crypto</module>
