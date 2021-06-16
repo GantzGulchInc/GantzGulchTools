@@ -79,7 +79,6 @@
 		<AWS_SDK>1.11.976</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 
-		<TEST_LOGGING_BACKEND>LOG4J2</TEST_LOGGING_BACKEND>
 		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
 	</properties>
 
@@ -374,7 +373,6 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<systemPropertyVariables>
-						<com.gantzgulch.tools.common.logging.GGLogger.backend>${TEST_LOGGING_BACKEND}</com.gantzgulch.tools.common.logging.GGLogger.backend>
 						<log4j.configurationFile>log4j2-core.xml</log4j.configurationFile>
 					</systemPropertyVariables>
 				</configuration>

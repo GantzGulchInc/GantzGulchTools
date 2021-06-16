@@ -12,11 +12,11 @@ import com.gantzgulch.logging.core.GGLoggerUtil;
  * @author gantzm
  *
  */
-public class GGLoggerLog4j implements GGLogger {
+public class GGLoggerLog4J implements GGLogger {
 
 	private final Logger log;
 
-	public GGLoggerLog4j(final String logClazz) {
+	public GGLoggerLog4J(final String logClazz) {
 		this.log = Logger.getLogger(logClazz);
 	}
 
