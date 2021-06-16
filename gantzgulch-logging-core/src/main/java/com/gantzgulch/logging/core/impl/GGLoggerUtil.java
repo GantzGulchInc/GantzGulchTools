@@ -1,4 +1,4 @@
-package com.gantzgulch.logging.core;
+package com.gantzgulch.logging.core.impl;
 
 public class GGLoggerUtil {
 

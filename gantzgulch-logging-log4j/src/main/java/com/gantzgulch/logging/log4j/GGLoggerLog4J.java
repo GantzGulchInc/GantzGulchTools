@@ -4,7 +4,7 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 
 import com.gantzgulch.logging.core.GGLogger;
-import com.gantzgulch.logging.core.GGLoggerUtil;
+import com.gantzgulch.logging.core.impl.GGLoggerUtil;
 
 /**
  * A log wrapper with {@code String.format} capabilities.

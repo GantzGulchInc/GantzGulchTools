@@ -1,7 +1,6 @@
 package com.gantzgulch.logging.core.impl;
 
 import com.gantzgulch.logging.core.GGLogger;
-import com.gantzgulch.logging.core.GGLoggerUtil;
 
 public abstract class GGAbstractLogger implements GGLogger {
 

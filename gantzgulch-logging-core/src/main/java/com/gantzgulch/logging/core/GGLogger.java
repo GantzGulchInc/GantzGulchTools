@@ -1,5 +1,7 @@
 package com.gantzgulch.logging.core;
 
+import com.gantzgulch.logging.core.impl.GGLoggerCache;
+
 /**
  * A log wrapper with {@code String.format} capabilities.
  * 

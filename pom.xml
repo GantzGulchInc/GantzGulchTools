@@ -78,6 +78,7 @@
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
 		<AWS_SDK>1.11.976</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
+		<BOUNCY_CASTLE_VERSION>1.69</BOUNCY_CASTLE_VERSION>
 
 		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
 	</properties>
@@ -157,13 +158,13 @@
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcprov-jdk15on</artifactId>
-				<version>1.68</version>
+				<version>${BOUNCY_CASTLE_VERSION}</version>
 			</dependency>
 
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
 				<artifactId>bcpkix-jdk15on</artifactId>
-				<version>1.68</version>
+				<version>${BOUNCY_CASTLE_VERSION}</version>
 			</dependency>
 
 			<!-- Apache Commons -->
@@ -317,12 +318,6 @@
 				<version>4.13.2</version>
 				<scope>test</scope>
 			</dependency>
-			<dependency>
-				<groupId>xmlunit</groupId>
-				<artifactId>xmlunit</artifactId>
-				<version>1.6</version>
-				<scope>test</scope>
-			</dependency>
 		</dependencies>
 	</dependencyManagement>
 
@@ -373,7 +368,7 @@
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
 					<systemPropertyVariables>
-						<log4j.configurationFile>log4j2-core.xml</log4j.configurationFile>
+						<!-- <log4j.configurationFile>log4j2-core.xml</log4j.configurationFile>  -->
 					</systemPropertyVariables>
 				</configuration>
 			</plugin>
