@@ -57,7 +57,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void trace(final String message, final Object... args) {
-
 		if (isTraceEnabled()) {
 			log.trace(format(message, args));
 		}
@@ -70,7 +69,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void trace(final Throwable t, final String message, final Object... args) {
-
 		if (isTraceEnabled()) {
 			log.trace(format(message, args), t);
 		}
@@ -78,13 +76,11 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void debug(final String message) {
-
 		log.debug(message);
 	}
 
 	@Override
 	public void debug(final String message, final Object... args) {
-
 		if (isDebugEnabled()) {
 			log.debug(format(message, args));
 		}
@@ -97,7 +93,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void debug(final Throwable t, final String message, final Object... args) {
-
 		if (isDebugEnabled()) {
 			log.debug(format(message, args), t);
 		}
@@ -110,7 +105,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void info(final String message, final Object... args) {
-
 		if (isInfoEnabled()) {
 			log.info(format(message, args));
 		}
@@ -123,7 +117,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void info(final Throwable t, final String message, final Object... args) {
-
 		if (isInfoEnabled()) {
 			log.info(format(message, args), t);
 		}
@@ -131,7 +124,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void infoBox(final Object... messages) {
-
 		if (isInfoEnabled()) {
 
 			int width = 120;
@@ -162,7 +154,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void warn(final String message, final Object... args) {
-
 		if (isWarnEnabled()) {
 			log.warn(format(message, args));
 		}
@@ -175,7 +166,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void warn(final Throwable t, final String message, final Object... args) {
-
 		if (isWarnEnabled()) {
 			log.warn(format(message, args), t);
 		}
@@ -188,7 +178,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void error(final String message, final Object... args) {
-
 		if (isErrorEnabled()) {
 			log.error(format(message, args));
 		}
@@ -201,7 +190,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void error(final Throwable t, final String message, final Object... args) {
-
 		if (isErrorEnabled()) {
 			log.error(format(message, args), t);
 		}
@@ -214,7 +202,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void fatal(final String message, final Object... args) {
-
 		if (isFatalEnabled()) {
 			log.fatal(format(message, args));
 		}
@@ -227,7 +214,6 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public void fatal(final Throwable t, final String message, final Object... args) {
-
 		if (isFatalEnabled()) {
 			log.fatal(format(message, args), t);
 		}
