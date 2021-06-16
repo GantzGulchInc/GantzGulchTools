@@ -9,11 +9,11 @@ import com.amazonaws.services.iot.client.AWSIotException;
 import com.amazonaws.services.iot.client.AWSIotMqttClient;
 import com.amazonaws.services.iot.client.AWSIotQos;
 import com.amazonaws.services.iot.client.AWSIotTimeoutException;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.aws.exception.GGAwsException;
 import com.gantzgulch.tools.aws.iot.GGAwsIotConnector;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
 import com.gantzgulch.tools.aws.iot.domain.GGAwsIotShadow;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonWriters;
 
 public class GGAwsIotConnectorImpl implements GGAwsIotConnector {

@@ -1,10 +1,10 @@
-package com.gantzgulch.tools.common.logging.impl;
+package com.gantzgulch.logging.log4j2;
 
-import org.apache.log4j.Level;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
-import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
+import com.gantzgulch.logging.core.GGLoggerUtil;
 
 /**
  * A log wrapper with {@code String.format} capabilities.
@@ -12,12 +12,12 @@ import com.gantzgulch.tools.common.logging.GGLogger;
  * @author gantzm
  *
  */
-public class GGLoggerLog4j implements GGLogger {
+public class GGLoggerLog4j2 implements GGLogger {
 
 	private final Logger log;
 
-	public GGLoggerLog4j(final String logClazz) {
-		this.log = Logger.getLogger(logClazz);
+	public GGLoggerLog4j2(final String logClazz) {
+		this.log = LogManager.getLogger(logClazz);
 	}
 
 	@Override
@@ -37,17 +37,17 @@ public class GGLoggerLog4j implements GGLogger {
 
 	@Override
 	public boolean isWarnEnabled() {
-		return log.isEnabledFor(Level.WARN);
+		return log.isWarnEnabled();
 	}
 
 	@Override
 	public boolean isErrorEnabled() {
-		return log.isEnabledFor(Level.ERROR);
+		return log.isErrorEnabled();
 	}
 
 	@Override
 	public boolean isFatalEnabled() {
-		return log.isEnabledFor(Level.FATAL);
+		return log.isFatalEnabled();
 	}
 
 	@Override
@@ -142,16 +142,16 @@ public class GGLoggerLog4j implements GGLogger {
 
 			width = width + 20;
 
-			log.info("+" + GGStrings.repeat("-", width) + "+");
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
+			log.info("+" + GGLoggerUtil.repeat("-", width) + "+");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
 
 			for (final Object msg : messages) {
-				log.info("|" + GGStrings.center(msg.toString(), width) + "|");
+				log.info("|" + GGLoggerUtil.center(msg.toString(), width) + "|");
 			}
 
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
-			log.info("+" + GGStrings.repeat("-", width) + "+");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
+			log.info("+" + GGLoggerUtil.repeat("-", width) + "+");
 		}
 	}
 

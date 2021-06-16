@@ -11,8 +11,8 @@ import org.apache.http.client.CookieStore;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.apache.http.cookie.Cookie;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class GGHttpLogHelper {
 

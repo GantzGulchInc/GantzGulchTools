@@ -1,8 +1,8 @@
 package com.gantzgulch.tools.httpclient;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.IOException;
 import java.net.URI;
@@ -13,7 +13,7 @@ import org.junit.Test;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JavaType;
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.httpclient.impl.GGHttpClientImpl;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonReaders;

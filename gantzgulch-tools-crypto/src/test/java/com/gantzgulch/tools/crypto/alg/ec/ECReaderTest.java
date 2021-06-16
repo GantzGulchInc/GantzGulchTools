@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.crypto.alg.ec;
 
-import static org.hamcrest.Matchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
@@ -12,9 +12,9 @@ import java.security.spec.InvalidKeySpecException;
 
 import org.junit.Test;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.codec.GGHex;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.crypto.GGSignatures;
 import com.gantzgulch.tools.crypto.pem.PEMReader;
 import com.gantzgulch.tools.crypto.pem.PEMWriter;

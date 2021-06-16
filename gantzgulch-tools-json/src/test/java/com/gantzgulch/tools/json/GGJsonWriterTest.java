@@ -4,7 +4,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.gg.domain.GGUser;
 
 public class GGJsonWriterTest {

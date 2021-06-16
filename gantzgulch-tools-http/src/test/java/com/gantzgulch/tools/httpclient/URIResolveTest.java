@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.httpclient;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -9,7 +9,7 @@ import java.net.URISyntaxException;
 import org.apache.http.client.utils.URIUtils;
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 
 public class URIResolveTest {
 

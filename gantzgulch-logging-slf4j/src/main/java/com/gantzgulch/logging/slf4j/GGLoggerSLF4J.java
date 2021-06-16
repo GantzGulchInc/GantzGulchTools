@@ -1,10 +1,10 @@
-package com.gantzgulch.tools.common.logging.impl;
+package com.gantzgulch.logging.slf4j;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
+import com.gantzgulch.logging.core.GGLoggerUtil;
 
 /**
  * A log wrapper with {@code String.format} capabilities.
@@ -142,16 +142,16 @@ public class GGLoggerSLF4J implements GGLogger {
 
 			width = width + 20;
 
-			log.info("+" + GGStrings.repeat("-", width) + "+");
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
+			log.info("+" + GGLoggerUtil.repeat("-", width) + "+");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
 
 			for (final Object msg : messages) {
-				log.info("|" + GGStrings.center(msg.toString(), width) + "|");
+				log.info("|" + GGLoggerUtil.center(msg.toString(), width) + "|");
 			}
 
-			log.info("|" + GGStrings.repeat(" ", width) + "|");
-			log.info("+" + GGStrings.repeat("-", width) + "+");
+			log.info("|" + GGLoggerUtil.repeat(" ", width) + "|");
+			log.info("+" + GGLoggerUtil.repeat("-", width) + "+");
 		}
 	}
 

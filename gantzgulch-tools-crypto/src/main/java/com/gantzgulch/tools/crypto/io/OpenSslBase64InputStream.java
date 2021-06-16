@@ -5,9 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.Reader;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.codec.GGBase64;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class OpenSslBase64InputStream extends InputStream {
 

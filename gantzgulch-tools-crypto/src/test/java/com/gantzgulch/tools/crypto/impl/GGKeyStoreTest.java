@@ -1,8 +1,8 @@
 package com.gantzgulch.tools.crypto.impl;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,9 +17,9 @@ import java.security.interfaces.RSAPrivateKey;
 
 import org.junit.Test;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGCloseables;
 import com.gantzgulch.tools.common.lang.GGIO;
-import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class GGKeyStoreTest {
 

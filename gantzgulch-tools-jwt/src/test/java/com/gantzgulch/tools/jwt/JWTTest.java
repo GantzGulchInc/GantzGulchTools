@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.jwt;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.security.KeyPair;
 import java.security.SecureRandom;
@@ -15,7 +15,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.GGReaders;
 import com.gantzgulch.tools.jwt.impl.JWTAlgorithm;
 

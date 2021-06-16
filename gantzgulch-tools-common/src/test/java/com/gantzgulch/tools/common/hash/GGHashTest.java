@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.common.hash;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import org.junit.Test;
 

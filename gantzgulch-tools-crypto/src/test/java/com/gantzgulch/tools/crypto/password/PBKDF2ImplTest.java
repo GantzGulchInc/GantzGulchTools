@@ -1,12 +1,12 @@
 package com.gantzgulch.tools.crypto.password;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.GGPasswordDigests;
 
 public class PBKDF2ImplTest {

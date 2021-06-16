@@ -10,7 +10,7 @@ import javax.persistence.criteria.Predicate;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 
 public class GGPredicates {
 

@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.httpclient;
 
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.io.IOException;
 import java.net.URI;
@@ -10,7 +10,7 @@ import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.protocol.HttpClientContext;
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.httpclient.impl.GGHttpClientImpl;
 import com.gantzgulch.tools.httpclient.impl.GGHttpResponses;
 

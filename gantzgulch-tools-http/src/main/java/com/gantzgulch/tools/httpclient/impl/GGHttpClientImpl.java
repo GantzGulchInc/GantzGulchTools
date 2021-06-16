@@ -33,10 +33,10 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.protocol.HttpContext;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGExceptions;
 import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.common.lang.GGUtf8;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.httpclient.GGHttpClient;
 import com.gantzgulch.tools.httpclient.GGHttpClientStats;
 import com.gantzgulch.tools.httpclient.GGHttpJsonClient;

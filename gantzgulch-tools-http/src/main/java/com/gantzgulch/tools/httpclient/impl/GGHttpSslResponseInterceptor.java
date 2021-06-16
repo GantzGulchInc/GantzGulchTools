@@ -12,7 +12,7 @@ import org.apache.http.conn.ManagedHttpClientConnection;
 import org.apache.http.protocol.HttpContext;
 import org.apache.http.protocol.HttpCoreContext;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 
 public class GGHttpSslResponseInterceptor implements HttpResponseInterceptor {
 

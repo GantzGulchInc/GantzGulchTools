@@ -41,6 +41,11 @@
 	</developers>
 
 	<modules>
+		<module>gantzgulch-logging-core</module>
+		<module>gantzgulch-logging-commons</module>
+		<module>gantzgulch-logging-log4j</module>
+		<module>gantzgulch-logging-log4j2</module>
+		<module>gantzgulch-logging-slf4j</module>
 		<module>gantzgulch-tools-common</module>
 		<module>gantzgulch-tools-io</module>
 		<module>gantzgulch-tools-guice</module>
@@ -69,14 +74,13 @@
 		<maven.build.timestamp.format>yyyy/MM/dd HH:MM:ss</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
 
-		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
 		<JACKSON_VERSION>2.12.2</JACKSON_VERSION>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
 		<AWS_SDK>1.11.976</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 
-		<!-- <SPRING_VERSION>4.3.6.RELEASE</SPRING_VERSION> <SPRING_SECURITY_VERSION>4.2.1.RELEASE</SPRING_SECURITY_VERSION> 
-			<TOMCAT_URL>http://www-us.apache.org/dist/tomcat/tomcat-8/v8.5.4/bin/apache-tomcat-8.5.4.zip</TOMCAT_URL> -->
+		<TEST_LOGGING_BACKEND>LOG4J2</TEST_LOGGING_BACKEND>
+		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
 	</properties>
 
 	<profiles>
@@ -164,11 +168,6 @@
 			</dependency>
 
 			<!-- Apache Commons -->
-			<dependency>
-				<groupId>commons-logging</groupId>
-				<artifactId>commons-logging</artifactId>
-				<version>1.2</version>
-			</dependency>
 			<dependency>
 				<groupId>org.apache.commons</groupId>
 				<artifactId>commons-lang3</artifactId>
@@ -300,6 +299,7 @@
 			</dependency>
 
 			<!-- Logging -->
+			<!-- 
 			<dependency>
 				<groupId>org.slf4j</groupId>
 				<artifactId>jcl-over-slf4j</artifactId>
@@ -343,7 +343,8 @@
 					</exclusion>
 				</exclusions>
 			</dependency>
-
+ 			-->
+ 			
 			<!-- Testing -->
 
 			<dependency>
@@ -418,6 +419,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<systemPropertyVariables>
+						<com.gantzgulch.tools.common.logging.GGLogger.backend>${TEST_LOGGING_BACKEND}</com.gantzgulch.tools.common.logging.GGLogger.backend>
+					</systemPropertyVariables>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

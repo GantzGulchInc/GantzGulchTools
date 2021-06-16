@@ -6,7 +6,7 @@ import java.security.spec.ECGenParameterSpec;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 
 public class ECWriterTest {
 

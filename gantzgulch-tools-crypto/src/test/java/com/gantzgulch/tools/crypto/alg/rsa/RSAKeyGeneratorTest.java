@@ -1,16 +1,14 @@
 package com.gantzgulch.tools.crypto.alg.rsa;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.security.KeyPair;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 
 import org.junit.Test;
-
-import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
 
 public class RSAKeyGeneratorTest {
 

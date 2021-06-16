@@ -9,12 +9,12 @@ import java.util.Set;
 
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.RequestStreamHandler;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyRequest;
 import com.gantzgulch.tools.aws.lambda.apig.domain.ProxyResponse;
 import com.gantzgulch.tools.aws.lambda.apig.domain.SimpleLambdaError;
 import com.gantzgulch.tools.common.lang.GGIO;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReaders;
 import com.gantzgulch.tools.json.GGJsonWriters;
 

@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.common.config;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 
 public final class ConfigurationUtil {
 

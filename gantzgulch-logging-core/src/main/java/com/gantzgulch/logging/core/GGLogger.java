@@ -1,4 +1,4 @@
-package com.gantzgulch.tools.common.logging;
+package com.gantzgulch.logging.core;
 
 /**
  * A log wrapper with {@code String.format} capabilities.

@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.crypto.x509;
 
-import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.equalTo;
 
 import java.security.cert.X509Certificate;
 import java.util.HashSet;
@@ -9,7 +9,7 @@ import java.util.Set;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.pkcs10.PKCS10Reader;
 import com.gantzgulch.tools.crypto.x509.impl.GGCertificateVerifierImpl;
 

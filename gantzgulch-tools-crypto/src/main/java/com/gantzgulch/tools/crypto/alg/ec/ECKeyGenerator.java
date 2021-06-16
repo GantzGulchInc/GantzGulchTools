@@ -38,7 +38,7 @@ public final class ECKeyGenerator {
 
     public static KeyPair generate(final String curveName) {
 
-        final ECGenParameterSpec ecGenSpec = new ECGenParameterSpec("curveName");
+        final ECGenParameterSpec ecGenSpec = new ECGenParameterSpec(curveName);
 
         return generate(ecGenSpec);
 

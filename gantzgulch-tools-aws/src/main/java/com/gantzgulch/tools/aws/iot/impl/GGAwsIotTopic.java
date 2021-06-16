@@ -8,8 +8,8 @@ import java.util.List;
 import com.amazonaws.services.iot.client.AWSIotMessage;
 import com.amazonaws.services.iot.client.AWSIotTopic;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.aws.iot.GGAwsIotTopicListener;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.json.GGJsonReaders;
 
 public class GGAwsIotTopic extends AWSIotTopic implements Closeable {

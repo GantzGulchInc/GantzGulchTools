@@ -1,8 +1,8 @@
 package com.gantzgulch.tools.crypto.alg.aes;
 
+import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,7 +12,7 @@ import javax.crypto.SecretKey;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.AbstractCipherTest;
 import com.gantzgulch.tools.crypto.GGCipher;
 import com.gantzgulch.tools.crypto.GGNonces;

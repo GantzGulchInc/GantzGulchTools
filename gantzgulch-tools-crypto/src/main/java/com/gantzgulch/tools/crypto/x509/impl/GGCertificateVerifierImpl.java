@@ -16,7 +16,7 @@ import java.util.Set;
 
 import javax.security.auth.x500.X500Principal;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.BouncyCastleState;
 import com.gantzgulch.tools.crypto.x509.GGCertificateVerifier;
 import com.gantzgulch.tools.crypto.x509.GGCertificateVerifyResult;

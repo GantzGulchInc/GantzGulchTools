@@ -5,8 +5,8 @@ import org.junit.Test;
 import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGSleep;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.crypto.impl.GGKeyStore;
 
 public class GGAwsIotConnectorTest {

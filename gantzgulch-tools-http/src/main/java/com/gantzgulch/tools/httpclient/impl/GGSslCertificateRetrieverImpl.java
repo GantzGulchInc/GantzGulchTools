@@ -20,8 +20,8 @@ import javax.net.ssl.TrustManager;
 import javax.net.ssl.TrustManagerFactory;
 import javax.net.ssl.X509TrustManager;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.GGCloseables;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.httpclient.GGSslCertificateRetriever;
 
 public class GGSslCertificateRetrieverImpl implements GGSslCertificateRetriever {

@@ -22,8 +22,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.NativeQuery;
 import org.hibernate.query.Query;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.lang.Cast;
-import com.gantzgulch.tools.common.logging.GGLogger;
 import com.gantzgulch.tools.hibernate.Dao;
 import com.gantzgulch.tools.hibernate.SearchField;
 import com.gantzgulch.tools.hibernate.SearchRequest;

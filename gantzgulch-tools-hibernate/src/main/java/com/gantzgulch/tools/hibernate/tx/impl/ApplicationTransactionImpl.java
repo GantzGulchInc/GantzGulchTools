@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.context.internal.ThreadLocalSessionContext;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.hibernate.tx.ApplicationTransaction;
 
 public class ApplicationTransactionImpl implements ApplicationTransaction {

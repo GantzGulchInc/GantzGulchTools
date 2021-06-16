@@ -5,7 +5,7 @@ import java.security.cert.X509Certificate;
 
 import org.junit.Test;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.httpclient.impl.GGSslCertificateRetrieverImpl;
 
 public class GGSslCertificateRetrieverTest {

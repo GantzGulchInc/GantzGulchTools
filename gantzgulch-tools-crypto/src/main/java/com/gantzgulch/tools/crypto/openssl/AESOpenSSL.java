@@ -11,7 +11,7 @@ import org.bouncycastle.crypto.generators.OpenSSLPBEParametersGenerator;
 import org.bouncycastle.crypto.params.KeyParameter;
 import org.bouncycastle.crypto.params.ParametersWithIV;
 
-import com.gantzgulch.tools.common.logging.GGLogger;
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.crypto.GGCiphers;
 import com.gantzgulch.tools.crypto.GGNonces;
 import com.gantzgulch.tools.crypto.GGOpenSSL;

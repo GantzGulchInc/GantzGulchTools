@@ -1,7 +1,7 @@
 package com.gantzgulch.tools.crypto.alg.rsa;
 
-import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.notNullValue;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -14,9 +14,6 @@ import java.security.PublicKey;
 import org.junit.Test;
 
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.crypto.alg.rsa.RSAKeyGenerator;
-import com.gantzgulch.tools.crypto.alg.rsa.RSAReader;
-import com.gantzgulch.tools.crypto.alg.rsa.RSAWriter;
 import com.gantzgulch.tools.crypto.matchers.RSA;
 
 public class RSAReaderWriterTest {

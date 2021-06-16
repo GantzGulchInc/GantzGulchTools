@@ -5,9 +5,9 @@ import java.security.spec.ECGenParameterSpec;
 
 import org.junit.Test;
 
+import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.tools.common.codec.GGHex;
 import com.gantzgulch.tools.common.lang.GGStrings;
-import com.gantzgulch.tools.common.logging.GGLogger;
 
 public class ECSignatureTest {
 
