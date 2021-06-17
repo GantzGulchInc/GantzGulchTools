@@ -13,14 +13,6 @@ import com.gantzgulch.logging.core.impl.GGAbstractLogger;
  */
 public class GGLoggerLog4j2 extends GGAbstractLogger {
 
-    static {
-        GGLoggerLog4j2.initSystem();
-    }
-    
-    public static void initSystem() {
-        System.setProperty("java.util.logging.manager", "org.apache.logging.log4j.jul.LogManager");
-    }
-    
 	private final Logger log;
 
 	public GGLoggerLog4j2(final String logClazz) {

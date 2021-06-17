@@ -11,6 +11,11 @@ public class GGLoggerLog4JFactory implements GGLoggerFactory {
     }
 
     @Override
+    public void initialize() {
+        // Nothing to do at the moment.
+    }
+    
+    @Override
     public String toString() {
         return "LoggerFactory: Log4j";
     }

@@ -1,10 +1,14 @@
 package com.gantzgulch.logging.log4j2;
 
-public class AbstractLoggingTest {
+import org.junit.Before;
 
-    public void before() {
-        System.out.println("Before!");
-        GGLoggerLog4j2.initSystem();
-    }
+import com.gantzgulch.logging.core.GGLogger;
+
+public class AbstractLoggingTest {
     
+    @Before
+    public void before() {
+        System.out.println("Before....");
+        GGLogger.initialize();
+    }
 }

@@ -10,6 +10,10 @@ import com.gantzgulch.logging.core.impl.GGLoggerCache;
  */
 public interface GGLogger {
 
+    public static void initialize() {
+        GGLoggerCache.INSTANCE.initialize();
+    }
+    
 	public static GGLogger getLogger(final String name) {
 		return GGLoggerCache.INSTANCE.getLogger(name);
 	}

@@ -33,12 +33,12 @@
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-api</artifactId>
+			<artifactId>log4j-core</artifactId>
 			<version>${LOG4J_VERSION}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-core</artifactId>
+			<artifactId>log4j-api</artifactId>
 			<version>${LOG4J_VERSION}</version>
 		</dependency>
 		<dependency>
@@ -66,14 +66,13 @@
 			<artifactId>slf4j-api</artifactId>
 			<version>${SLF4J_VERSION}</version>
 		</dependency>
-
-		<!-- Testing -->
 		<dependency>
 			<groupId>commons-logging</groupId>
 			<artifactId>commons-logging</artifactId>
 			<version>1.2</version>
 		</dependency>
 
+		<!-- Testing -->
 		<dependency>
 			<groupId>org.hamcrest</groupId>
 			<artifactId>hamcrest-library</artifactId>

@@ -6,6 +6,11 @@ import com.gantzgulch.logging.core.impl.GGLoggerFactory;
 public class GGLoggerSlf4JFactory implements GGLoggerFactory {
 
     @Override
+    public void initialize() {
+        // Nothing to do here.
+    }
+    
+    @Override
     public GGLogger create(final String name) {
         return new GGLoggerSLF4J(name);
     }

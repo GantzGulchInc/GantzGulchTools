@@ -14,12 +14,14 @@ import org.apache.logging.log4j.core.config.builder.api.LayoutComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.api.RootLoggerComponentBuilder;
 import org.apache.logging.log4j.core.config.builder.impl.BuiltConfiguration;
 import org.apache.logging.log4j.core.config.plugins.Plugin;
-import org.apache.logging.log4j.core.config.xml.XmlConfiguration;
 
 @Plugin(name = "FallbackConfigurationFactory", category = ConfigurationFactory.CATEGORY)
 @Order(0)
 public class GGLoggerLog4jConfigurationFactory extends ConfigurationFactory{
 
+    public GGLoggerLog4jConfigurationFactory() {
+    }
+    
     @Override
     protected String[] getSupportedTypes() {
         return new String[] { ".xml.gglog4jdefault" };
@@ -27,34 +29,23 @@ public class GGLoggerLog4jConfigurationFactory extends ConfigurationFactory{
 
     @Override
     public Configuration getConfiguration(LoggerContext loggerContext, String name, URI configLocation) {
-        System.out.printf("getConfiguration: name: %s, configLocation: %s, loggerContext: %s\n", name, configLocation, loggerContext);
         return createConfiguration(name, super.newConfigurationBuilder());
     }
 
     @Override
     public Configuration getConfiguration(LoggerContext loggerContext, String name, URI configLocation, ClassLoader loader) {
-        System.out.printf("getConfiguration: name: %s, configLocation: %s, loggerContext: %s\n", name, configLocation, loggerContext);
         return createConfiguration(name, super.newConfigurationBuilder());
     }
     
     
     @Override
     public Configuration getConfiguration(final LoggerContext loggerContext, final ConfigurationSource source) {
-        
-        System.out.printf("getConfiguration: source: %s, loggerContext: %s\n", source, loggerContext);
-        
-        return new XmlConfiguration(loggerContext, source);
-
-        // return createConfiguration("fallback", super.newConfigurationBuilder());
+        return createConfiguration("default", newConfigurationBuilder());
     }
 
 
     public Configuration createConfiguration(final String name, final ConfigurationBuilder<BuiltConfiguration> builder) {
 
-        System.out.println("LOG4J: FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK FALLBACK ");
-        
-        System.out.println("log4j2.configuration: " + System.getProperty("log4j2.configurationFile"));
-        
         builder.setStatusLevel(Level.WARN);
         builder.setConfigurationName(name);
 

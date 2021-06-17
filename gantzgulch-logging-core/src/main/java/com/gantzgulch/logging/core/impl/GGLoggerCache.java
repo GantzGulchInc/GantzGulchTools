@@ -30,6 +30,8 @@ public final class GGLoggerCache {
         if (i.hasNext()) {
 
             loggerFactory = i.next();
+            
+            loggerFactory.initialize();
 
         } else {
             throw new RuntimeException("ServiceLoader provided no GGLoggerFactory objects.");
@@ -37,6 +39,10 @@ public final class GGLoggerCache {
 
     }
 
+    public void initialize() {
+        // Nothing to do for now.
+    }
+    
     public synchronized GGLogger getLogger(final String name) {
 
         GGLogger logger = null;
