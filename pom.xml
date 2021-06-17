@@ -43,7 +43,6 @@
 	<modules>
 		<module>gantzgulch-logging-core</module>
 		<module>gantzgulch-logging-commons</module>
-		<module>gantzgulch-logging-log4j</module>
 		<module>gantzgulch-logging-log4j2</module>
 		<module>gantzgulch-logging-slf4j</module>
 		<module>gantzgulch-tools-common</module>
