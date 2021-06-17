@@ -2,7 +2,6 @@ package com.gantzgulch.tools.aws.iot;
 
 import org.junit.Ignore;
 import org.junit.Test;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.gantzgulch.logging.core.GGLogger;
@@ -11,11 +10,6 @@ import com.gantzgulch.tools.crypto.impl.GGKeyStore;
 
 public class GGAwsIotConnectorTest {
 
-    static {
-        SLF4JBridgeHandler.removeHandlersForRootLogger();
-        SLF4JBridgeHandler.install();
-    }
-    
     private static final GGLogger LOG = GGLogger.getLogger(GGAwsIotConnectorTest.class);
     
     private final String name = "";

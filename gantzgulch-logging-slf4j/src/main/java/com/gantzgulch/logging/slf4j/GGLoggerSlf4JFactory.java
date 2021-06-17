@@ -1,5 +1,7 @@
 package com.gantzgulch.logging.slf4j;
 
+import org.slf4j.bridge.SLF4JBridgeHandler;
+
 import com.gantzgulch.logging.core.GGLogger;
 import com.gantzgulch.logging.core.impl.GGLoggerFactory;
 
@@ -7,7 +9,8 @@ public class GGLoggerSlf4JFactory implements GGLoggerFactory {
 
     @Override
     public void initialize() {
-        // Nothing to do here.
+        SLF4JBridgeHandler.removeHandlersForRootLogger();
+        SLF4JBridgeHandler.install();
     }
     
     @Override

@@ -67,12 +67,6 @@
 			<artifactId>aws-lambda-java-core</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>jul-to-slf4j</artifactId>
-			<version>${SLF4J_VERSION}</version>
-		</dependency>
-		 
 		<!-- Testing -->
 		<dependency>
 			<groupId>com.gantzgulch.tools</groupId>

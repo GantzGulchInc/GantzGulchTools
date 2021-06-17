@@ -16,6 +16,11 @@
 	<name>GantzGulch Logging - Core logging library</name>
 	<description></description>
 
+	<properties>
+		<LOG4J_VERSION>2.14.1</LOG4J_VERSION>
+		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
+	</properties>
+
 	<dependencies>
 
 		<!-- Testing -->
