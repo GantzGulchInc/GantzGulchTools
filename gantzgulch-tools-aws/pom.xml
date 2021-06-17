@@ -16,10 +16,6 @@
 	<name>GantzGulch Tools - AWS library</name>
 	<description></description>
 
-	<properties>
-		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
-	</properties>
-
 	<dependencies>
 
 		<dependency>

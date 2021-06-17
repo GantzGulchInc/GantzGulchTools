@@ -17,10 +17,6 @@
 	<name>GantzGulch Logging - Slf4j logging library</name>
 	<description></description>
 
-	<properties>
-		<SLF4J_VERSION>1.7.24</SLF4J_VERSION>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
@@ -50,6 +46,11 @@
 			<groupId>org.slf4j</groupId>
 			<artifactId>jul-to-slf4j</artifactId>
 			<version>${SLF4J_VERSION}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.apache.logging.log4j</groupId>
+		    <artifactId>log4j-to-slf4j</artifactId>
+		    <version>${LOG4J_VERSION}</version>
 		</dependency>
 
 		<!-- Testing -->

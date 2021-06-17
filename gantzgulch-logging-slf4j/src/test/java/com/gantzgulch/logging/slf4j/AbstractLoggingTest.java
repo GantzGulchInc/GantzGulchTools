@@ -1,4 +1,4 @@
-package com.gantzgulch.logging.log4j2;
+package com.gantzgulch.logging.slf4j;
 
 import org.junit.Before;
 
