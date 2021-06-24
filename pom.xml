@@ -75,7 +75,7 @@
 
 		<JACKSON_VERSION>2.12.3</JACKSON_VERSION>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
-		<AWS_SDK>1.12.8</AWS_SDK>
+		<AWS_SDK>1.12.11</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 		<BOUNCY_CASTLE_VERSION>1.69</BOUNCY_CASTLE_VERSION>
 		
@@ -287,13 +287,13 @@
 			<dependency>
 				<groupId>com.google.inject</groupId>
 				<artifactId>guice</artifactId>
-				<version>4.2.2</version>
+				<version>5.0.1</version>
 				<optional>true</optional>
 			</dependency>
 			<dependency>
 				<groupId>com.google.inject.extensions</groupId>
 				<artifactId>guice-multibindings</artifactId>
-				<version>4.2.2</version>
+				<version>4.2.3</version>
 				<optional>true</optional>
 			</dependency>
 
