@@ -1,5 +1,6 @@
 package com.gantzgulch.tools.httpclient;
 
+import java.io.Closeable;
 import java.io.InputStream;
 import java.net.URI;
 import java.util.Map;
@@ -11,7 +12,7 @@ import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
 
-public interface GGHttpClient {
+public interface GGHttpClient extends Closeable {
 
     CloseableHttpResponse get(URI uri, Map<String,String> headers, HttpClientContext httpClientContext);
     
