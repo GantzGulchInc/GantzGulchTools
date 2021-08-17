@@ -58,6 +58,19 @@ public final class PEMReader {
         }
     }
 
+    public static KeyPair readKeyPair(final InputStream inputStreamPem) {
+
+        try {
+
+            final PEMKeyPair pemKeyPair = read(inputStreamPem, PEMKeyPair.class);
+
+            return CONVERTER.getKeyPair(pemKeyPair);
+
+        } catch (final PEMException e) {
+            throw new CryptoException(e);
+        }
+    }
+
     public static PublicKey readPublicKey(final Reader reader) {
 
         try {
@@ -77,6 +90,20 @@ public final class PEMReader {
         try {
 
             final SubjectPublicKeyInfo publicKeyInfo = read(pem, SubjectPublicKeyInfo.class);
+
+            return CONVERTER.getPublicKey(publicKeyInfo);
+
+        } catch (final PEMException e) {
+            throw new CryptoException(e);
+        }
+
+    }
+
+    public static PublicKey readPublicKey(final InputStream inputStreamPem) {
+
+        try {
+
+            final SubjectPublicKeyInfo publicKeyInfo = read(inputStreamPem, SubjectPublicKeyInfo.class);
 
             return CONVERTER.getPublicKey(publicKeyInfo);
 

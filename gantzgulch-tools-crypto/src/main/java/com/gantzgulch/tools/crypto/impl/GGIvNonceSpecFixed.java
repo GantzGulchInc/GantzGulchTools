@@ -26,7 +26,7 @@ public class GGIvNonceSpecFixed extends AbstractGGIvNonceSpec {
         final int ivNonceLength = ivNonce.length * 8;
         
         if( ivNonceLength != sizeInBits) {
-            throw new CryptoException( String.format("Expected an IV/Nonce with size %d, but received iv with size %d.", ivNonceLength, ivNonce.length));
+            throw new CryptoException( String.format("Expected an IV/Nonce with size %d, but received iv with size %d.", sizeInBits, ivNonceLength));
         }
     }
 
