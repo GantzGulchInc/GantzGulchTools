@@ -2,6 +2,7 @@ package com.gantzgulch.tools.json.impl;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
@@ -43,6 +44,26 @@ public final class GGJsonWriterImpl extends AbstractGGJsonImpl implements GGJson
         return mapper.valueToTree(value);
     }
 
+    @Override
+    public byte[] writeAsBytes(final Object value, final String charsetName) {
+        return writeAsBytes(value, Charset.forName(charsetName));
+    }
+    
+    @Override
+    public byte[] writeAsBytes(Object value, Charset charset) {
+        
+        
+        try {
+
+            final ObjectWriter objectWriter = mapper.writer();
+
+            return value != null ? objectWriter.writeValueAsString(value).getBytes(charset) : null;
+
+        } catch ( JsonProcessingException e) {
+            throw new GGJsonException(e);
+        }
+    }
+    
     @Override
     public void write(final Object value, final OutputStream outputStream) {
         

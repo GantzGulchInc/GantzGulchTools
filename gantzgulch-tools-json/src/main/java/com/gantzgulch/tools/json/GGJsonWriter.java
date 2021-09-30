@@ -1,15 +1,20 @@
 package com.gantzgulch.tools.json;
 
 import java.io.OutputStream;
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 
 import com.fasterxml.jackson.databind.JsonNode;
 
 public interface GGJsonWriter {
 
-    String writeAsString(final Object value);
+    String writeAsString(Object value);
 
-    JsonNode writeAsJsonNode(final Object value);
+    JsonNode writeAsJsonNode(Object value);
+    
+    byte[] writeAsBytes(Object value, String charsetName);
+    
+    byte[] writeAsBytes(Object value, Charset charset);
 
     void write(Object value, OutputStream output);
 
