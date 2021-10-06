@@ -2,6 +2,7 @@ package com.gantzgulch.tools.hibernate;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Function;
 
 import com.gantzgulch.tools.hibernate.domain.DomainObject;
 
@@ -25,10 +26,12 @@ public interface Dao<T extends DomainObject> {
 
     SearchResponse<T> search(final SearchRequest searchRequest);
 
+    SearchResponse<T> search(SearchRequest searchRequest, Function<T, T> populateFunction);
+    
     void evict(T item);
     
     void flush();
     
     void refresh(T item);
-    
+
 }

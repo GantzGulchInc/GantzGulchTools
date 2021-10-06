@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
@@ -59,11 +61,10 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
     @Override
     public void refresh(final T item) {
-        
+
         sessionFactory.getCurrentSession().refresh(item);
     }
-    
-    
+
     @Override
     public T findById(final String id) {
 
@@ -181,11 +182,19 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     @Override
     public SearchResponse<T> search(final SearchRequest searchRequest) {
 
+        return search(searchRequest, this::populate);
+    }
+
+    /**
+     * New search
+     */
+    @Override
+    public SearchResponse<T> search(final SearchRequest searchRequest, final Function<T, T> populateFunction) {
+
         final int pageSize = normalizePageSize(searchRequest);
-        
+
         final int pageNumber = normalizePageNumber(searchRequest);
-        
-        
+
         final CriteriaBuilder builder = criteriaBuilder();
 
         //
@@ -249,11 +258,11 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
         itemQuery.setFirstResult(pageSize * realPageNumber);
         itemQuery.setMaxResults(pageSize);
 
-        final List<T> items = itemQuery.getResultList();
-
-        for (final T item : items) {
-            populate(item);
-        }
+        final List<T> items = itemQuery//
+                .getResultList() //
+                .stream() //
+                .map(populateFunction) //
+                .collect(Collectors.toList());
 
         return new SearchResponse<T>(pageSize, realPageNumber + 1, pageCount, (int) itemCount, items);
     }
@@ -263,13 +272,13 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
     }
 
     private int normalizePageSize(final SearchRequest searchRequest) {
-        
-        return Math.max(0, Math.min(256, searchRequest.getPageSize() ));
-        
-    }
-    
 
-    protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields, final SearchRequest.FieldMatch fieldMatch) {
+        return Math.max(0, Math.min(256, searchRequest.getPageSize()));
+
+    }
+
+    protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields,
+            final SearchRequest.FieldMatch fieldMatch) {
 
         return null;
     }
@@ -283,7 +292,7 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
             for (final String field : fields) {
 
                 LOG.debug("buildSearchOrder: field: %s", field);
-                
+
                 if (StringUtils.isNotBlank(field)) {
 
                     final Pair<String, String> orderPair = parseOrderPair(field);
@@ -291,9 +300,9 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
                     Path<?> p = null;
 
                     try {
-                        
+
                         p = findPath(root, orderPair.getLeft());
-                        
+
                     } catch (final Exception e) {
                         LOG.warn(e, "Unable to find path: %s", orderPair.getLeft());
                         p = null;
@@ -302,12 +311,12 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
                     if (p != null) {
 
                         if (Objects.equals("-", orderPair.getRight())) {
-                            
+
                             final Order o = builder.desc(p);
                             order.add(o);
 
                         } else {
-                            
+
                             final Order o = builder.asc(p);
                             order.add(o);
                         }
@@ -316,28 +325,28 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
             }
         }
-        
+
         LOG.debug("Order:%s", order);
 
         return order;
     }
-    
+
     private Path<?> findPath(final Root<?> root, final String dottedPath) {
-        
+
         final String[] elements = StringUtils.split(dottedPath, ".");
-        
+
         Path<?> path = null;
-        
-        for(final String element : elements) {
-        
-            if( path == null ){
+
+        for (final String element : elements) {
+
+            if (path == null) {
                 path = root.get(element);
-            }else{
+            } else {
                 path = path.get(element);
             }
-            
+
         }
-        
+
         return path;
     }
 
