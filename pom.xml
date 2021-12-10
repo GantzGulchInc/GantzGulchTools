@@ -132,7 +132,7 @@
 									<goal>sign</goal>
 								</goals>
 								<configuration>
-									<keyname>0x4513616A1201738C!</keyname>
+									<keyname>0x06A7E27E197B0074!</keyname>
 								</configuration>
 							</execution>
 						</executions>
