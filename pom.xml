@@ -73,11 +73,11 @@
 		<maven.build.timestamp.format>yyyy/MM/dd HH:MM:ss</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
 
-		<JACKSON_VERSION>2.12.3</JACKSON_VERSION>
+		<JACKSON_VERSION>2.13.0</JACKSON_VERSION>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
-		<AWS_SDK>1.12.11</AWS_SDK>
+		<AWS_SDK>1.12.128</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
-		<BOUNCY_CASTLE_VERSION>1.69</BOUNCY_CASTLE_VERSION>
+		<BOUNCY_CASTLE_VERSION>1.70</BOUNCY_CASTLE_VERSION>
 		
 		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
 	</properties>
@@ -150,7 +150,7 @@
 			<dependency>
 			    <groupId>com.auth0</groupId>
 			    <artifactId>java-jwt</artifactId>
-			    <version>3.16.0</version>
+			    <version>3.18.2</version>
 			</dependency>
 			
 			<!-- Bouncy Castle -->
@@ -175,7 +175,7 @@
 			<dependency>
 				<groupId>commons-io</groupId>
 				<artifactId>commons-io</artifactId>
-				<version>2.10.0</version>
+				<version>2.11.0</version>
 			</dependency>
 			<dependency>
 			    <groupId>org.apache.commons</groupId>
@@ -192,7 +192,7 @@
 			<dependency>
 				<groupId>org.apache.httpcomponents</groupId>
 				<artifactId>httpcore</artifactId>
-				<version>4.4.14</version>
+				<version>4.4.15</version>
 			</dependency>
 
 			<!-- Tomcat -->

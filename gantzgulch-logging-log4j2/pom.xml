@@ -18,7 +18,7 @@
 	<description></description>
 
 	<properties>
-		<LOG4J_VERSION>2.14.1</LOG4J_VERSION>
+		<LOG4J_VERSION>2.15.0</LOG4J_VERSION>
 		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
 	</properties>
 
