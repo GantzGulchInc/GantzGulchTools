@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>com.gantzgulch.tools</groupId>
 		<artifactId>gantzgulch-tools-top</artifactId>
-		<version>1.0.24-SNAPSHOT</version>
+		<version>1.0.24</version>
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
@@ -17,7 +17,7 @@
 	<description></description>
 
 	<properties>
-		<LOG4J_VERSION>2.15.0</LOG4J_VERSION>
+		<LOG4J_VERSION>2.16.0</LOG4J_VERSION>
 		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
 	</properties>
 
