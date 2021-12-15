@@ -17,11 +17,6 @@
 	<name>GantzGulch Logging - Slf4j logging library</name>
 	<description></description>
 
-	<properties>
-		<LOG4J_VERSION>2.16.0</LOG4J_VERSION>
-		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
-	</properties>
-
 	<dependencies>
 
 		<dependency>
