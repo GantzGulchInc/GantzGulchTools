@@ -8,4 +8,5 @@ public interface GGLoggerFactory {
     
     GGLogger create(String name);
     
+    int getPriority();
 }

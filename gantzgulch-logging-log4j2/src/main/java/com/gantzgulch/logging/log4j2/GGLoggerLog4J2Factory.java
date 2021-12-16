@@ -16,8 +16,13 @@ public class GGLoggerLog4J2Factory implements GGLoggerFactory {
     }
 
     @Override
+    public int getPriority() {
+        return 0;
+    }
+    
+    @Override
     public String toString() {
         return "LoggerFactory: Log4j2";
     }
-
+    
 }

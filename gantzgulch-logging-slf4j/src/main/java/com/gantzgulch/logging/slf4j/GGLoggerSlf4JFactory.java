@@ -19,6 +19,11 @@ public class GGLoggerSlf4JFactory implements GGLoggerFactory {
     }
 
     @Override
+    public int getPriority() {
+        return 50;
+    }
+    
+    @Override
     public String toString() {
         return "LoggerFactory: SLF4J";
     }

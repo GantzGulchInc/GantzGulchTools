@@ -16,6 +16,11 @@ public class GGLoggerApacheCommonsFactory implements GGLoggerFactory {
     }
 
     @Override
+    public int getPriority() {
+        return 100;
+    }
+    
+    @Override
     public String toString() {
         return "LoggerFactory: Apache Commons";
     }

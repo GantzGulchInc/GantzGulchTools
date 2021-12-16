@@ -56,11 +56,31 @@ public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJson
 
     }
 
+    
+    @Override
+    public <T> List<T> readArray(InputStream json, final Class<T> clazz) {
+
+        return read(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz)) ;
+
+    }
+    
     @Override
     public <T> List<T> readArray(final String json, final Class<T> clazz) {
 
         return read(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz)) ;
 
+    }
+    
+    @Override
+    public <T> List<T> readArray(JsonNode json, final Class<T> clazz) {
+
+        return read(json, mapper.getTypeFactory().constructCollectionType(List.class, clazz)) ;
+
+    }
+    
+    @Override
+    public <T> List<T> readArray(final Path path, final Class<T> clazz) {
+        return read(path, mapper.getTypeFactory().constructCollectionType(List.class, clazz));
     }
 
     @Override

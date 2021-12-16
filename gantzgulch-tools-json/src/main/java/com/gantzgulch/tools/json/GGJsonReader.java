@@ -42,6 +42,12 @@ public interface GGJsonReader {
     <T> T read(Path path, JavaType javaType);
 
     
+    <T> List<T> readArray(InputStream json, Class<T> clazz);
+    
     <T> List<T> readArray(String json, Class<T> clazz);
+    
+    <T> List<T> readArray(JsonNode json, Class<T> clazz);
+    
+    <T> List<T> readArray(Path path, Class<T> clazz);
 
 }

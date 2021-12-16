@@ -1,7 +1,10 @@
 package com.gantzgulch.logging.core.impl;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 import java.util.ServiceLoader;
 
@@ -25,24 +28,51 @@ public final class GGLoggerCache {
             throw new RuntimeException("Failed to load GGLogger Factory Service Loader.");
         }
 
+        final List<GGLoggerFactory> factoryList = new ArrayList<>();
+
         final Iterator<GGLoggerFactory> i = serviceLoader.iterator();
 
-        if (i.hasNext()) {
+        while (i.hasNext()) {
+            factoryList.add(i.next());
+        }
 
-            loggerFactory = i.next();
-            
-            loggerFactory.initialize();
+        Collections.sort(factoryList, new GGLoggerFactoryComparator());
 
-        } else {
+        loggerFactory = createFactory(factoryList);
+
+        if (loggerFactory == null) {
             throw new RuntimeException("ServiceLoader provided no GGLoggerFactory objects.");
         }
 
     }
 
+    private GGLoggerFactory createFactory(final List<GGLoggerFactory> factoryList) {
+
+        // for(final GGLoggerFactory factory : factoryList ) {
+        // System.out.println(String.format("createFactory: %11d %s",
+        // factory.getPriority(), factory.toString()));
+        // }
+
+        for (final GGLoggerFactory factory : factoryList) {
+
+            try {
+
+                factory.initialize();
+
+                return factory;
+                
+            } catch (final RuntimeException re) {
+                re.printStackTrace();
+            }
+        }
+
+        return null;
+    }
+
     public void initialize() {
         // Nothing to do for now.
     }
-    
+
     public synchronized GGLogger getLogger(final String name) {
 
         GGLogger logger = null;
