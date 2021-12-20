@@ -6,7 +6,7 @@
 
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools-top</artifactId>
-	<version>1.0.25-SNAPSHOT</version>
+	<version>1.0.25</version>
 	<packaging>pom</packaging>
 
 	<name>GantzGulch, Inc. Tools - Master Pom</name>
@@ -79,7 +79,7 @@
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 		<BOUNCY_CASTLE_VERSION>1.70</BOUNCY_CASTLE_VERSION>
 		
-		<LOG4J_VERSION>2.16.0</LOG4J_VERSION>
+		<LOG4J_VERSION>2.17.0</LOG4J_VERSION>
 		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
 		
 		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
