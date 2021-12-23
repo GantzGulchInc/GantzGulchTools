@@ -4,6 +4,7 @@ import java.security.KeyPair;
 import java.security.PrivateKey;
 import java.security.PublicKey;
 import java.security.interfaces.DSAPrivateKey;
+import java.security.interfaces.DSAPublicKey;
 import java.security.interfaces.RSAPrivateKey;
 import java.security.interfaces.RSAPublicKey;
 import java.util.Objects;
@@ -45,6 +46,18 @@ public class DSA {
                     return false;
                 }
 
+                if (!expectedRSAPrivateKey.getParams().getG() .equals(itemRSAPrivateKey.getParams().getG())) {
+                    return false;
+                }
+                
+                if (!expectedRSAPrivateKey.getParams().getP() .equals(itemRSAPrivateKey.getParams().getP())) {
+                    return false;
+                }
+
+                if (!expectedRSAPrivateKey.getParams().getQ() .equals(itemRSAPrivateKey.getParams().getQ())) {
+                    return false;
+                }
+
                 return true;
             }
 
@@ -72,10 +85,10 @@ public class DSA {
                     return false;
                 }
 
-                final RSAPublicKey expectedRSAPublicKey = (RSAPublicKey) expectedPublicKey;
-                final RSAPublicKey itemRSAPrivateKey = (RSAPublicKey) item;
+                final DSAPublicKey expectedRSAPublicKey = (DSAPublicKey) expectedPublicKey;
+                final DSAPublicKey itemRSAPrivateKey = (DSAPublicKey) item;
 
-                if (!expectedRSAPublicKey.getModulus().equals(itemRSAPrivateKey.getModulus())) {
+                if (!expectedRSAPublicKey.getY().equals(itemRSAPrivateKey.getY())) {
                     return false;
                 }
 
