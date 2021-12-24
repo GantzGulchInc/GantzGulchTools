@@ -21,7 +21,7 @@ public class ChaChaTest {
     @Test
     public void testCrypt() {
         
-        final String ALGO = "ChaCha20-Poly1305";
+        // final String ALGO = "ChaCha20-Poly1305";
         
         
     }

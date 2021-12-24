@@ -1,0 +1,15 @@
+<root>
+  	<data1>
+  		<first>1st</first>
+  		<second>2nd</second>
+  		<third>3rd</third>
+  	</data1>
+
+	<data2>
+		<nested>
+	  		<first>1st</first>
+	  		<second>2nd</second>
+	  		<third>3rd</third>
+		</nested>
+	</data2>
+</root>

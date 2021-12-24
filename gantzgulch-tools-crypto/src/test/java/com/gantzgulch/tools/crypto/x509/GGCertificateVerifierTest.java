@@ -7,7 +7,6 @@ import java.security.cert.X509Certificate;
 import java.util.HashSet;
 import java.util.Set;
 
-import org.junit.Ignore;
 import org.junit.Test;
 
 import com.gantzgulch.logging.core.GGLogger;
