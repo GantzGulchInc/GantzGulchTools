@@ -16,7 +16,7 @@ public final class GGJsonWriterImpl extends AbstractGGJsonImpl implements GGJson
 
     public GGJsonWriterImpl(final boolean isPretty, final boolean useISO8601Dates) {
 
-        super(false, isPretty, useISO8601Dates);
+        super(false, isPretty, useISO8601Dates, null);
 
     }
 

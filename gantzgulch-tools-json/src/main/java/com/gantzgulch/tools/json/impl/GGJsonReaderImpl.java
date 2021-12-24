@@ -7,6 +7,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.InjectableValues;
 import com.fasterxml.jackson.databind.JavaType;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectReader;
@@ -18,7 +19,13 @@ public final class GGJsonReaderImpl extends AbstractGGJsonImpl implements GGJson
 
     public GGJsonReaderImpl(final boolean allowUncleanJson, final boolean useISO8601Dates) {
 
-        super(allowUncleanJson, false, useISO8601Dates);
+        super(allowUncleanJson, false, useISO8601Dates, null);
+    }
+
+    public GGJsonReaderImpl(final boolean allowUncleanJson, final boolean useISO8601Dates, final InjectableValues injectableValues) {
+
+        super(allowUncleanJson, false, useISO8601Dates, injectableValues);
+        
     }
 
     @Override
