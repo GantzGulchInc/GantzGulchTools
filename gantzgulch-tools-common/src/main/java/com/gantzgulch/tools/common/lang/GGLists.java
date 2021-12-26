@@ -14,48 +14,26 @@ public final class GGLists {
     }
 
     public static <T> T first(final List<T> list) {
-
-        if (list == null) {
-            return null;
-        }
-
-        if (list.size() == 0) {
-            return null;
-        }
-
-        return list.get(0);
+        return GGCollections.isNotEmpty(list) ? list.get(0) : null;
     }
 
     public static <T> T last(final List<T> list) {
-
-        if (list == null) {
-            return null;
-        }
-
-        if (list.size() == 0) {
-            return null;
-        }
-
-        return list.get(list.size() - 1);
+        return GGCollections.isNotEmpty(list) ? list.get(list.size() - 1) : null;
     }
 
     public static <T> boolean contains(List<T> list, Predicate<? super T> filter) {
 
-        if (list == null || filter == null) {
-            return false;
-        }
-
-        return list//
-                .stream()//
+        return GGStream //
+                .of(list) //
                 .anyMatch(filter);
     }
 
     public static <T> T removeFirst(List<T> list, Predicate<? super T> filter) {
 
-        if (list == null || filter == null) {
+        if (GGCollections.isEmpty(list)) {
             return null;
         }
-        
+
         final ListIterator<T> i = list.listIterator();
 
         while (i.hasNext()) {
@@ -75,14 +53,14 @@ public final class GGLists {
 
     public static <T> List<T> removeAll(final List<T> list, final Predicate<? super T> filter) {
 
-        if (list == null || filter == null) {
+        if (GGCollections.isEmpty(list)) {
             return null;
         }
 
         final List<T> results = new ArrayList<>();
 
-        list.removeIf( (i) -> {
-            if( filter.test(i) ){
+        list.removeIf((i) -> {
+            if (filter.test(i)) {
                 results.add(i);
                 return true;
             }
@@ -124,15 +102,11 @@ public final class GGLists {
 
     public static <T> T find(final List<T> list, final Predicate<T> pred) {
 
-        if (list == null || pred == null) {
-            return null;
-        }
-
-        return list. //
-                stream(). //
-                filter(pred). //
-                findAny(). //
-                orElse(null);
+        return GGStream //
+                .of(list) //
+                .filter(pred) //
+                .findAny() //
+                .orElse(null);
     }
 
     public static <T> String join(final List<T> list, final String separator) {

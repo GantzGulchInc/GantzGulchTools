@@ -52,7 +52,7 @@ public final class GGArrays {
     public static int min(final int[] array) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .min()//
                 .orElse(0);
 
@@ -61,7 +61,7 @@ public final class GGArrays {
     public static long min(final long[] array) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .min()//
                 .orElse(0);
 
@@ -70,7 +70,7 @@ public final class GGArrays {
     public static double min(final double[] array) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .min()//
                 .orElse(0);
 
@@ -79,7 +79,7 @@ public final class GGArrays {
     public static int max(final int[] array) {
 
         return GGStream//
-                .stream(array)//
+                .of(array)//
                 .max()//
                 .orElse(0);
     }
@@ -87,7 +87,7 @@ public final class GGArrays {
     public static long max(final long[] array) {
 
         return GGStream//
-                .stream(array)//
+                .of(array)//
                 .max()//
                 .orElse(0);
     }
@@ -95,7 +95,7 @@ public final class GGArrays {
     public static double max(final double[] array) {
 
         return GGStream//
-                .stream(array)//
+                .of(array)//
                 .max()//
                 .orElse(0);
     }
@@ -119,35 +119,35 @@ public final class GGArrays {
     public static <T> boolean contains(final T[] array, final Predicate<? super T> filter) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .anyMatch(filter);
     }
 
     public static boolean contains(final int[] array, final IntPredicate filter) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .anyMatch(filter);
     }
 
     public static boolean contains(final long[] array, final LongPredicate filter) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .anyMatch(filter);
     }
 
     public static boolean contains(final double[] array, final DoublePredicate filter) {
 
         return GGStream //
-                .stream(array)//
+                .of(array)//
                 .anyMatch(filter);
     }
 
     public static <T> T find(final T[] array, final Predicate<T> pred) {
 
         return GGStream //
-                .stream(array) //
+                .of(array) //
                 .filter(pred) //
                 .findAny() //
                 .orElse(null);
@@ -156,7 +156,7 @@ public final class GGArrays {
     public static <T> List<T> findAll(final T[] array, final Predicate<T> pred) {
 
         return GGStream //
-                .stream(array) //
+                .of(array) //
                 .filter(pred) //
                 .collect(Collectors.toList());
     }

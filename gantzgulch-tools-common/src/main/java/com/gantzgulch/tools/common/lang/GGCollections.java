@@ -11,13 +11,13 @@ public final class GGCollections {
 
     public static boolean isEmpty(final Collection<?> collection) {
 
-        return collection == null || collection.size() == 0;
+        return size(collection) == 0;
 
     }
 
     public static boolean isNotEmpty(final Collection<?> collection) {
 
-        return collection != null && collection.size() > 0;
+        return size(collection) > 0;
 
     }
 
@@ -38,26 +38,17 @@ public final class GGCollections {
 
     public static <T> boolean contains(final Collection<T> collection, final Predicate<? super T> filter) {
 
-        if (collection == null || filter == null) {
-            return false;
-        }
-
-        return collection //
-                .stream()//
-                .anyMatch(filter);
+        return GGStream//
+                .of(collection).anyMatch(filter);
     }
 
     public static <T> T find(final Collection<T> collection, final Predicate<T> pred) {
 
-        if (collection == null || pred == null) {
-            return null;
-        }
-
-        return collection. //
-                stream(). //
-                filter(pred). //
-                findFirst(). //
-                orElse(null);
+        return GGStream//
+                .of(collection) //
+                .filter(pred) //
+                .findFirst() //
+                .orElse(null);
     }
 
 }

@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.common.lang;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -12,19 +13,23 @@ public final class GGStream {
         throw new UnsupportedOperationException();
     }
 
-    public static IntStream stream(final int[] array) {
+    public static <T> Stream<T> of(final Collection<T> collection) {
+        return collection != null ? collection.stream() : Stream.of();
+    }
+    
+    public static IntStream of(final int[] array) {
         return array != null ? Arrays.stream(array) : IntStream.of();
     }
     
-    public static LongStream stream(final long[] array) {
+    public static LongStream of(final long[] array) {
         return array != null ? Arrays.stream(array) : LongStream.of();
     }
     
-    public static DoubleStream stream(final double[] array) {
+    public static DoubleStream of(final double[] array) {
         return array != null ? Arrays.stream(array) : DoubleStream.of();
     }
     
-    public static <T> Stream<T> stream(final T[] array) {
+    public static <T> Stream<T> of(final T[] array) {
      
         if( array == null ) {
             return Stream.of();
