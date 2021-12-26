@@ -4,8 +4,6 @@ import java.util.function.Predicate;
 
 public final class GGPredicates {
 
-    
-    
     public static <T> Predicate<T> alwaysTrue() {
         return new Predicate<T>() {
             @Override
@@ -14,7 +12,7 @@ public final class GGPredicates {
             }
         };
     }
-    
+
     public static <T> Predicate<T> alwaysFalse() {
         return new Predicate<T>() {
             @Override
@@ -23,17 +21,17 @@ public final class GGPredicates {
             }
         };
     }
-    
+
     @SafeVarargs
-    public static <T> Predicate<T> firstNonNull(final Predicate<T> ... predicates ){
-        
-        for(final Predicate<T> p : predicates) {
-            if( p != null ) {
+    public static <T> Predicate<T> firstNonNull(final Predicate<T>... predicates) {
+
+        for (final Predicate<T> p : predicates) {
+            if (p != null) {
                 return p;
             }
         }
-        
+
         return null;
     }
-    
+
 }

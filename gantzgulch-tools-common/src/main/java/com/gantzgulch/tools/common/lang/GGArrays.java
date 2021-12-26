@@ -1,7 +1,11 @@
 package com.gantzgulch.tools.common.lang;
 
-import java.util.Arrays;
+import java.util.List;
+import java.util.function.DoublePredicate;
+import java.util.function.IntPredicate;
+import java.util.function.LongPredicate;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 public final class GGArrays {
 
@@ -27,6 +31,18 @@ public final class GGArrays {
 
     }
 
+    public static int size(final long[] array) {
+
+        return array == null ? 0 : array.length;
+
+    }
+
+    public static int size(final double[] array) {
+
+        return array == null ? 0 : array.length;
+
+    }
+
     public static int size(final char[] array) {
 
         return array == null ? 0 : array.length;
@@ -35,11 +51,25 @@ public final class GGArrays {
 
     public static int min(final int[] array) {
 
-        if (array == null) {
-            return 0;
-        }
+        return GGStream //
+                .stream(array)//
+                .min()//
+                .orElse(0);
 
-        return Arrays//
+    }
+
+    public static long min(final long[] array) {
+
+        return GGStream //
+                .stream(array)//
+                .min()//
+                .orElse(0);
+
+    }
+
+    public static double min(final double[] array) {
+
+        return GGStream //
                 .stream(array)//
                 .min()//
                 .orElse(0);
@@ -48,11 +78,23 @@ public final class GGArrays {
 
     public static int max(final int[] array) {
 
-        if (array == null) {
-            return 0;
-        }
+        return GGStream//
+                .stream(array)//
+                .max()//
+                .orElse(0);
+    }
 
-        return Arrays//
+    public static long max(final long[] array) {
+
+        return GGStream//
+                .stream(array)//
+                .max()//
+                .orElse(0);
+    }
+
+    public static double max(final double[] array) {
+
+        return GGStream//
                 .stream(array)//
                 .max()//
                 .orElse(0);
@@ -76,25 +118,48 @@ public final class GGArrays {
 
     public static <T> boolean contains(final T[] array, final Predicate<? super T> filter) {
 
-        if (array == null || filter == null) {
-            return false;
-        }
+        return GGStream //
+                .stream(array)//
+                .anyMatch(filter);
+    }
 
-        return Arrays //
+    public static boolean contains(final int[] array, final IntPredicate filter) {
+
+        return GGStream //
+                .stream(array)//
+                .anyMatch(filter);
+    }
+
+    public static boolean contains(final long[] array, final LongPredicate filter) {
+
+        return GGStream //
+                .stream(array)//
+                .anyMatch(filter);
+    }
+
+    public static boolean contains(final double[] array, final DoublePredicate filter) {
+
+        return GGStream //
                 .stream(array)//
                 .anyMatch(filter);
     }
 
     public static <T> T find(final T[] array, final Predicate<T> pred) {
 
-        if (array == null || pred == null) {
-            return null;
-        }
-
-        return Arrays//
+        return GGStream //
                 .stream(array) //
                 .filter(pred) //
                 .findAny() //
                 .orElse(null);
     }
+
+    public static <T> List<T> findAll(final T[] array, final Predicate<T> pred) {
+
+        return GGStream //
+                .stream(array) //
+                .filter(pred) //
+                .collect(Collectors.toList());
+    }
+
+    
 }
