@@ -6,7 +6,7 @@
 
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools-top</artifactId>
-	<version>1.0.26</version>
+	<version>1.0.27-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GantzGulch, Inc. Tools - Master Pom</name>
