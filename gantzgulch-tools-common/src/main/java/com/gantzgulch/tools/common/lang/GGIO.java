@@ -12,6 +12,8 @@ import java.io.OutputStreamWriter;
 import java.io.Reader;
 import java.io.Writer;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 public final class GGIO {
 
@@ -95,7 +97,40 @@ public final class GGIO {
         }
 
     }
-    
+
+    public static void write(final String value, final Path path) throws IOException {
+
+        try (final OutputStream os = Files.newOutputStream(path)) {
+
+            os.write( GGStrings.toBytes(value) );
+
+            os.flush();
+        }
+
+    }
+
+    public static void write(final byte[] value, final File file) throws IOException {
+
+        try (final OutputStream os = new FileOutputStream(file)) {
+
+            os.write( value );
+
+            os.flush();
+        }
+
+    }
+
+    public static void write(final byte[] value, final Path path) throws IOException {
+
+        try (final OutputStream os = Files.newOutputStream(path)) {
+
+            os.write( value );
+
+            os.flush();
+        }
+
+    }
+
     public static long copy(final InputStream inputStream, final OutputStream outputStream) throws IOException {
         
         GGArgs.notNull(inputStream, "inputStream");
