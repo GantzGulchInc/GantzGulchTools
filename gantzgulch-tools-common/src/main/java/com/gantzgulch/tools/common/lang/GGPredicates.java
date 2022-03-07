@@ -22,6 +22,15 @@ public final class GGPredicates {
         };
     }
 
+    public static <T> Predicate<T> notNull() {
+        return new Predicate<T>() {
+            @Override
+            public boolean test(T t) {
+                return t != null;
+            }
+        };
+    }
+
     @SafeVarargs
     public static <T> Predicate<T> firstNonNull(final Predicate<T>... predicates) {
 
