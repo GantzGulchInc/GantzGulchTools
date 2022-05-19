@@ -1,0 +1,20 @@
+{
+	"id": "1",
+	"string": "string1",
+	"int": 1,
+	"obj1": {
+		"id": "1.1",
+		"string": "string1.1",
+		"int": 11
+	},
+	"obj2": {
+		"id": "2.1",
+		"string": "string2.1",
+		"int": null
+	},
+	"obj3": {
+		"id": "2.1",
+		"string": "string2.1"
+	}
+	
+}
