@@ -75,7 +75,7 @@
 		<maven.build.timestamp.format>yyyy/MM/dd HH:MM:ss</maven.build.timestamp.format>
 		<timestamp>${maven.build.timestamp}</timestamp>
 
-		<JACKSON_VERSION>2.13.0</JACKSON_VERSION>
+		<JACKSON_VERSION>2.13.2.1</JACKSON_VERSION>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
 		<AWS_SDK>1.12.128</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
