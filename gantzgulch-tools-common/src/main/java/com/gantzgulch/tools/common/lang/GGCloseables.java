@@ -35,7 +35,19 @@ public final class GGCloseables {
 
 	}
 
-	/**
+    public static void closeQuietly(final AutoCloseable closeable) {
+
+        if (closeable != null) {
+            try {
+                closeable.close();
+            } catch (final Exception e) {
+                // Do nothing! That's the entire point!
+            }
+        }
+
+    }
+
+    /**
 	 * Quietly close multiple closeables.
 	 * 
 	 * Warning: This should not be used on writable closeables as corruption could occur.
@@ -51,4 +63,12 @@ public final class GGCloseables {
 		}
 	}
 
+    public static void closeQuietly(final AutoCloseable... closeables) {
+
+        if (closeables != null) {
+            for (final AutoCloseable c : closeables) {
+                closeQuietly(c);
+            }
+        }
+    }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
@@ -55,6 +56,7 @@
 		<module>gantzgulch-tools-http</module>
 		<module>gantzgulch-tools-hibernate</module>
 		<module>gantzgulch-tools-jwt</module>
+		<module>gantzgulch-tools-smtp</module>
 	</modules>
 
 	<scm>
@@ -78,10 +80,10 @@
 		<AWS_SDK>1.12.128</AWS_SDK>
 		<TOMCAT_VERSION>8.5.4</TOMCAT_VERSION>
 		<BOUNCY_CASTLE_VERSION>1.70</BOUNCY_CASTLE_VERSION>
-		
+
 		<LOG4J_VERSION>2.17.1</LOG4J_VERSION>
 		<SLF4J_VERSION>1.7.30</SLF4J_VERSION>
-		
+
 		<TEST_LOGGING_ARTIFACT>gantzgulch-logging-log4j2</TEST_LOGGING_ARTIFACT>
 	</properties>
 
@@ -149,13 +151,19 @@
 
 		<dependencies>
 
+			<dependency>
+				<groupId>com.sun.mail</groupId>
+				<artifactId>javax.mail</artifactId>
+				<version>1.5.5</version>
+			</dependency>
+
 			<!-- Auth0 -->
 			<dependency>
-			    <groupId>com.auth0</groupId>
-			    <artifactId>java-jwt</artifactId>
-			    <version>3.18.2</version>
+				<groupId>com.auth0</groupId>
+				<artifactId>java-jwt</artifactId>
+				<version>3.18.2</version>
 			</dependency>
-			
+
 			<!-- Bouncy Castle -->
 			<dependency>
 				<groupId>org.bouncycastle</groupId>
@@ -181,9 +189,9 @@
 				<version>2.11.0</version>
 			</dependency>
 			<dependency>
-			    <groupId>org.apache.commons</groupId>
-			    <artifactId>commons-compress</artifactId>
-			    <version>1.21</version>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-compress</artifactId>
+				<version>1.21</version>
 			</dependency>
 
 			<!-- Apache HTTP -->
@@ -393,26 +401,26 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-site-plugin</artifactId>
 			</plugin>
-                        <plugin>
-                                <groupId>org.apache.maven.plugins</groupId>
-                                <artifactId>maven-enforcer-plugin</artifactId>
-                                <version>3.0.0-M3</version>
-                                <executions>
-                                        <execution>
-                                                <id>enforce-maven</id>
-                                                <goals>
-                                                        <goal>enforce</goal>
-                                                </goals>
-                                                <configuration>
-                                                        <rules>
-                                                               	<requireMavenVersion>
-                                                                        <version>3.5</version>
-                                                                </requireMavenVersion>
-                                                        </rules>
-                                                </configuration>
-                                        </execution>
-                                </executions>
-                        </plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-enforcer-plugin</artifactId>
+				<version>3.0.0-M3</version>
+				<executions>
+					<execution>
+						<id>enforce-maven</id>
+						<goals>
+							<goal>enforce</goal>
+						</goals>
+						<configuration>
+							<rules>
+								<requireMavenVersion>
+									<version>3.5</version>
+								</requireMavenVersion>
+							</rules>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 			<plugin>
 				<groupId>org.zeroturnaround</groupId>
 				<artifactId>jrebel-maven-plugin</artifactId>
