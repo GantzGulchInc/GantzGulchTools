@@ -1,6 +1,7 @@
 package com.gantzgulch.tools.crypto.alg.ec;
 
 import java.io.ByteArrayOutputStream;
+import java.security.interfaces.ECPublicKey;
 import java.util.Enumeration;
 import java.util.Optional;
 
@@ -48,6 +49,7 @@ public final class ECUtil {
         return Optional.ofNullable(result);
     }
 
+    
     public static byte[] convertRawSignatureToDer(final byte[] rawRS) {
         
         // construct the ASN1Sequence with r and s
