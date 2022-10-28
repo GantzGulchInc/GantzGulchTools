@@ -31,8 +31,8 @@ public class ECParser {
             throw new InvalidKeyException("xyHex must have length of 128");
         }
         
-        final String xHex = xyHex.substring(0, 32);
-        final String yHex = xyHex.substring(32,64);
+        final String xHex = xyHex.substring(0, 64);
+        final String yHex = xyHex.substring(64,128);
         
         return parsePublicKey(curveName, xHex, yHex);
         
@@ -46,10 +46,10 @@ public class ECParser {
         final BigInteger x = new BigInteger(xHex, 16);
         final BigInteger y = new BigInteger(yHex, 16);
 
-        LOG.info("createPublicKey xHex: %s", xHex);
-        LOG.info("createPublicKey yHex: %s", yHex);
-        LOG.info("createPublicKey x: %s", x);
-        LOG.info("createPublicKey y: %s", y);
+        LOG.info("parsePublicKey xHex: %s", xHex);
+        LOG.info("parsePublicKey yHex: %s", yHex);
+        LOG.info("parsePublicKey x: %s", x);
+        LOG.info("parsePublicKey y: %s", y);
         
         ECPoint point = new ECPoint(x, y);
 
