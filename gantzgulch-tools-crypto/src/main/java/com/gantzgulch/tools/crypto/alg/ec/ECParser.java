@@ -67,4 +67,16 @@ public class ECParser {
         return ecPublicKey;
     }
     
+    public String publicKeyToXYHex(final ECPublicKey publicKey) {
+
+            final ECPublicKey ecPublicKey = (ECPublicKey) publicKey;
+            
+            ECPoint point = ecPublicKey.getW();
+
+            final String x = point.getAffineX().toString(16);
+            final String y = point.getAffineY().toString(16);
+            
+            return x + y;
+        
+    }
 }
