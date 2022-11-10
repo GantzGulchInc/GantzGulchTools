@@ -28,6 +28,7 @@ public abstract class AbstractGGCipher implements GGCipher {
     
     public static final GGIvNonceSpec IV_NONCE_NONE = GGIvNonceSpecNone.INSTANCE;
     public static final GGIvNonceSpec IV_NONCE_ANY = GGIvNonceSpecAny.INSTANCE;
+    public static final GGIvNonceSpec IV_NONCE_64 = new GGIvNonceSpecFixed(64);
     public static final GGIvNonceSpec IV_NONCE_96 = new GGIvNonceSpecFixed(96);
     public static final GGIvNonceSpec IV_NOCNE_128 = new GGIvNonceSpecFixed(128);
     public static final GGIvNonceSpec IV_NOCNE_96_128_192_256 = new GGIvNonceSpecSet(96, 128, 192, 256);
