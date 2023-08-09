@@ -2,6 +2,7 @@ package com.gantzgulch.tools.common.lang;
 
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.function.Function;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 import java.util.stream.LongStream;
@@ -36,5 +37,15 @@ public final class GGStream {
         }
         
         return Arrays.stream(array);
+    }
+    
+    public static <T> void forWhile(final Collection<T> collection, final Function<T,Boolean> op) {
+        
+        for(final T value : collection) {
+            if( op.apply(value) ) {
+                break;
+            }
+        }
+        
     }
 }

@@ -7,7 +7,7 @@
 
 	<groupId>com.gantzgulch.tools</groupId>
 	<artifactId>gantzgulch-tools-top</artifactId>
-	<version>1.0.27</version>
+	<version>1.0.28-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<name>GantzGulch, Inc. Tools - Master Pom</name>
@@ -54,6 +54,7 @@
 		<module>gantzgulch-tools-crypto</module>
 		<module>gantzgulch-tools-aws</module>
 		<module>gantzgulch-tools-http</module>
+		<module>gantzgulch-tools-http-jakarta</module>
 		<module>gantzgulch-tools-hibernate</module>
 		<module>gantzgulch-tools-jwt</module>
 		<module>gantzgulch-tools-smtp</module>
@@ -205,6 +206,11 @@
 				<artifactId>httpcore</artifactId>
 				<version>4.4.15</version>
 			</dependency>
+			<dependency>
+				<groupId>org.apache.httpcomponents</groupId>
+				<artifactId>httpmime</artifactId>
+				<version>4.4.1</version>
+			</dependency>
 
 			<!-- Tomcat -->
 			<dependency>
@@ -213,6 +219,15 @@
 				<version>${TOMCAT_VERSION}</version>
 				<scope>provided</scope>
 			</dependency>
+			
+			<!-- Jakarta EE -->
+			<dependency>
+			    <groupId>jakarta.platform</groupId>
+			    <artifactId>jakarta.jakartaee-api</artifactId>
+			    <version>10.0.0</version>
+			    <scope>provided</scope>
+			</dependency>
+			
 
 			<!-- opencsv -->
 			<dependency>

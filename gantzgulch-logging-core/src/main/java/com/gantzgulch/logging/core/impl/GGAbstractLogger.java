@@ -57,7 +57,7 @@ public abstract class GGAbstractLogger implements GGLogger {
                 width = Math.max(width, message.toString().length());
             }
 
-            width = width + 20;
+            width = width + 2;
 
             info("+" + GGLoggerUtil.repeat("-", width) + "+");
             info("|" + GGLoggerUtil.repeat(" ", width) + "|");

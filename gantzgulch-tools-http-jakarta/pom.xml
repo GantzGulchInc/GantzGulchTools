@@ -11,9 +11,9 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gantzgulch-tools-jwt</artifactId>
+	<artifactId>gantzgulch-tools-http-jakarta</artifactId>
 
-	<name>GantzGulch Tools - JWT library</name>
+	<name>GantzGulch Tools - HTTP Client Library (Jakarta)</name>
 	<description></description>
 
 	<dependencies>
@@ -27,15 +27,23 @@
 
 		<dependency>
 			<groupId>com.gantzgulch.tools</groupId>
-			<artifactId>gantzgulch-tools-crypto</artifactId>
+			<artifactId>gantzgulch-tools-json</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.gantzgulch.tools</groupId>
+			<artifactId>gantzgulch-tools-samples</artifactId>
 			<version>${project.version}</version>
 			<scope>test</scope>
 		</dependency>
 
-		<!-- Auth0 -->
+		<!-- Jakarta EE -->
 		<dependency>
-		    <groupId>com.auth0</groupId>
-		    <artifactId>java-jwt</artifactId>
+		    <groupId>jakarta.platform</groupId>
+		    <artifactId>jakarta.jakartaee-api</artifactId>
+		    <version>10.0.0</version>
+		    <scope>provided</scope>
 		</dependency>
 
 		<!-- Testing -->

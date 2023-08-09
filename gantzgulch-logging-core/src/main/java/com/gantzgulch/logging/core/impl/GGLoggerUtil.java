@@ -14,8 +14,14 @@ public class GGLoggerUtil {
     }
     
    public static String center(final String value, final int width) {
-        
-       return value;
+
+       final int remaining = width - value.length();
+       
+       int padLeft = Math.max(0, remaining / 2 );
+       
+       int padRight = Math.max(0, remaining - padLeft);
+       
+       return repeat(" ", padLeft) + value + repeat(" ", padRight);
        
     }
 }

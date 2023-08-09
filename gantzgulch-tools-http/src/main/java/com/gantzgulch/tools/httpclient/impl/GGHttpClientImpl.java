@@ -10,6 +10,7 @@ import java.util.concurrent.TimeUnit;
 
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.HttpHeaders;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpRequestRetryHandler;
@@ -28,6 +29,9 @@ import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.config.SocketConfig;
 import org.apache.http.entity.InputStreamEntity;
 import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
@@ -209,6 +213,30 @@ public class GGHttpClientImpl implements GGHttpClient {
         }
 
         return execute(request, clientContext);
+    }
+
+    public CloseableHttpResponse postMultiPart(URI uri, Map<String,ContentBody> content, Map<String,String> headers, HttpClientContext clientContext) {
+
+        LOG.trace("post: %s:", uri);
+
+        final MultipartEntityBuilder b = MultipartEntityBuilder.create();
+        
+        b.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+        
+        content.forEach( (name,contentBody) -> {
+            b.addPart(name, contentBody);
+        });
+        
+        final HttpEntity httpEntity = b.build();
+
+        final HttpPost request = new HttpPost(uri);
+        
+        GGHttpRequests.setHeaders(request, headers);
+
+        request.setEntity(httpEntity);
+        
+        return execute(request, clientContext);
+
     }
 
     @Override
