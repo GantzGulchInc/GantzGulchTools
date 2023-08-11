@@ -1,0 +1,2 @@
+gpg2 --send-keys --keyserver pgp.mit.edu 0x6B7D01E7EACDAE5C
+gpg2 --send-keys --keyserver keyserver.ubuntu.com 0x6B7D01E7EACDAE5C
