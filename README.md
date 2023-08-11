@@ -1,1 +1,3 @@
 # GantzGulchTools
+
+Deploy: bin/deploy
