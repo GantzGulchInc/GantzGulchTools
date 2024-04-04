@@ -11,10 +11,14 @@
 		<relativePath>../pom.xml</relativePath>
 	</parent>
 
-	<artifactId>gantzgulch-tools-http</artifactId>
+	<artifactId>gantzgulch-tools-hibernate6</artifactId>
 
-	<name>GantzGulch Tools - HTTP Client Library</name>
+	<name>GantzGulch Tools - Hibernate-6 DAO Library</name>
 	<description></description>
+
+	<properties>
+		<HIBERNATE_VERSION>6.2.6.Final</HIBERNATE_VERSION>
+	</properties>
 
 	<dependencies>
 
@@ -24,43 +28,33 @@
 			<artifactId>gantzgulch-tools-common</artifactId>
 			<version>${project.version}</version>
 		</dependency>
-
-		<dependency>
-			<groupId>com.gantzgulch.tools</groupId>
-			<artifactId>gantzgulch-tools-json</artifactId>
-			<version>${project.version}</version>
-		</dependency>
-
 		<dependency>
 			<groupId>com.gantzgulch.tools</groupId>
 			<artifactId>gantzgulch-tools-samples</artifactId>
 			<version>${project.version}</version>
-			<scope>test</scope>
 		</dependency>
 
-		<!-- Apache HTTP -->
+		<!-- Jakarta -->
 		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpclient</artifactId>
-			<version>4.5.13</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpcore</artifactId>
-			<version>4.4.15</version>
-		</dependency>
-		<dependency>
-			<groupId>org.apache.httpcomponents</groupId>
-			<artifactId>httpmime</artifactId>
-			<version>4.4.1</version>
+			<groupId>jakarta.persistence</groupId>
+			<artifactId>jakarta.persistence-api</artifactId>
+			<version>3.1.0</version>
 		</dependency>
 
 
-		<!-- Apache Tomcat -->
+		<!-- Hibernate -->
 		<dependency>
-			<groupId>org.apache.tomcat</groupId>
-			<artifactId>tomcat-catalina</artifactId>
+			<groupId>org.hibernate.orm</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>${HIBERNATE_VERSION}</version>
 		</dependency>
+		<!--
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${HIBERNATE_VERSION}</version>
+		</dependency>
+		-->
 
 		<!-- Testing -->
 		<dependency>

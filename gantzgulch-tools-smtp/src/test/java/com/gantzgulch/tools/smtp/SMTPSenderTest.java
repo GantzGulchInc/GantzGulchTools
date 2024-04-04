@@ -3,12 +3,14 @@ package com.gantzgulch.tools.smtp;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 public class SMTPSenderTest {
 
     
     @Test
+    @Ignore
     public void sendSimple() {
         
         final SMTPSender send = SMTPSenderFactory.create("smtp-a.gantzgulch.com");

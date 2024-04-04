@@ -16,7 +16,9 @@ import com.gantzgulch.tools.json.GGJsonWriter;
 public interface GGHttpClient extends Closeable {
 
     CloseableHttpResponse get(URI uri, Map<String,String> headers, HttpClientContext httpClientContext);
-    
+
+    CloseableHttpResponse get(URI uri, Map<String,String> headers, HttpClientContext httpClientContext, String username, String password);
+
     CloseableHttpResponse head(URI uri, Map<String,String> headers, HttpClientContext httpClientContext);
     
     CloseableHttpResponse delete(URI uri, Map<String,String> headers, HttpClientContext httpClientContext);

@@ -16,6 +16,11 @@
 	<name>GantzGulch Tools - Hibernate DAO Library</name>
 	<description></description>
 
+	<properties>
+		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>
+	</properties>
+
+
 	<dependencies>
 
 		<!-- Self modules -->
@@ -35,10 +40,12 @@
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
+			<version>${HIBERNATE_VERSION}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-entitymanager</artifactId>
+			<version>${HIBERNATE_VERSION}</version>
 		</dependency>
 
 		<!-- Testing -->

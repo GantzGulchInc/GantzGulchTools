@@ -28,7 +28,7 @@ public final class GGHttpServletRequests {
 
             final List<String> ips = GGStrings.splitAndClean(remoteAddr, ',');
 
-            if (ips.size() > 0) {
+            if (! ips.isEmpty()) {
                 return ips.get(0);
             }
 
@@ -58,32 +58,5 @@ public final class GGHttpServletRequests {
 
         return null;
     }
-
-//    public static void setHeaders(final HttpServletRequest request, final Map<String, String> headers) {
-//
-//        if (request != null && headers != null) {
-//
-//            headers.forEach((name, value) -> {
-//
-//                request.setHeader(name, value);
-//
-//            });
-//        }
-//
-//    }
-
-//    public static String createQueryString(final Map<String, String> parameters) {
-//
-//        final List<NameValuePair> parmList = new ArrayList<>();
-//
-//        if (parameters != null) {
-//            parameters.forEach((k, v) -> {
-//                parmList.add(new BasicNameValuePair(k, v));
-//            });
-//        }
-//
-//        return URLEncodedUtils.format(parmList, GGUtf8.NAME);
-//
-//    }
 
 }

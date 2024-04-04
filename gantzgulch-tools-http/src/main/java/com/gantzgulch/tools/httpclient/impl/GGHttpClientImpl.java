@@ -1,43 +1,7 @@
 package com.gantzgulch.tools.httpclient.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpHeaders;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.HttpRequestRetryHandler;
-import org.apache.http.client.config.RequestConfig;
-import org.apache.http.client.methods.CloseableHttpResponse;
-import org.apache.http.client.methods.HttpDelete;
-import org.apache.http.client.methods.HttpGet;
-import org.apache.http.client.methods.HttpHead;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpPut;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.client.protocol.HttpClientContext;
-import org.apache.http.client.utils.HttpClientUtils;
-import org.apache.http.client.utils.URIUtils;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.config.SocketConfig;
-import org.apache.http.entity.InputStreamEntity;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.entity.mime.HttpMultipartMode;
-import org.apache.http.entity.mime.MultipartEntityBuilder;
-import org.apache.http.entity.mime.content.ContentBody;
-import org.apache.http.impl.client.CloseableHttpClient;
-import org.apache.http.impl.client.HttpClients;
-import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
-import org.apache.http.protocol.HttpContext;
-
 import com.gantzgulch.logging.core.GGLogger;
+import com.gantzgulch.tools.common.lang.GGCloseables;
 import com.gantzgulch.tools.common.lang.GGExceptions;
 import com.gantzgulch.tools.common.lang.GGStrings;
 import com.gantzgulch.tools.common.lang.GGUtf8;
@@ -49,6 +13,39 @@ import com.gantzgulch.tools.httpclient.exception.GGHttpClientException;
 import com.gantzgulch.tools.httpclient.exception.GGHttpClientResponseException;
 import com.gantzgulch.tools.json.GGJsonReader;
 import com.gantzgulch.tools.json.GGJsonWriter;
+import org.apache.http.*;
+import org.apache.http.auth.AUTH;
+import org.apache.http.auth.AuthenticationException;
+import org.apache.http.auth.MalformedChallengeException;
+import org.apache.http.auth.UsernamePasswordCredentials;
+import org.apache.http.client.HttpRequestRetryHandler;
+import org.apache.http.client.config.RequestConfig;
+import org.apache.http.client.methods.*;
+import org.apache.http.client.protocol.HttpClientContext;
+import org.apache.http.client.utils.HttpClientUtils;
+import org.apache.http.client.utils.URIUtils;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.config.SocketConfig;
+import org.apache.http.entity.InputStreamEntity;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.ContentBody;
+import org.apache.http.impl.auth.DigestScheme;
+import org.apache.http.impl.auth.GGDigestScheme;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
+import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
+import org.apache.http.protocol.HttpContext;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 public class GGHttpClientImpl implements GGHttpClient {
 
@@ -116,6 +113,51 @@ public class GGHttpClientImpl implements GGHttpClient {
         GGHttpRequests.setHeaders(request, headers);
 
         return execute(request, httpClientContext);
+    }
+
+    @Override
+    public CloseableHttpResponse get(//
+                                     final URI uri, //
+                                     final Map<String, String> headers, //
+                                     final HttpClientContext httpClientContext,
+                                     final String username,
+                                     final String password) {
+
+        LOG.trace("get: %s", uri);
+
+        final HttpGet request = new HttpGet(uri);
+
+        GGHttpRequests.setHeaders(request, headers);
+
+        CloseableHttpResponse response = execute(request, httpClientContext);
+
+        if( response.getStatusLine().getStatusCode() == HttpStatus.SC_UNAUTHORIZED ) {
+
+            try {
+                Header authHeader = response.getFirstHeader(AUTH.WWW_AUTH);
+
+                DigestScheme digestScheme = new GGDigestScheme();
+
+                digestScheme.overrideParamter("uri", uri.getPath());
+
+                digestScheme.processChallenge(authHeader);
+
+                UsernamePasswordCredentials credentials = new UsernamePasswordCredentials(username, password);
+                request.addHeader(digestScheme.authenticate(credentials, request, httpClientContext));
+
+                GGCloseables.closeQuietly(response);
+
+                return execute(request, httpClientContext);
+
+            } catch (final AuthenticationException | MalformedChallengeException e) {
+
+                LOG.warn(e, "get: Authentication exception: %s", e.getMessage());
+
+                throw new RuntimeException(e);
+            }
+        }
+
+        return response;
     }
 
     @Override
