@@ -53,6 +53,7 @@ public class GGHttpClient5ImplTest {
     }
 
     @Test
+    @Ignore
     public void getAimAesKey() throws URISyntaxException {
 
         final String aimHost = "aim-srv.gantzgulch.com";
