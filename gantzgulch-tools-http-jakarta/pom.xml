@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-http-jakarta</artifactId>
 
 	<name>GantzGulch Tools - HTTP Client Library (Jakarta)</name>
-	<description></description>
+	<description>GantzGulch Jakarta auth patches.</description>
 
 	<dependencies>
 

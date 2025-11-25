@@ -15,7 +15,7 @@
 	<artifactId>gantzgulch-logging-commons</artifactId>
 
 	<name>GantzGulch Logging - Apache commons logging library</name>
-	<description></description>
+	<description>GantzGulch Logging - All common files for GantzGulch logging.</description>
 
 	<dependencies>
 

@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-guice</artifactId>
 
 	<name>GantzGulch Tools - Guice utility library</name>
-	<description></description>
+	<description>GantzGulch wrapper library for guice.</description>
 
 	<dependencies>
 

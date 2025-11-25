@@ -15,7 +15,7 @@
 	<artifactId>gantzgulch-logging-log4j2</artifactId>
 
 	<name>GantzGulch Logging - Log4j2 logging library</name>
-	<description></description>
+	<description>GantzGulch logging plugin for Log4j2.</description>
 
 	<dependencies>
 

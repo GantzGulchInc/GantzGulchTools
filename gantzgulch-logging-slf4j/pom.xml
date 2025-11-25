@@ -15,7 +15,7 @@
 	<artifactId>gantzgulch-logging-slf4j</artifactId>
 
 	<name>GantzGulch Logging - Slf4j logging library</name>
-	<description></description>
+	<description>GantzGulch logging plugin for Slf4j.</description>
 
 	<dependencies>
 

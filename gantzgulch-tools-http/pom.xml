@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-http</artifactId>
 
 	<name>GantzGulch Tools - HTTP Client Library</name>
-	<description></description>
+	<description>GantzGulch wrapper library for Apache HTTP client.</description>
 
 	<dependencies>
 

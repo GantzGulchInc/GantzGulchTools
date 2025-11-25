@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-json</artifactId>
 
 	<name>GantzGulch Tools - JSON Library</name>
-	<description></description>
+	<description>GantzGulch common JSON library.</description>
 
 	<dependencies>
 

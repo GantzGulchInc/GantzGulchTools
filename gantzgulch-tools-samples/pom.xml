@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-samples</artifactId>
 
 	<name>GantzGulch Tools - Samples library for rest API's, parsing, etc.</name>
-	<description></description>
+	<description>Samples for using the GantzGulch tools.</description>
 
 	<dependencies>
 

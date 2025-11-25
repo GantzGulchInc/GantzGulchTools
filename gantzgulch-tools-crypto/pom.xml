@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-crypto</artifactId>
 
 	<name>GantzGulch Tools - Cryptographic library</name>
-	<description></description>
+	<description>GantzGulch standard cryptography library.</description>
 
 	<dependencies>
 

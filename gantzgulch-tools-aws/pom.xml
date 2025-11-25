@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-aws</artifactId>
 
 	<name>GantzGulch Tools - AWS library</name>
-	<description></description>
+	<description>GantzGulch wrappers for AWS sdk.</description>
 
 	<dependencies>
 

@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-jwt</artifactId>
 
 	<name>GantzGulch Tools - JWT library</name>
-	<description></description>
+	<description>GantzGulch user-friendly wrapper library for JWT.</description>
 
 	<dependencies>
 

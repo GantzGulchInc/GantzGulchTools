@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-hibernate</artifactId>
 
 	<name>GantzGulch Tools - Hibernate DAO Library</name>
-	<description></description>
+	<description>GantzGulch wrapper library for Hibernate.</description>
 
 	<properties>
 		<HIBERNATE_VERSION>5.2.8.Final</HIBERNATE_VERSION>

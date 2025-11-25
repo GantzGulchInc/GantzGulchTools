@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-tools-common</artifactId>
 
 	<name>GantzGulch Tools - Common language library</name>
-	<description></description>
+	<description>Common library used by all GantzGulch tools.</description>
 
 	<dependencies>
 

@@ -14,7 +14,7 @@
 	<artifactId>gantzgulch-logging-core</artifactId>
 
 	<name>GantzGulch Logging - Core logging library</name>
-	<description></description>
+	<description>GantzGulch Logging - All core files for GantzGulch Logging.</description>
 
 	<dependencies>
 
