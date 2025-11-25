@@ -40,13 +40,12 @@ public class SMTPSenderImpl implements SMTPSender {
     }
 
     @Override
-    public void sendRichText(//
-            final Collection<String> toAddresses, //
-            final String fromAddress, //
-            final String replyToAddress, //
-            final String subject, //
-            final String body, //
-            final String contentType) {
+    public void sendRichText(final Collection<String> toAddresses,
+                             final String fromAddress,
+                             final String replyToAddress,
+                             final String subject,
+                             final String body,
+                             final String contentType) {
 
         try {
 
@@ -60,17 +59,17 @@ public class SMTPSenderImpl implements SMTPSender {
             if (!StringUtils.isBlank(replyToAddress)) {
                 msg.setReplyTo(toInternetAddresses(replyToAddress));
             }
-            
+
             msg.setSubject(subject, "UTF-8");
-            
+
             msg.setText(body, "UTF-8");
-            
-            msg.setSentDate( new Date() );
-            
+
+            msg.setSentDate(new Date());
+
             msg.setRecipients(Message.RecipientType.TO, toInternetAddresses(toAddresses));
 
             Transport.send(msg);
-            
+
         } catch (final MessagingException e) {
 
             LOG.warn(e, "sendRichText: Exception: %s", e.getMessage());
@@ -91,18 +90,18 @@ public class SMTPSenderImpl implements SMTPSender {
 
     private Address[] toInternetAddresses(final String... addresses) {
 
-        return Arrays //
-                .stream(addresses) //
-                .map(this::toInternetAddress) //
+        return Arrays
+                .stream(addresses)
+                .map(this::toInternetAddress)
                 .toArray(Address[]::new);
 
     }
 
     private Address[] toInternetAddresses(final Collection<String> addresses) {
 
-        return addresses //
-                .stream() //
-                .map(this::toInternetAddress) //
+        return addresses
+                .stream()
+                .map(this::toInternetAddress)
                 .toArray(Address[]::new);
 
     }

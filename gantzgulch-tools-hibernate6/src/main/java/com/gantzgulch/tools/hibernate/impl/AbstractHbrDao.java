@@ -277,8 +277,10 @@ public class AbstractHbrDao<T extends DomainObject> implements Dao<T> {
 
     }
 
-    protected Predicate buildSearchWhere(final CriteriaBuilder builder, final Root<T> root, final Map<String, String> fields,
-            final SearchRequest.FieldMatch fieldMatch) {
+    protected Predicate buildSearchWhere(final CriteriaBuilder builder,
+                                         final Root<T> root,
+                                         final Map<String, String> fields,
+                                         final SearchRequest.FieldMatch fieldMatch) {
 
         return null;
     }
