@@ -139,7 +139,7 @@
                                     <goal>sign</goal>
                                 </goals>
                                 <configuration>
-                                    <keyname>0x6B7D01E7EACDAE5C!</keyname>
+                                    <keyname>0xD5D0C2E8B01D1D96!</keyname>
                                 </configuration>
                             </execution>
                         </executions>
